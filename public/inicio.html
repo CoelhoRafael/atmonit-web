@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/style-inicio.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+
+
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <div class="logo">
+      <img src="img/atmonit.svg" alt="" class="logo-img">
+    </div>
+    <a href="#" class="icon-a selected"><i class="fa fa-home icons"></i> Home</a>
+    <a href="Dashboard.html" class="icon-a"><i class="fas fa-chart-line icons"></i> Dashboard</a>
+    <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
+    <a href="login.html" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
+  </div>
+
+
+  <div class="main">
+
+    <div class="box-title">Supermercado Extra - Marechal Tito</div>
+
+    <div class="col-div-8">
+      <div class="box-8">
+        <div class="content-box">
+
+          <h2 class="card-title">Caixas disponiveis</h2>
+          <div id="chart_div" class="graphic"></div>
+        </div>
+
+
+        <div class="col-div-3">
+          <a href="Dashboard.html">
+          <div class="box expand">
+            <span class="status-info">
+              <div class="indicator normal"></div>Disponivel
+            </span>
+            <img src="img/atm.png" class="card-atm" alt="">
+            <!-- <i class="fa fa-users box-icon"></i> -->
+          </div>
+          </a>
+
+          <a href="#">
+            <div class="box expand">
+              <span class="status-info">
+                <div class="indicator danger"></div>
+                Inoperante
+              </span>
+              <img src="img/atm.png" class="card-atm" alt="">
+              <!-- <i class="fa fa-users box-icon"></i> -->
+            </div>
+          </a>
+          
+          <a href="Dashboard.html">
+
+            <div class="box expand">
+              <span class="status-info">
+                <div class="indicator normal"></div>Disponivel
+              </span>
+              <img src="img/atm.png" class="card-atm" alt="">
+              <!-- <i class="fa fa-users box-icon"></i> -->
+            </div>
+
+          </a>
+
+          <a href="#">
+
+            <div class="box expand">
+              <span class="status-info">
+                <div class="indicator caution"></div>Manutenção
+              </span>
+              <img src="img/atm.png" class="card-atm" alt="">
+              <!-- <i class="fa fa-users box-icon"></i> -->
+            </div>
+
+          </a>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>

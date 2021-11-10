@@ -1,0 +1,95 @@
+body{
+	margin:0px;
+	padding: 0px;
+	background-color:#1b203d;
+	overflow: hidden;
+	font-family: system-ui;
+  font-family: 'Poppins', sans-serif;
+}
+.clearfix{
+	clear: both;
+}
+.logo{
+	margin: 0px;
+	margin-left: 28px;
+  margin-bottom: 30px;
+}
+
+.logo-img{
+
+  padding: 4px 0px 5px 0px;
+
+}
+
+.sidenav {
+  height: 100%;
+  width: 300px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #272c4a;
+  overflow: hidden;
+  transition: 0.5s;
+  padding-top: 30px;
+}
+.sidenav a {
+  padding: 15px 8px 15px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+.sidenav a:hover {
+  color: #f1f1f1e7;
+  background-color:#1b203d;
+}
+
+.selected{
+
+  background-color:#1b203d;  
+  color: #f1f1f1e7 !important;
+
+}
+
+.main {
+  transition: margin-left .5s;
+  padding-left: 16px;
+  margin-left: 300px;
+  margin-right: 20px;
+}
+
+.head{
+	padding:20px;
+}
+
+.col-div-8{
+	width: 103.5%;
+	float: left;
+}
+
+.box-8{
+	width: 95%;
+	background-color: #272c4a;
+	height: 500px;
+    border-top: 3px solid #10AC84;
+}
+
+
+.content-box{
+	padding: 20px;
+}
+
+.card-title{
+    margin: 0px;
+    font-size: 20px;
+    color: #10AC84;
+  }
+
+.graphic{
+
+    width:95%;
+    height: 90%;
+    overflow: hidden;
+}

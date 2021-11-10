@@ -1,0 +1,169 @@
+<html lang="pt-br">
+
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="css/style-dashboard.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {
+      packages: ['corechart', 'line']
+    });
+    google.charts.setOnLoadCallback(drawBasic);
+
+    function drawBasic() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', 'RAM');
+      data.addColumn('number', 'CPU');
+      data.addColumn('number', 'DISCO');
+
+      data.addRows([[0,10,20,30],
+      [1,15,25,34],
+      [2,20,30,44],
+      [3,25,35,48]
+    ]);
+
+      var options = {
+        legend:{
+          textStyle:{
+            color: '#FFF'
+          },
+        },
+        hAxis: {
+          title: 'TEMPO',
+          textStyle: {
+            color: '#ffffff',
+            fontSize: 18,
+            fontName: 'Arial',
+            bold: true
+            // italic: true
+          },
+          titleTextStyle: {
+            color: '#ffffff',
+            fontSize: 18,
+            bold: true
+          },
+        },
+        vAxis: {
+          title: 'DESEMPENHO',
+          textStyle: {
+            color: '#ffffff',
+            fontSize: 18,
+            fontName: 'Arial',
+            bold: true
+            // italic: true
+          },
+          titleTextStyle: {
+            color: '#ffffff',
+            fontSize: 18,
+            bold: true
+          },
+        },
+        textStyle: {
+          color: '#ffffff',
+          fontSize: 18,
+          fontName: 'Arial',
+          bold: true
+          // italic: true
+        },
+        backgroundColor: '#272c4a',
+
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+</head>
+
+
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <div class="logo">
+      <img src="img/atmonit.svg" alt="" class="logo-img">
+    </div>
+    <a href="inicio.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
+    <a href="#" class="icon-a selected"><i class="fas fa-chart-line icons"></i> Dashboard</a>
+    <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
+    <a href="login.html" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
+    
+
+  </div>
+  <div id="main">
+
+    <div class="head">
+      <div class="col-div-6">
+        <span style="font-size:30px;cursor:pointer; color: #f1f1f1e7;" class="nav"><i class="fas fa-chart-line icons"></i> Dashboard</span>
+      </div>
+
+    </div>
+
+
+    <br />
+
+    <div class="col-div-3">
+      <div class="box expand">
+        <p>40%<br />
+          <span class="indicator-subtitle">RAM</span>
+        </p>
+        <!-- <i class="fa fa-users box-icon"></i> -->
+      </div>
+    
+
+    
+      <div class="box expand">
+        <p>50%<br />
+          <span class="indicator-subtitle">CPU</span>
+        </p>
+      </div>
+    
+
+    
+      <div class="box expand">
+        <p>35%
+          <br>
+          <span class="indicator-subtitle">DISCO</span>
+        </p>
+        <!-- <i class="fa fa-shopping-bag box-icon"></i> -->
+      </div>
+
+
+      <div class="col-div-3">
+        <div class="box expand">
+          <span class="status-title">Indices De Uso</span>
+          <div class="status-position">
+            <span class="status-info"><div class="indicator normal"></div>Moderado</span>
+            <span class="status-info unused"><div class="indicator caution"></div> Frequente</span>
+            <span class="status-info unused"><div class="indicator danger"></div> Intenso</span>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  
+    
+    <div class="clearfix"></div>
+    <br /><br />
+    <div class="col-div-8">
+      <div class="box-8">
+        <div class="content-box">
+          <h2 class="card-title">Desempenho Mensal Do Caixa</h2>
+          <div id="chart_div" class="graphic"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+
+</html>
