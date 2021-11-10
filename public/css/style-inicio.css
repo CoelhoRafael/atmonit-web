@@ -188,6 +188,7 @@ body {
   cursor: pointer;
   border-top: 3px solid #10AC84;
   margin-bottom: none;
+  transition: .35s;
 }
 
 .expand:hover {

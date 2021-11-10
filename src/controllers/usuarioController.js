@@ -24,16 +24,16 @@ function listar(req, res) {
         );
 }
 
-function entrar(req, res) {
+function login(req, res) {
     var email = req.body.email;
-    var senha = req.body.senha;
+    var password = req.body.password;
 
     if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está indefinida!");
+    } else if (password == undefined) {
+        res.status(400).send("Sua senha está undefined!");
     } else {
-        usuarioModel.entrar(email, senha)
+        usuarioModel.login(email, password)
             .then(
                 function (resultado) {
                     console.log(`\nResultados encontrados: ${resultado.length}`);
@@ -90,7 +90,7 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
-    entrar,
+    login,
     cadastrar,
     listar,
     testar
