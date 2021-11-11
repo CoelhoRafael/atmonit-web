@@ -1,5 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
-
+var atmModel = require("../models/atmModel");
 var sessoes = [];
 
 function testar(req, res) {
@@ -24,7 +24,7 @@ function listar(req, res) {
         );
 }
 
-function login(req, res) {
+function login (req, res) {
     var email = req.body.email;
     var password = req.body.password;
 
@@ -40,8 +40,17 @@ function login(req, res) {
                     console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
 
                     if (resultado.length == 1) {
-                        console.log(resultado);
-                        res.json(resultado[0]);
+                        console.log(resultado)
+                        res.json(resultado[0])
+// 
+// 
+// 
+// CHAMAR A FUNÇÂO DE LISTAR OS ATMS
+// 
+// 
+// 
+                    console.log(atmModel.listar(resultado[0].fk_company))
+
                     } else if (resultado.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
