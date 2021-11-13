@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style-inovacao.css">
+    <title>Cadastre sua equipe</title>
+
+    <script src="./js/funcoes.js"></script>
+</head>
+<body>
+    
+    <div id="mySidenav" class="sidenav">
+        <div class="logo">
+            <img src="img/atmonit.svg" alt="" class="logo-img">
+        </div>
+        <a href="home.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
+        <a href="Dashboard.html" class="icon-a"><i class="fas fa-chart-line icons"></i> Dashboard</a>
+        <a href="#" class="icon-a selected"><i class="fa fa-users icons"></i> Filas</a>
+        <a href="#" class="icon-a"><i class="fa fa-users icons"></i> Cadastro</a>
+        <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
+    </div>
+    <div class="main">
+
+        <div class="head">
+            <div class="col-div-6">
+                <span style="font-size:30px;cursor:pointer; color: #f1f1f1e7;" class="nav"><i
+                        class="fa fa-users icons"></i> Cadastre a sua equipe</span>
+            </div>
+
+            <br>
+
+
+            <div class="col-div-8">
+                <div class="box-8">
+                    <!-- <div class="content-box">
+                        <h2 class="card-title">Desempenho Semanal Do Caixa</h2>
+                    </div> -->
+
+                    <div class="formulario">
+                        <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
+                            Nome:
+                            <input name="nome" type="text" placeholder="Fernanda">
+                            <br>
+                            Cargo:
+                            <input name="cargo" type="text" placeholder="Gestor/estagiário">
+                            <br>
+                            E-mail:
+                            <input name="email" type="text" placeholder="emailFuncionario@provedor.com">
+                            <br>
+                            Senha:
+                            <input name="senha" type="password" placeholder="******">
+                            <br>
+                            Confirmação da Senha:
+                            <input name="confirmacao-senha" type="password" placeholder="******">
+                            <br>
+                            <button class="btn">Cadastrar</button>
+                        </form>
+                    </div>
+
+                    <div id="div_erros_login"></div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</body>
+</html>
+
+<script>
+
+    function limparFormulario() {
+        document.getElementById("form_cadastro").reset();
+    }
+
+    function cadastrar() {
+        aguardar();
+
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+
+        var nome = formulario.get("nome");
+        var cargo = formulario.get("cargo")
+        var email = formulario.get("email");
+        var senha = formulario.get("senha");
+        var confirmacaoSenha = formulario.get("confirmacao-senha");
+
+        if (nome == "" || cargo == "" || email == "" || senha == "" || confirmacaoSenha == "") {
+
+            window.alert("Preencha todos os campos para prosseguir!");
+            if (nome == "") {
+                console.log('nome está em branco')
+            }
+            if (cargo == "") {
+                console.log('cargo está em branco')
+            }
+            if (email == "") {
+                console.log('email está em branco')
+            }
+            if (senha == "") {
+                console.log('senha está em branco')
+            }
+            if (confirmacaoSenha == "") {
+                console.log('confirmacaoSenha está em branco')
+            }
+            finalizarAguardar();
+            return false;
+        }
+
+        if (email.indexOf("@") == -1 || email.indexOf(".com") == -1) {
+            window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
+            finalizarAguardar();
+            return false;
+        }
+
+        if (senha != confirmacaoSenha) {
+            window.alert("As senhas inseridas devem ser iguais para prosseguir!");
+            finalizarAguardar();
+            return false;
+        }
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Cadastro realizado com sucesso!");
+                window.location = "login.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
+</script>

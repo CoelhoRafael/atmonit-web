@@ -70,6 +70,8 @@ function login (req, res) {
 
 function cadastrar(req, res) {
     var nome = req.body.nome;
+    var cargo = req.body.cargo;
+    var fkEmpresa = req.body.fkEmpresa;
     var email = req.body.email;
     var senha = req.body.senha;
 
@@ -77,10 +79,14 @@ function cadastrar(req, res) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
+    } else if (cargo == undefined) {
+        res.status(400).send("Sua cargo está undefined!");
+    } else if (fkEmpresa == undefined) {
+        res.status(400).send("Sua fkEmpresa está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else {
-        usuarioModel.cadastrar(nome, email, senha)
+        usuarioModel.cadastrar(nome, cargo, fkCompany, email, senha)
             .then(
                 function (resultado) {
                     res.json(resultado);
