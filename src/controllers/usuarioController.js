@@ -71,17 +71,17 @@ function login (req, res) {
 function cadastrar(req, res) {
     var nome = req.body.nome;
     var cargo = req.body.cargo;
-    var fkEmpresa = req.body.fkEmpresa;
     var email = req.body.email;
+    var fkCompany = req.body.fkCompany;
     var senha = req.body.senha;
-    console.log(`passou pela controller usuario -2---*${cargo}/${fkEmpresa}/${email}${nome}/**** }`);
+
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (cargo == undefined) {
         res.status(400).send("Sua cargo está undefined!");
-    } else if (fkEmpresa == undefined) {
+    } else if (fkCompany == undefined) {
         res.status(400).send("Sua fkEmpresa está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
@@ -89,7 +89,6 @@ function cadastrar(req, res) {
         usuarioModel.cadastrar(nome, cargo, fkCompany, email, senha)
             .then(
                 function (resultado) {
-                    console.log(`passou pela controller usuario ----***** ${resultado}`);
                     res.json(resultado);
                 }
             ).catch(

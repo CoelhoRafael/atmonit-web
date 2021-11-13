@@ -13,7 +13,6 @@ router.get("/listar", function (req, res) {
 
 router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
-    console.log(`passou pela rout usuarios ----***** ${req}`);
 })
 
 router.post("/autenticar", function (req, res) {

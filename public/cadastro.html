@@ -49,6 +49,9 @@
                             E-mail:
                             <input name="email" type="text" placeholder="emailFuncionario@provedor.com">
                             <br>
+                            Empresa:
+                            <input name="fkCompany" type="text" placeholder="fkEmpresa" >
+                            <br>
                             Senha:
                             <input name="senha" type="password" placeholder="******">
                             <br>
@@ -86,9 +89,8 @@
 
         var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
 
-        var nome = formulario.get("nome");
-        // formulario.set(fkCompany="2");
-        // var fkEmpresa = 
+        var nome = formulario.get("nome");         
+        var fkCompany = formulario.get("fkCompany");
         var cargo = formulario.get("cargo");
         var email = formulario.get("email");
         var senha = formulario.get("senha");
@@ -106,6 +108,9 @@
             if (email == "") {
                 console.log('email está em branco')
             }
+            if (fkCompany == "") {
+                console.log('empresa está em branco')
+            }
             if (senha == "") {
                 console.log('senha está em branco')
             }
@@ -113,7 +118,6 @@
                 console.log('confirmacaoSenha está em branco')
             }
             finalizarAguardar();
-            console.log(cargo+"ssssssssssssssssssss");
             return false;
         }
 
