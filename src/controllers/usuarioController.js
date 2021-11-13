@@ -74,7 +74,7 @@ function cadastrar(req, res) {
     var fkEmpresa = req.body.fkEmpresa;
     var email = req.body.email;
     var senha = req.body.senha;
-
+    console.log(`passou pela controller usuario -2---*${cargo}/${fkEmpresa}/${email}${nome}/**** }`);
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
@@ -89,6 +89,7 @@ function cadastrar(req, res) {
         usuarioModel.cadastrar(nome, cargo, fkCompany, email, senha)
             .then(
                 function (resultado) {
+                    console.log(`passou pela controller usuario ----***** ${resultado}`);
                     res.json(resultado);
                 }
             ).catch(

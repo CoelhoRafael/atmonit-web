@@ -59,6 +59,10 @@
                         </form>
                     </div>
 
+                    <div id="div_aguardar" class="loading-div">
+                        <img src="./assets/circle-loading.gif" id="loading-gif">
+                    </div>
+
                     <div id="div_erros_login"></div>
 
                 </div>
@@ -83,7 +87,9 @@
         var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
 
         var nome = formulario.get("nome");
-        var cargo = formulario.get("cargo")
+        // formulario.set(fkCompany="2");
+        // var fkEmpresa = 
+        var cargo = formulario.get("cargo");
         var email = formulario.get("email");
         var senha = formulario.get("senha");
         var confirmacaoSenha = formulario.get("confirmacao-senha");
@@ -107,6 +113,7 @@
                 console.log('confirmacaoSenha está em branco')
             }
             finalizarAguardar();
+            console.log(cargo+"ssssssssssssssssssss");
             return false;
         }
 
@@ -121,7 +128,7 @@
             finalizarAguardar();
             return false;
         }
-
+     
         fetch("/usuarios/cadastrar", {
             method: "POST",
             body: formulario
@@ -135,7 +142,7 @@
                 limparFormulario();
                 finalizarAguardar();
             } else {
-                throw ("Houve um erro ao tentar realizar o cadastro!");
+                throw ("Houve um erro ao tentar realizar o cadastro!"+JSON.stringify(formulario.json));
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);

@@ -74,7 +74,6 @@
 
 			if (response.ok) {
 				console.log(response);
-
 				response.json().then(json => {
 					console.log(json);
 					console.log(JSON.stringify(json));
@@ -82,7 +81,8 @@
 					sessionStorage.EMAIL_USER = json.email;
 					sessionStorage.NOME_USER = json.nome;
 					sessionStorage.ID_USER = json.id;
-
+					// sessionStorage.FK_EMPRESA = json.
+					
 					setTimeout(function () {
 						window.location = "./home.html";
 					}, 1000); // apenas para exibir o loading
