@@ -6,9 +6,15 @@ body{
 	font-family: system-ui;
   font-family: 'Poppins', sans-serif;
 }
+
+.hidden{
+  display: none;
+}
+
 .clearfix{
 	clear: both;
 }
+
 .logo{
 	margin: 0px;
 	margin-left: 28px;
