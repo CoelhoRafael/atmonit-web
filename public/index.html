@@ -78,10 +78,11 @@
 					console.log(json);
 					console.log(JSON.stringify(json));
 
-					sessionStorage.EMAIL_USER = json.email;
-					sessionStorage.NOME_USER = json.nome;
-					sessionStorage.ID_USER = json.id;
-					// sessionStorage.FK_EMPRESA = json.
+					sessionStorage.NOME_USER = json.employee_name;
+					sessionStorage.ID_USER = json.id_employee;
+					sessionStorage.ID_COMPANY = json.fk_company;
+					sessionStorage.OFFICE = json.office;
+
 					
 					setTimeout(function () {
 						window.location = "./home.html";
