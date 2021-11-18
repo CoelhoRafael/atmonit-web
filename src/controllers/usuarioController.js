@@ -2,11 +2,6 @@ var usuarioModel = require("../models/usuarioModel");
 var atmModel = require("../models/atmModel");
 var sessoes = [];
 
-function testar(req, res) {
-    console.log("ENTRAMOS NA usuarioController");
-    res.json("ESTAMOS FUNCIONANDO!");
-}
-
 function listar(req, res) {
     usuarioModel.listar()
         .then(function (resultado) {
@@ -49,7 +44,7 @@ function login (req, res) {
 // 
 // 
 // 
-                    console.log(atmModel.listar(resultado[0].fk_company))
+                    // console.log(atmModel.listar(resultado[0].fk_company))
 
                     } else if (resultado.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -108,5 +103,4 @@ module.exports = {
     login,
     cadastrar,
     listar,
-    testar
 }

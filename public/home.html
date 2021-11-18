@@ -15,7 +15,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 
 	<script src="./js/funcoes.js"></script>
-	<script src="./js/home.js"></script>
 
   <title>Home</title>
 </head>
@@ -27,9 +26,8 @@
       <img src="img/atmonit.svg" alt="" class="logo-img">
     </div>
     <a href="#" class="icon-a selected"><i class="fa fa-home icons"></i> Home</a>
-    <a href="Dashboard.html" class="icon-a"><i class="fas fa-chart-line icons"></i> Dashboard</a>
     <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
-    <a href="cadastro.html" class="icon-a" class="hidden"><i class="fa fa-users icons"></i> Cadastro</a>
+    <a href="cadastro.html" class="icon-a" class="hidden"><i class="fa fa-users icons"></i> Funcionários</a>
     <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
   </div>
 
@@ -47,7 +45,7 @@
         </div>
 
 
-        <div class="col-div-3">
+        <div id="terminal_container" class="col-div-3">
           <a href="Dashboard.html">
           <div class="box expand">
             <span class="status-info">
@@ -103,3 +101,5 @@
 </body>
 
 </html>
+
+<script src="./js/home.js"></script>
