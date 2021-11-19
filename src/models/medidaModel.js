@@ -1,30 +1,28 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idAquario, limite_linhas) {
+function buscarUltimasMedidas(idMaquina, limite_linhas) {
     instrucaoSql = `select 
-                        temperatura, 
-                        umidade, 
-                        momento,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico
-                    from medida
-                    where fk_aquario = ${idAquario}
+                        percentage_usage, 
+                        date_time,    
+                        DATE_FORMAT(date_time,'%H:%i:%s') as momento_grafico
+                    from component_registration
+                    where fk_terminal = ${idMaquina}
                     order by id desc limit ${limite_linhas}`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal(idAquario) {
+function buscarMedidasEmTempoReal(idMaquina) {
     instrucaoSql = `select 
-                        temperatura, 
-                        umidade, DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico, 
-                        fk_aquario 
-                        from medida where fk_aquario = ${idAquario} 
+                        percentage_usage, 
+                        DATE_FORMAT(date_time,'%H:%i:%s') as momento_grafico, 
+                        fk_terminal 
+                        from component_regkistrationm where fk_terminal = ${idMaquina} 
                     order by id desc limit 1`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-
 
 module.exports = {
     buscarUltimasMedidas,

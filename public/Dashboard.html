@@ -2,6 +2,7 @@
 
 <head>
   <title>Dashboard</title>
+  <script src="./js/dashboard.js"></script>
   <link rel="stylesheet" href="css/style-dashboard.css" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
@@ -10,81 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
-    google.charts.load('current', {
-      packages: ['corechart', 'line']
-    });
-    google.charts.setOnLoadCallback(drawBasic);
-
-    function drawBasic() {
-
-      var data = new google.visualization.DataTable();
-      data.addColumn('number', 'X');
-      data.addColumn('number', 'RAM');
-      data.addColumn('number', 'CPU');
-      data.addColumn('number', 'DISCO');
-
-      data.addRows([[0,10,20,30],
-      [1,15,25,34],
-      [2,20,30,44],
-      [3,25,35,48]
-    ]);
-
-      var options = {
-        legend:{
-          textStyle:{
-            color: '#FFF'
-          },
-        },
-        hAxis: {
-          title: 'TEMPO',
-          textStyle: {
-            color: '#ffffff',
-            fontSize: 18,
-            fontName: 'Arial',
-            bold: true
-            // italic: true
-          },
-          titleTextStyle: {
-            color: '#ffffff',
-            fontSize: 18,
-            bold: true
-          },
-        },
-        vAxis: {
-          title: 'DESEMPENHO',
-          textStyle: {
-            color: '#ffffff',
-            fontSize: 18,
-            fontName: 'Arial',
-            bold: true
-            // italic: true
-          },
-          titleTextStyle: {
-            color: '#ffffff',
-            fontSize: 18,
-            bold: true
-          },
-        },
-        textStyle: {
-          color: '#ffffff',
-          fontSize: 18,
-          fontName: 'Arial',
-          bold: true
-          // italic: true
-        },
-        backgroundColor: '#272c4a',
-
-      };
-
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-      chart.draw(data, options);
-    }
   </script>
 </head>
 </head>
-
-
 <body>
 
   <div id="mySidenav" class="sidenav">
