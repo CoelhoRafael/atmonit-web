@@ -65,7 +65,7 @@ function login (req, res) {
 
 function cadastrar(req, res) {
     var nome = req.body.nome;
-    var cargo = req.body.cargo;
+    var cargo = req.body.accesslevel;
     var email = req.body.email;
     var fkCompany = req.body.fkCompany;
     var senha = req.body.senha;

@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="css/style-inovacao.css">
     <link rel="stylesheet" href="css/style-save-employee.css">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+
+
     <link rel="stylesheet" href="css/style-dashboard.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
@@ -46,16 +50,14 @@
 
             <div class="col-div-8">
                 <div class="box-8">
-                    <form class="form-save-employee" id="form_cadastro" method="post" onsubmit="return cadastrar()">
+                    <form action="javascript:void(0)" class="form-save-employee" id="form_cadastro" method="post"
+                        onsubmit="return cadastrar()">
                         <div class="form-container">
                             <div class="form-save-employee-field">
                                 Nome
-                                <input class="inpt" type="text" name="name">
+                                <input class="inpt" type="text" name="nome">
                             </div>
-                            <div class="form-save-employee-field">
-                                Cargo
-                                <input class="inpt" name="cargo" type="text">
-                            </div>
+
                             <div class="form-save-employee-field">
                                 E-mail:
                                 <input class="inpt" name="email" type="text">
@@ -70,8 +72,15 @@
                                 Confirmação de senha
                                 <input class="inpt" name="confirmacao-senha" type="password">
                             </div>
+                            <div class="form-save-employee-field">
+                                Nível de acesso
+                                <select class="form-save-employee-select" name="accesslevel" id="">
+                                    <option value="administrador">Administrador</option>
+                                    <option value="convidado">Convidado</option>
+                                </select>
+                            </div>
                             <div class="form-save-employee-btn">
-                                <button class="btn">Cadastrar</button>
+                                <input type="submit" class="btn" value="Cadastrar">
                             </div>
                         </div>
                     </form>
@@ -94,19 +103,17 @@
 </html>
 
 <script>
-
     function limparFormulario() {
         document.getElementById("form_cadastro").reset();
     }
 
     function cadastrar() {
-        aguardar();
-
         var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+        formulario.set("fkCompany", sessionStorage.ID_COMPANY)
 
+        console.log(formulario);
         var nome = formulario.get("nome");
-        var fkCompany = formulario.get("fkCompany");
-        var cargo = formulario.get("cargo");
+        var cargo = formulario.get("accesslevel");
         var email = formulario.get("email");
         var senha = formulario.get("senha");
         var confirmacaoSenha = formulario.get("confirmacao-senha");
@@ -132,43 +139,69 @@
             if (confirmacaoSenha == "") {
                 console.log('confirmacaoSenha está em branco')
             }
-            finalizarAguardar();
-            return false;
         }
 
         if (email.indexOf("@") == -1 || email.indexOf(".com") == -1) {
             window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
-            finalizarAguardar();
-            return false;
         }
 
         if (senha != confirmacaoSenha) {
             window.alert("As senhas inseridas devem ser iguais para prosseguir!");
-            finalizarAguardar();
-            return false;
         }
 
         fetch("/usuarios/cadastrar", {
             method: "POST",
             body: formulario
         }).then(function (resposta) {
-
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                window.alert("Cadastro realizado com sucesso!");
-                window.location = "login.html";
-                limparFormulario();
-                finalizarAguardar();
+
+                Toastify({
+                    text: "Funcionário cadastrado com sucesso!",
+                    duration: 3000,
+                    destination: "https://github.com/apvarun/toastify-js",
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "#90be6d",
+                    },
+                    onClick: function () { } // Callback after click
+                }).showToast();
+
+
+                setTimeout(() => {
+                    window.location.replace('funcionarios.html');
+                }, 4000)
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!" + JSON.stringify(formulario.json));
             }
         }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
+            Toastify({
+                    text: "Erro ao cadastrar funcionário!",
+                    duration: 3000,
+                    destination: "https://github.com/apvarun/toastify-js",
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "#f94144",
+                    },
+                    onClick: function () { } // Callback after click
+                }).showToast();
         });
 
         return false;
     }
 
+
+
 </script>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
