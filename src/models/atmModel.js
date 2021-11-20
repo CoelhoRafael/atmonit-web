@@ -1,6 +1,6 @@
 var database = require("../database/config")
 
-function listar(idCompany) {
+function listarAtms(idCompany) {
     var instrucao = `
     select * from terminal where fk_company = ${idCompany};
     `;
@@ -9,5 +9,5 @@ function listar(idCompany) {
 }
 
 module.exports = {
-    listar,
+    listarAtms,
 };

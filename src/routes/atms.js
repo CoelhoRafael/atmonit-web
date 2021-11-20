@@ -3,7 +3,7 @@ var router = express.Router();
 var atmController = require("../controllers/atmController");
 
 
-router.get("/findAllTerminals/:idAtm", function (req, res) {
+router.get("/findAllTerminals/:idCompany", function (req, res) {
     atmController.findAllTerminals(req, res);
 })
 

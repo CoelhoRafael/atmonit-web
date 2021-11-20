@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style-inovacao.css">
     <title>Cadastre sua equipe</title>
+    <link rel="stylesheet" href="css/style-inovacao.css">
+    <link rel="stylesheet" href="css/style-save-employee.css">
 
     <link rel="stylesheet" href="css/style-dashboard.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -19,17 +21,18 @@
 
     <script src="./js/funcoes.js"></script>
 </head>
+
 <body>
-    
+
     <div id="mySidenav" class="sidenav">
         <div class="logo">
-          <img src="img/atmonit.svg" alt="" class="logo-img">
+            <img src="img/atmonit.svg" alt="" class="logo-img">
         </div>
         <a href="home.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
         <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
         <a href="cadastro.html" class="icon-a"><i class="fa fa-users icons"></i> Funcionários</a>
         <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
-      </div>
+    </div>
     <div class="main">
 
         <div class="head">
@@ -43,39 +46,41 @@
 
             <div class="col-div-8">
                 <div class="box-8">
-                    <!-- <div class="content-box">
-                        <h2 class="card-title">Desempenho Semanal Do Caixa</h2>
+                    <form class="form-save-employee" id="form_cadastro" method="post" onsubmit="return cadastrar()">
+                        <div class="form-container">
+                            <div class="form-save-employee-field">
+                                Nome
+                                <input class="inpt" type="text" name="name">
+                            </div>
+                            <div class="form-save-employee-field">
+                                Cargo
+                                <input class="inpt" name="cargo" type="text">
+                            </div>
+                            <div class="form-save-employee-field">
+                                E-mail:
+                                <input class="inpt" name="email" type="text">
+                            </div>
+
+                            <div class="form-save-employee-field">
+                                Senha
+                                <input class="inpt" name="senha" type="password">
+                            </div>
+
+                            <div class="form-save-employee-field">
+                                Confirmação de senha
+                                <input class="inpt" name="confirmacao-senha" type="password">
+                            </div>
+                            <div class="form-save-employee-btn">
+                                <button class="btn">Cadastrar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- <div id="div_aguardar" class="loading-div">
+                        <img src="./assets/circle-loading.gif" id="loading-gif">
                     </div> -->
 
-                    <div class="formulario">
-                        <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
-                            Nome:
-                            <input name="nome" type="text" placeholder="Fernanda">
-                            <br>
-                            Cargo:
-                            <input name="cargo" type="text" placeholder="Gestor/estagiário">
-                            <br>
-                            E-mail:
-                            <input name="email" type="text" placeholder="emailFuncionario@provedor.com">
-                            <br>
-                            Empresa:
-                            <input name="fkCompany" type="text" placeholder="fkEmpresa" >
-                            <br>
-                            Senha:
-                            <input name="senha" type="password" placeholder="******">
-                            <br>
-                            Confirmação da Senha:
-                            <input name="confirmacao-senha" type="password" placeholder="******">
-                            <br>
-                            <button class="btn">Cadastrar</button>
-                        </form>
-                    </div>
-
-                    <div id="div_aguardar" class="loading-div">
-                        <img src="./assets/circle-loading.gif" id="loading-gif">
-                    </div>
-
-                    <div id="div_erros_login"></div>
+                    <!-- <div id="div_erros_login"></div> -->
 
                 </div>
             </div>
@@ -85,6 +90,7 @@
 
     </div>
 </body>
+
 </html>
 
 <script>
@@ -98,7 +104,7 @@
 
         var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
 
-        var nome = formulario.get("nome");         
+        var nome = formulario.get("nome");
         var fkCompany = formulario.get("fkCompany");
         var cargo = formulario.get("cargo");
         var email = formulario.get("email");
@@ -141,7 +147,7 @@
             finalizarAguardar();
             return false;
         }
-     
+
         fetch("/usuarios/cadastrar", {
             method: "POST",
             body: formulario
@@ -155,7 +161,7 @@
                 limparFormulario();
                 finalizarAguardar();
             } else {
-                throw ("Houve um erro ao tentar realizar o cadastro!"+JSON.stringify(formulario.json));
+                throw ("Houve um erro ao tentar realizar o cadastro!" + JSON.stringify(formulario.json));
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
