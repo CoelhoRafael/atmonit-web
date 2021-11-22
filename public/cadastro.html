@@ -55,22 +55,23 @@
                         <div class="form-container">
                             <div class="form-save-employee-field">
                                 Nome
-                                <input class="inpt" type="text" name="nome">
+                                <input id="inpt_nome" class="inpt" type="text" name="nome">
                             </div>
 
                             <div class="form-save-employee-field">
                                 E-mail:
-                                <input class="inpt" name="email" type="text">
+                                <input id="inpt_email" class="inpt" name="email" type="text">
                             </div>
 
                             <div class="form-save-employee-field">
                                 Senha
-                                <input class="inpt" name="senha" type="password">
+                                <input id="inpt_senha" class="inpt" name="senha" type="password">
                             </div>
 
                             <div class="form-save-employee-field">
                                 Confirmação de senha
-                                <input class="inpt" name="confirmacao-senha" type="password">
+                                <input id="inpt_confirmacao_senha" class="inpt" name="confirmacao-senha"
+                                    type="password">
                             </div>
                             <div class="form-save-employee-field">
                                 Nível de acesso
@@ -107,80 +108,77 @@
         document.getElementById("form_cadastro").reset();
     }
 
+    function validateSaveEmployee() {
+        let nome = document.getElementById('inpt_nome');
+        let email = document.getElementById('inpt_email');
+        let senha = document.getElementById('inpt_senha');
+        let confirmacao_senha = document.getElementById('inpt_confirmacao_senha');
+
+
+        if (nome.value == '' || nome.value.match(/[0-9]/)) {
+            nome.classList.toggle('wrong-input');
+            nome.value = '';
+            nome.placeholder = 'Digite um nome válido';
+            setTimeout(() => {
+                nome.classList.remove('wrong-input');
+            }, 1500);
+            return false;
+        }
+        else if (email.value == '' || !email.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+            email.classList.toggle('wrong-input');
+            email.value = '';
+            email.placeholder = 'Digite um email válido';
+
+            setTimeout(() => {
+                email.classList.remove('wrong-input');
+            }, 1500);
+            return false;
+        }
+        else{
+            return true
+        }
+    }
+
     function cadastrar() {
-        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
-        formulario.set("fkCompany", sessionStorage.ID_COMPANY)
+        if (validateSaveEmployee()) {
 
-        console.log(formulario);
-        var nome = formulario.get("nome");
-        var cargo = formulario.get("accesslevel");
-        var email = formulario.get("email");
-        var senha = formulario.get("senha");
-        var confirmacaoSenha = formulario.get("confirmacao-senha");
 
-        if (nome == "" || cargo == "" || email == "" || senha == "" || confirmacaoSenha == "") {
+            var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+            formulario.set("fkCompany", sessionStorage.ID_COMPANY)
 
-            window.alert("Preencha todos os campos para prosseguir!");
-            if (nome == "") {
-                console.log('nome está em branco')
-            }
-            if (cargo == "") {
-                console.log('cargo está em branco')
-            }
-            if (email == "") {
-                console.log('email está em branco')
-            }
-            if (fkCompany == "") {
-                console.log('empresa está em branco')
-            }
-            if (senha == "") {
-                console.log('senha está em branco')
-            }
-            if (confirmacaoSenha == "") {
-                console.log('confirmacaoSenha está em branco')
-            }
-        }
 
-        if (email.indexOf("@") == -1 || email.indexOf(".com") == -1) {
-            window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
-        }
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                body: formulario
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
 
-        if (senha != confirmacaoSenha) {
-            window.alert("As senhas inseridas devem ser iguais para prosseguir!");
-        }
+                if (resposta.ok) {
 
-        fetch("/usuarios/cadastrar", {
-            method: "POST",
-            body: formulario
-        }).then(function (resposta) {
-            console.log("resposta: ", resposta);
+                    Toastify({
+                        text: "Funcionário cadastrado com sucesso!",
+                        duration: 3000,
+                        destination: "https://github.com/apvarun/toastify-js",
+                        newWindow: true,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "#90be6d",
+                        },
+                        onClick: function () { } // Callback after click
+                    }).showToast();
 
-            if (resposta.ok) {
 
+                    setTimeout(() => {
+                        window.location.replace('funcionarios.html');
+                    }, 4000)
+                } else {
+                    throw ("Houve um erro ao tentar realizar o cadastro!" + JSON.stringify(formulario.json));
+                }
+            }).catch(function (resposta) {
                 Toastify({
-                    text: "Funcionário cadastrado com sucesso!",
-                    duration: 3000,
-                    destination: "https://github.com/apvarun/toastify-js",
-                    newWindow: true,
-                    close: true,
-                    gravity: "top", // `top` or `bottom`
-                    position: "right", // `left`, `center` or `right`
-                    stopOnFocus: true, // Prevents dismissing of toast on hover
-                    style: {
-                        background: "#90be6d",
-                    },
-                    onClick: function () { } // Callback after click
-                }).showToast();
-
-
-                setTimeout(() => {
-                    window.location.replace('funcionarios.html');
-                }, 4000)
-            } else {
-                throw ("Houve um erro ao tentar realizar o cadastro!" + JSON.stringify(formulario.json));
-            }
-        }).catch(function (resposta) {
-            Toastify({
                     text: "Erro ao cadastrar funcionário!",
                     duration: 3000,
                     destination: "https://github.com/apvarun/toastify-js",
@@ -194,9 +192,8 @@
                     },
                     onClick: function () { } // Callback after click
                 }).showToast();
-        });
-
-        return false;
+            });
+        }
     }
 
 
