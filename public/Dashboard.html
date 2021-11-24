@@ -128,6 +128,7 @@ function obterDadosGrafico(idMaquina) {
 // só altere aqui se souber o que está fazendo!
 function plotarGrafico(resposta, idMaquina) {
     console.log('iniciando plotagem do gráfico...');
+    
         google.charts.load('current', {
   packages: ['corechart', 'line']
 });
@@ -136,11 +137,12 @@ google.charts.setOnLoadCallback(drawBasic);
 function drawBasic() {
 
   var dados = new google.visualization.DataTable();
-  dados.addColumn('number', 'Hora');
+  dados.addColumn('string', 'Hora');
   dados.addColumn('number', 'RAM');
   dados.addColumn('number', 'CPU');
   dados.addColumn('number', 'DISCO');
 
+  
   var options = {
     legend:{
       textStyle:{
@@ -189,8 +191,10 @@ function drawBasic() {
   };
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
-    dados.addRows(registro.name_component);
-    dados.datasets[0].write(registro);
+    
+    dados.addRows([[registro.date_time,registro.percentage_usage,registro.percentage_usage,registro.percentage_usage]
+  ])
+
   }
   var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
   setTimeout(() => atualizarGrafico(idMaquina, dados), 2000);
@@ -211,10 +215,10 @@ function atualizarGrafico(idMaquina, dados) {
                 console.log(`Dados atuais do gráfico: ${dados}`);
 
                 // tirando e colocando valores no gráfico
-                dados.labels.shift(); // apagar o primeiro
+                dados.removecolumns.shift(); // apagar o primeiro
                 dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
                 dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                dados.datasets[0].data.push(novoRegistro[0].percentage_usage); // incluir uma nova medida de umidade
+                dados.addRows(novoRegistro[0].percentage_usage); // incluir uma nova medida de umidade
                 dados.datasets[1].data.shift();  // apagar o primeiro de umidade
                 dados.datasets[1].data.push(novoRegistro[0].percentage_usage); // incluir uma nova medida de umidade
                 dados.datasets[2].data.shift();  // apagar o primeiro de umidade
@@ -226,7 +230,6 @@ function atualizarGrafico(idMaquina, dados) {
                 proximaAtualizacao = setTimeout(() => atualizarGrafico(idMaquina, dados), 2000);
             });
         } else {
-          console.log("teste")
             console.error('Nenhum dado encontrado ou erro na API');
             proximaAtualizacao = setTimeout(() => atualizarGrafico(idMaquina, dados), 2000);
         }

@@ -1,11 +1,13 @@
 var database = require("../database/config");
 
 function buscarUltimasMedidas(idMaquina,limite_linhas) {
-    instrucaoSql = `select top 10
+    instrucaoSql = `select top ${limite_linhas}
+                        percentage_usage,
                         name_component,
-                        format (percentage_usage,'P2') as percentage_usage
+                        date_time
                     from component_registration
-                    where fk_terminal = 18
+                    where fk_terminal = 21
+                    and percentage_usage >= 0
                     order by id_component_registration desc
                    `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -13,12 +15,13 @@ function buscarUltimasMedidas(idMaquina,limite_linhas) {
 }
 
 function buscarMedidasEmTempoReal(idMaquina) {
-    instrucaoSql = `select 
+    instrucaoSql = `select
                         percentage_usage, 
-                        DATE_FORMAT(date_time,'%H:%i:%s') as momento_grafico, 
+                        name_component,
+                        date_time,
                         fk_terminal 
-                        from component_registration where fk_terminal = ${idMaquina} 
-                    order by id desc limit 1`;
+                        from component_registration where fk_terminal = 21
+                    order by id_component_registration desc`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
