@@ -17,5 +17,14 @@
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.7",
     "path": "^0.12.7"
+  },
+    "name": "atmonit-web",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+      "start": "node ./public/bin/www",
+      "postinstall" : "cd public && npm install"
+    }
   }
-}
+
+
