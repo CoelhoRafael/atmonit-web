@@ -4,7 +4,7 @@ function buscarUltimasMedidas(idMaquina,limite_linhas) {
     instrucaoSql = `select top ${limite_linhas}
                         percentage_usage,
                         name_component,
-                        FORMAT(date_time,'HH:mm:ss') as date_time,
+                        FORMAT(date_time,'H:m:s') as date_time,
                         ram_memory,
                         terminal_storage
                         from component_registration
@@ -20,8 +20,8 @@ function buscarMedidasEmTempoReal(idMaquina) {
     instrucaoSql = `select
                         percentage_usage, 
                         name_component,
-                        date_time,
-                        fk_terminal ,
+                        FORMAT(date_time,'HH:mm:ss') as date_time,
+                        fk_terminal,
                         ram_memory,
                         terminal_storage
                         from component_registration 

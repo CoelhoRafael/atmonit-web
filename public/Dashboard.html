@@ -15,7 +15,7 @@
 </head>
 </head>
 
-<body onload = "obterDadosGrafico(21)">
+<body onload = "obterDadosGrafico(18)">
 
   <div id="mySidenav" class="sidenav">
     <div class="logo">
@@ -44,7 +44,7 @@
     <div class="col-div-3">
       <div class="box expand">
         <p>40%<br />
-          <span class="indicator-subtitle">RAM</span>
+          <span id="span_ram" class="indicator-subtitle">RAM</span>
         </p>
         <!-- <i class="fa fa-users box-icon"></i> -->
       </div>
@@ -53,7 +53,7 @@
 
       <div class="box expand">
         <p>50%<br />
-          <span class="indicator-subtitle">CPU</span>
+          <span id="span_cpu" class="indicator-subtitle">CPU</span>
         </p>
       </div>
 
@@ -62,7 +62,7 @@
       <div class="box expand">
         <p>35%
           <br>
-          <span class="indicator-subtitle">DISCO</span>
+          <span id="span_disco" class="indicator-subtitle">DISCO</span>
         </p>
         <!-- <i class="fa fa-shopping-bag box-icon"></i> -->
       </div>
@@ -121,7 +121,8 @@
       }).then(function (response) {
         if (response.ok) {
           response.json().then(function (resposta) {
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse()
             plotarGrafico(resposta, idMaquina);
           });
         } else {
@@ -151,7 +152,6 @@
       dados.addColumn('number', 'CPU');
       dados.addColumn('number', 'DISCO');
 
-
       var options = {
         legend: {
           textStyle: {
@@ -174,6 +174,7 @@
           },
         },
         vAxis: {
+          maxValue: 100,
           title: 'DESEMPENHO',
           textStyle: {
             color: '#ffffff',
@@ -202,25 +203,24 @@
         var registro = resposta[i];
         var CPU, RAM, HD1
         if (registro.name_component == 'Processor') {
-          CPU = registro.percentage_usage
-          // dados.addRows([[registro.date_time,null,CPU,null]])
+          CPU = Math.round(registro.percentage_usage)
         }
         if (registro.name_component == 'Ram memory') {
-          RAM = registro.percentage_usage
-          // dados.addRows([[registro.date_time,Math.round(registro.percentage_usage*100/registro.ram_memory),null,null]])
+          RAM = Math.round(registro.percentage_usage* 100 / registro.ram_memory)
         }
         if (registro.name_component == 'Hard Disk 1') {
-          HD1 = registro.percentage_usage
-          // dados.addRows([[registro.date_time,null,null,-(Math.round(registro.percentage_usage/100000000000*100/registro.terminal_storage))]])
+          HD1 = -(Math.round(registro.percentage_usage / 100000000 * 100 / registro.terminal_storage))
         }
         dados.addRows([
-          [registro.date_time, Math.round(RAM * 100 / registro.ram_memory), CPU, -(Math.round(HD1 / 10000000 * 100 / registro.terminal_storage))]])
+          [registro.date_time, RAM , CPU, HD1]
+        ])
       }
+
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-      
-      setTimeout(() => atualizarGrafico(idMaquina, dados), 2000);
       chart.draw(dados, options);
+      setTimeout(() => atualizarGrafico(idMaquina, dados), 2000);
       
+
     }
     //Atualiza os dados de 2 em 2 segundos
 
@@ -235,33 +235,31 @@
         if (response.ok) {
           response.json().then(function (novoRegistro) {
 
-            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-            console.log(`Dados atuais do gráfico: ${dados}`);
+            // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            // console.log(`Dados atuais do gráfico: ${dados}`);
 
             var CPU, RAM, HD1
             if (novoRegistro.name_component == 'Processor') {
-              CPU = novoRegistro.percentage_usage
-              // dados.addRows([[registro.date_time,null,CPU,null]])
+              CPU = Math.round(novoRegistro.percentage_usage)
             }
             if (novoRegistro.name_component == 'Ram memory') {
-              RAM = novoRegistro.percentage_usage
-              // dados.addRows([[registro.date_time,Math.round(registro.percentage_usage*100/registro.ram_memory),null,null]])
+              RAM = Math.round(novoRegistro.percentage_usage * 100 / novoRegistro.ram_memory)
             }
             if (novoRegistro.name_component == 'Hard Disk 1') {
-              HD1 = novoRegistro.percentage_usage
-              // dados.addRows([[registro.date_time,null,null,-(Math.round(registro.percentage_usage/100000000000*100/registro.terminal_storage))]])
+              HD1 = -(Math.round(registro.percentage_usage / 100000000 * 100 / registro.terminal_storage))
             }
             // tirando e colocando valores no gráfico
             dados.removeRow(0);
-            dados.addRows([[novoRegistro.date_time, Math.round(RAM * 100 / novoRegistro.ram_memory), CPU, -(Math.round(HD1 / 10000000 * 100 / novoRegistro.terminal_storage))]])
+            dados.addRows([[novoRegistro.date_time, RAM , CPU, HD1]])
             dados.removeRow(1);
-            dados.addRows([[novoRegistro.date_time, Math.round(RAM * 100 / novoRegistro.ram_memory), CPU, -(Math.round(HD1 / 10000000 * 100 / novoRegistro.terminal_storage))]])
+            dados.addRows([[novoRegistro.date_time, RAM , CPU, HD1]])
             dados.removeRow(2);
-            dados.addRows([[novoRegistro.date_time, Math.round(RAM * 100 / novoRegistro.ram_memory), CPU, -(Math.round(HD1 / 10000000 * 100 / novoRegistro.terminal_storage))]])
+            dados.addRows([[novoRegistro.date_time, RAM , CPU, HD1]])
             dados.removeRow(3); // apagar o primeiro
-            dados.addRows([[novoRegistro.date_time, Math.round(RAM * 100 / novoRegistro.ram_memory), CPU, -(Math.round(HD1 / 10000000 * 100 / novoRegistro.terminal_storage))]])
+            dados.addRows([[novoRegistro.date_time, RAM , CPU, HD1]])
             // incluir uma nova medida de umidade
-
+            
+            this.google.charts.setOnLoadCallback()
             proximaAtualizacao = setTimeout(() => atualizarGrafico(idMaquina, dados), 2000);
           });
         } else {
