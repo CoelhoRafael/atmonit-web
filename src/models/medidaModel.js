@@ -4,11 +4,13 @@ function buscarUltimasMedidas(idMaquina,limite_linhas) {
     instrucaoSql = `select top ${limite_linhas}
                         percentage_usage,
                         name_component,
-                        date_time
-                    from component_registration
-                    where fk_terminal = 21
-                    and percentage_usage >= 0
-                    order by id_component_registration desc
+                        FORMAT(date_time,'HH:mm:ss') as date_time,
+                        ram_memory,
+                        terminal_storage
+                        from component_registration
+                        inner join terminal on id_terminal = fk_terminal
+                        where fk_terminal = ${idMaquina}
+                        order by id_component_registration desc
                    `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -19,8 +21,12 @@ function buscarMedidasEmTempoReal(idMaquina) {
                         percentage_usage, 
                         name_component,
                         date_time,
-                        fk_terminal 
-                        from component_registration where fk_terminal = 21
+                        fk_terminal ,
+                        ram_memory,
+                        terminal_storage
+                        from component_registration 
+                        inner join terminal on id_terminal = fk_terminal
+                        where fk_terminal = ${idMaquina}
                     order by id_component_registration desc`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
