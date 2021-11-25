@@ -24,7 +24,7 @@
     <script src="./js/funcoes.js"></script>
 </head>
 
-<body>
+<body onload="loadContent()">
 
     <div id="mySidenav" class="sidenav">
         <div class="logo">
@@ -84,14 +84,14 @@
                               <th>Id</th>
                               <th>Nome</th>
                               <th>Cargo</th>
-                              <th>Empresa</th>
+                              <th>Login</th>
                               <th>Ações</th>
 
                             </tr>
                           </thead>
                       
-                          <tbody>
-                            <tr>
+                          <tbody id="table_body">
+                            <!-- <tr>
                               <td>01</td>
                               <td>Robson</td>
                               <td>Supervisor</td>
@@ -128,7 +128,7 @@
                                     <button class="table-btn remove">Remover</button>
                                 </span>
                               </td>
-                            </tr>
+                            </tr> -->
                           </tbody>
                         </table>
                       </div>
@@ -140,3 +140,5 @@
 </body>
 
 </html>
+
+<script src="./js/funcionarios.js"></script>
