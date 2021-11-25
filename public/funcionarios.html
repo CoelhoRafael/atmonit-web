@@ -16,10 +16,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style-modal.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="./js/funcoes.js"></script>
     <script type="text/javascript"></script>
-
+    <script src="js/modal.js"></script>
     <script src="./js/funcoes.js"></script>
 </head>
 
@@ -42,6 +43,37 @@
                         class="fa fa-users icons"></i> Funcionários</span>
             </div>
 
+            <!-- Modal -->
+            <div class="bg-modal" id="modal">
+              <div class="modal">
+                  <div class="modal-nav">
+                      <span class="close" onclick="closeModal()">&times;</span>
+                  </div>
+                  <div class="form-save-employee">
+                      <form>
+                          <h3 class="title-form">Cargo</h3>
+                          <div class="radio-modal-container">
+                                <input type="radio" id="supervisor" class="radio-modal">
+                                <label for="html">Supervisor</label><br>
+                                <input type="radio" id="encarregado" class="radio-modal">
+                                <label for="css">Encarregado</label><br>
+                          </div>
+                          <div class="form-save-employee-field">
+                              <input type="text" class="form-inpt" placeholder="Nome">
+                          </div>
+                          <div class="form-save-employee-field">
+                              <input type="text" class="form-inpt" placeholder="Empresa">
+                          </div>
+      
+                          <div class="form-save-employee-field">
+                              <button class="form-btn">Salvar</button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Tabelas -->
             <div class="col-div-8">
                 <div class="box-8" >
                     <div class="table-position">
@@ -66,7 +98,7 @@
                               <td>Monilog</td>
                               <td>
                                 <span class="action_btn">
-                                  <button class="table-btn edit">Editar</button>
+                                  <button class="table-btn edit" onclick="openModal()">Editar</button>
                                   <button class="table-btn remove">Remover</button>
                                 </span>
                               </td>
@@ -79,7 +111,7 @@
                               <td>Monilog</td>
                               <td>
                                 <span class="action_btn">
-                                    <button class="table-btn edit">Editar</button>
+                                    <button class="table-btn edit" onclick="openModal()">Editar</button>
                                     <button class="table-btn remove">Remover</button>
                                 </span>
                               </td>
@@ -92,7 +124,7 @@
                               <td>Monilog</td>
                               <td>
                                 <span class="action_btn">
-                                    <button class="table-btn edit">Editar</button>
+                                    <button class="table-btn edit" onclick="openModal()">Editar</button>
                                     <button class="table-btn remove">Remover</button>
                                 </span>
                               </td>
