@@ -1,15 +1,11 @@
 {
-  "name": "projeto-acquatec",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "atmonit-web",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon --exec node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./public/bin/www",
+    "postinstall": "cd public && npm install"
   },
-  "author": "Feito pelos desenvolvedores @ Bandtec Digital School",
-  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -17,14 +13,5 @@
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.7",
     "path": "^0.12.7"
-  },
-    "name": "atmonit-web",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-      "start": "node ./public/bin/www",
-      "postinstall" : "cd public && npm install"
-    }
   }
-
-
+}
