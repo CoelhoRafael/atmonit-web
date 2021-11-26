@@ -15,7 +15,7 @@
 </head>
 </head>
 
-<body onload = "obterDadosGrafico(18)">
+<body onload="obterDadosGrafico(21)">
 
   <div id="mySidenav" class="sidenav">
     <div class="logo">
@@ -43,27 +43,25 @@
 
     <div class="col-div-3">
       <div class="box expand">
-        <p>40%<br />
-          <span id="span_ram" class="indicator-subtitle">RAM</span>
-        </p>
+        <p id="ram">40%</p> <br />
+        <span id="span_ram" class="indicator-subtitle">RAM</span>
+
         <!-- <i class="fa fa-users box-icon"></i> -->
       </div>
 
 
 
       <div class="box expand">
-        <p>50%<br />
-          <span id="span_cpu" class="indicator-subtitle">CPU</span>
-        </p>
+        <p id="cpu">50%</p><br />
+        <span class="indicator-subtitle">CPU</span>
+
       </div>
 
 
 
       <div class="box expand">
-        <p>35%
-          <br>
-          <span id="span_disco" class="indicator-subtitle">DISCO</span>
-        </p>
+        <p id="disco">35%</p><br />
+        <span id="span_disco" class="indicator-subtitle">DISCO</span>
         <!-- <i class="fa fa-shopping-bag box-icon"></i> -->
       </div>
 
@@ -175,6 +173,7 @@
         },
         vAxis: {
           maxValue: 100,
+          minValue: 0,
           title: 'DESEMPENHO',
           textStyle: {
             color: '#ffffff',
@@ -206,26 +205,22 @@
           CPU = Math.round(registro.percentage_usage)
         }
         if (registro.name_component == 'Ram memory') {
-          RAM = Math.round(registro.percentage_usage* 100 / registro.ram_memory)
+          RAM = Math.round(registro.percentage_usage * 100 / registro.ram_memory)
         }
         if (registro.name_component == 'Hard Disk 1') {
           HD1 = -(Math.round(registro.percentage_usage / 100000000 * 100 / registro.terminal_storage))
         }
         dados.addRows([
-          [registro.date_time, RAM , CPU, HD1]
+          [registro.momento_grafico, RAM, CPU, HD1]
         ])
       }
 
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
       chart.draw(dados, options);
-      setTimeout(() => atualizarGrafico(idMaquina, dados), 2000);
-      
-
+      //Atualiza os dados de 2 em 2 segundos
+      proximaAtualizacao = setInterval(() => atualizarGrafico(idMaquina, dados), 5000);
     }
-    //Atualiza os dados de 2 em 2 segundos
-
   }
-
   // só mexer se quiser alterar o tempo de atualização
   // ou se souber o que está fazendo!
   function atualizarGrafico(idMaquina, dados) {
@@ -237,34 +232,46 @@
 
             // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
             // console.log(`Dados atuais do gráfico: ${dados}`);
-
-            var CPU, RAM, HD1
+            novoRegistro = JSON.parse(JSON.stringify(novoRegistro[0]))
+            let CPU, RAM, HD1
             if (novoRegistro.name_component == 'Processor') {
               CPU = Math.round(novoRegistro.percentage_usage)
+
             }
             if (novoRegistro.name_component == 'Ram memory') {
               RAM = Math.round(novoRegistro.percentage_usage * 100 / novoRegistro.ram_memory)
+
             }
             if (novoRegistro.name_component == 'Hard Disk 1') {
-              HD1 = -(Math.round(registro.percentage_usage / 100000000 * 100 / registro.terminal_storage))
+              HD1 = -(Math.round(novoRegistro.percentage_usage / 100000000 * 100 / novoRegistro.terminal_storage))
             }
             // tirando e colocando valores no gráfico
-            dados.removeRow(0);
-            dados.addRows([[novoRegistro.date_time, RAM , CPU, HD1]])
-            dados.removeRow(1);
-            dados.addRows([[novoRegistro.date_time, RAM , CPU, HD1]])
-            dados.removeRow(2);
-            dados.addRows([[novoRegistro.date_time, RAM , CPU, HD1]])
-            dados.removeRow(3); // apagar o primeiro
-            dados.addRows([[novoRegistro.date_time, RAM , CPU, HD1]])
-            // incluir uma nova medida de umidade
-            
-            this.google.charts.setOnLoadCallback()
-            proximaAtualizacao = setTimeout(() => atualizarGrafico(idMaquina, dados), 2000);
+            console.log(CPU)
+            console.log(RAM)
+            console.log(HD1)
+            if (CPU != undefined) {
+              console.log("pika")
+              cpu.innerHTML = CPU + `%`
+              // disco.innerHTML = HD1
+              // ram.innerHTML = RAM
+            }
+            if (RAM != undefined) {
+              console.log("pika2")
+              ram.innerHTML = RAM + `%`
+              // disco.innerHTML = HD1
+              // ram.innerHTML = RAM
+            }
+            if (HD1 != undefined) {
+              console.log("pika3")
+              disco.innerHTML = HD1 + `%`
+              // disco.innerHTML = HD1
+              // ram.innerHTML = RAM
+            }
+
           });
         } else {
           console.error('Nenhum dado encontrado ou erro na API');
-          proximaAtualizacao = setTimeout(() => atualizarGrafico(idMaquina, dados), 2000);
+          proximaAtualizacao = setInterval(() => atualizarGrafico(idMaquina, dados), 2000);
         }
       })
       .catch(function (error) {
