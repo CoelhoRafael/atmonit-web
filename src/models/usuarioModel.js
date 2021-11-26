@@ -27,6 +27,14 @@ function atualizarFuncionario(id, cargo, nome, email) {
     return database.executar(sql);
 }
 
+function deletarFuncionario(id) {
+    var sql = `
+    delete from employee where id_employee = ${id};   
+    `;
+    console.log("Executando a instrução SQL: \n" + sql);
+    return database.executar(sql);
+}
+
 function cadastrar(nome, cargo, fkCompany, email, password) {
     var sql = `
         INSERT INTO [dbo].[employee] (employee_name,office,fk_company,login,password)
@@ -50,5 +58,6 @@ module.exports = {
     cadastrar,
     listar,
     listarFuncionarios,
-    atualizarFuncionario
+    atualizarFuncionario,
+    deletarFuncionario
 };

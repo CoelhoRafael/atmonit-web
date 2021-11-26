@@ -50,7 +50,7 @@ function atualizar() {
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                
+
                 closeModal()
                 limparFormulario()
                 getAllEmployees(sessionStorage.ID_COMPANY)
@@ -68,7 +68,20 @@ function limparFormulario() {
     document.getElementById("form_atualizar_cadastro").reset();
 }
 
-function deleteUser(context){
+function deleteUser(context) {
     employee_id = context.id.split("_")[1]
-    window.confirm("Deseja excluir o funcionário de com o id: " + employee_id)
+    let confirmation = window.confirm("Deseja excluir o funcionário de com o id: " + employee_id)
+
+    if (confirmation) {
+        fetch(`/usuarios/deletar/${employee_id}`, {
+            method: "DELETE",
+        }).then(function (resposta) {
+
+        }).catch(function (resposta) {
+        });
+
+        console.log("Funcionaaaaaaa");
+        getAllEmployees(sessionStorage.ID_COMPANY)
+
+    }
 }

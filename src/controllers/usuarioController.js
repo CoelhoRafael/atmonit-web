@@ -151,10 +151,27 @@ function atualizarFuncionario(req, res) {
     }
 }
 
+function deletarFuncionario(req, res) {
+    var id = req.params.id;
+
+    usuarioModel.deletarFuncionario(id)
+        .then(function (resultado) {
+            console.log(resultado);
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
 module.exports = {
     login,
     cadastrar,
     listar,
     listarFuncionarios,
-    atualizarFuncionario
+    atualizarFuncionario,
+    deletarFuncionario
 }
