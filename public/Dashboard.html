@@ -24,15 +24,15 @@
       data.addColumn('number', 'CPU');
       data.addColumn('number', 'DISCO');
 
-      data.addRows([[0,10,20,30],
-      [1,15,25,34],
-      [2,20,30,44],
-      [3,25,35,48]
-    ]);
+      data.addRows([[0, 10, 20, 30],
+      [1, 15, 25, 34],
+      [2, 20, 30, 44],
+      [3, 25, 35, 48]
+      ]);
 
       var options = {
-        legend:{
-          textStyle:{
+        legend: {
+          textStyle: {
             color: '#FFF'
           },
         },
@@ -84,7 +84,7 @@
   </script>
 </head>
 
-<body>
+<body onload="checkSession()">
 
   <div id="mySidenav" class="sidenav">
     <div class="logo">
@@ -92,14 +92,15 @@
     </div>
     <a href="home.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
     <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
-    <a href="funcionarios.html" class="icon-a"><i class="fa fa-users icons"></i> Funcionários</a>
+    <a id="func_nav_option" href="funcionarios.html" class="icon-a"><i class="fa fa-users icons"></i> Funcionários</a>
     <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
   </div>
   <div id="main">
 
     <div class="head">
       <div class="col-div-6">
-        <span style="font-size:30px;cursor:pointer; color: #f1f1f1e7;" class="nav"><i class="fas fa-chart-line icons"></i> Dashboard</span>
+        <span style="font-size:30px;cursor:pointer; color: #f1f1f1e7;" class="nav"><i
+            class="fas fa-chart-line icons"></i> Dashboard</span>
       </div>
 
     </div>
@@ -114,17 +115,17 @@
         </p>
         <!-- <i class="fa fa-users box-icon"></i> -->
       </div>
-    
 
-    
+
+
       <div class="box expand">
         <p>50%<br />
           <span class="indicator-subtitle">CPU</span>
         </p>
       </div>
-    
 
-    
+
+
       <div class="box expand">
         <p>35%
           <br>
@@ -138,16 +139,22 @@
         <div class="box expand">
           <span class="status-title">Indices De Uso</span>
           <div class="status-position">
-            <span class="status-info"><div class="indicator normal"></div>Moderado</span>
-            <span class="status-info unused"><div class="indicator caution"></div> Frequente</span>
-            <span class="status-info unused"><div class="indicator danger"></div> Intenso</span>
+            <span class="status-info">
+              <div class="indicator normal"></div>Moderado
+            </span>
+            <span class="status-info unused">
+              <div class="indicator caution"></div> Frequente
+            </span>
+            <span class="status-info unused">
+              <div class="indicator danger"></div> Intenso
+            </span>
           </div>
         </div>
       </div>
-  
+
     </div>
-  
-    
+
+
     <div class="clearfix"></div>
     <br /><br />
     <div class="col-div-8">

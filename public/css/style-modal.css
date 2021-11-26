@@ -61,6 +61,7 @@
 }
 
 .radio-modal-container{
+    border: none;
     display: flex;
     margin-left: 10%;
 }

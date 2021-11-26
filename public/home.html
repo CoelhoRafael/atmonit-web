@@ -14,12 +14,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 
-	<script src="./js/funcoes.js"></script>
 
   <title>Home</title>
 </head>
 
-<body onload="loadContent()">
+<body onload="checkSession()">
 
   <div id="mySidenav" class="sidenav">
     <div class="logo">
@@ -27,7 +26,8 @@
     </div>
     <a href="#" class="icon-a selected"><i class="fa fa-home icons"></i> Home</a>
     <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
-    <a href="funcionarios.html" class="icon-a" class="hidden"><i class="fa fa-users icons"></i> Funcionários</a>
+    <a id="func_nav_option" href="funcionarios.html" class="icon-a" class="hidden"><i class="fa fa-users icons"></i>
+      Funcionários</a>
     <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
   </div>
 
@@ -46,50 +46,7 @@
 
 
         <div id="terminal_container" class="col-div-3">
-          <!-- <a href="Dashboard.html">
-          <div class="box expand">
-            <span class="status-info">
-              <div class="indicator normal"></div>Disponivel
-            </span>
-            <img src="img/atm.png" class="card-atm" alt="">
-            <i class="fa fa-users box-icon"></i>
-          </div>
-          </a>
 
-          <a href="#">
-            <div class="box expand">
-              <span class="status-info">
-                <div class="indicator danger"></div>
-                Inoperante
-              </span>
-              <img src="img/atm.png" class="card-atm" alt="">
-              <i class="fa fa-users box-icon"></i>
-            </div>
-          </a>
-          
-          <a href="Dashboard.html">
-
-            <div class="box expand">
-              <span class="status-info">
-                <div class="indicator normal"></div>Disponivel
-              </span>
-              <img src="img/atm.png" class="card-atm" alt="">
-              <i class="fa fa-users box-icon"></i>
-            </div>
-
-          </a>
-
-          <a href="#">
-
-            <div class="box expand">
-              <span class="status-info">
-                <div class="indicator caution"></div>Manutenção
-              </span>
-              <img src="img/atm.png" class="card-atm" alt="">
-              <i class="fa fa-users box-icon"></i>
-            </div>
-
-          </a> -->
         </div>
       </div>
 
@@ -101,5 +58,5 @@
 </body>
 
 </html>
-
+<script src="./js/funcoes.js"></script>
 <script src="./js/home.js"></script>
