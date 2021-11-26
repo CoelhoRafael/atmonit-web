@@ -32,3 +32,5 @@ app.listen(PORTA, function () {
     \t\tSe "desenvolvimento", banco local (MySQL Workbench). \n
     \t\tSe "producao", banco remoto (SQL Server em nuvem Azure)`);
 });
+
+module.exports = app;
