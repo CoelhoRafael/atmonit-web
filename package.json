@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./public/bin/www",
-    "postinstall": "cd public && npm install"
+    "postinstall": "npm install"
   },
   "dependencies": {
     "cors": "^2.8.5",
