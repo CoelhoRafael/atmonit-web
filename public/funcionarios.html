@@ -50,21 +50,21 @@
             <span class="close" onclick="closeModal()">&times;</span>
           </div>
           <div class="form-save-employee">
-            <form id="form_atualizar_cadastro" action="javascript:void(0)" method="post" onsubmit="return cadastrar()">
+            <form id="form_atualizar_cadastro" action="javascript:void(0)" method="post" onsubmit="return atualizar()">
               <h3 class="title-form">Cargo</h3>
-              <fieldset class="radio-modal-container" id="funcionario-group">
-                  <input value="administrador" name="funcionario-group" type="radio" id="supervisor" class="radio-modal"
+              <fieldset class="radio-modal-container" id="funcionario_group">
+                  <input value="administrador" name="funcionario_group" type="radio" id="supervisor" class="radio-modal"
                   checked>
                   <label>Administrador</label><br>
 
-                  <input value="encarregado" name="funcionario-group" type="radio" id="encarregado" class="radio-modal">
+                  <input value="encarregado" name="funcionario_group" type="radio" id="encarregado" class="radio-modal">
                   <label>Encarregado</label><br>
               </fieldset>
               <div class="form-save-employee-field">
-                <input id="inpt_nome" type="text" class="form-inpt" placeholder="Nome">
+                <input name="nome" id="inpt_nome" type="text" class="form-inpt" placeholder="Nome">
               </div>
               <div class="form-save-employee-field">
-                <input id="inpt_email" type="text" class="form-inpt" placeholder="Email">
+                <input name="email" id="inpt_email" type="text" class="form-inpt" placeholder="Email">
               </div>
 
               <div class="form-save-employee-field">
@@ -107,3 +107,4 @@
 </html>
 
 <script src="./js/funcionarios.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

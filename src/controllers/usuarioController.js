@@ -21,7 +21,7 @@ function listar(req, res) {
 
 function listarFuncionarios(req, res) {
     var idCompany = req.params.idCompany;
-    
+
     usuarioModel.listarFuncionarios(idCompany)
         .then(function (resultado) {
             if (resultado.length > 0) {
@@ -38,7 +38,7 @@ function listarFuncionarios(req, res) {
         );
 }
 
-function login (req, res) {
+function login(req, res) {
     var email = req.body.email;
     var password = req.body.password;
 
@@ -56,14 +56,14 @@ function login (req, res) {
                     if (resultado.length == 1) {
                         console.log(resultado)
                         res.json(resultado[0])
-// 
-// 
-// 
-// CHAMAR A FUNÇÂO DE LISTAR OS ATMS
-// 
-// 
-// 
-                    // console.log(atmModel.listar(resultado[0].fk_company))
+                        // 
+                        // 
+                        // 
+                        // CHAMAR A FUNÇÂO DE LISTAR OS ATMS
+                        // 
+                        // 
+                        // 
+                        // console.log(atmModel.listar(resultado[0].fk_company))
 
                     } else if (resultado.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -118,9 +118,43 @@ function cadastrar(req, res) {
     }
 }
 
+function atualizarFuncionario(req, res) {
+    var nome = req.body.nome;
+    var cargo = req.body.funcionario_group;
+    var email = req.body.email;
+    var id_user = req.params.id_user;
+
+    if (!nome) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (!email) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (!cargo) {
+        res.status(400).send("Sua cargo está undefined!");
+    } else if (!id_user) {
+        res.status(400).send("Seu id_user está undefined!");
+    } else {
+        usuarioModel.atualizarFuncionario(id_user, cargo, nome, email)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     login,
     cadastrar,
     listar,
     listarFuncionarios,
+    atualizarFuncionario
 }
