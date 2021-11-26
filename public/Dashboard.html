@@ -2,6 +2,7 @@
 
 <head>
   <title>Dashboard</title>
+  <script src="./js/dashboard.js"></script>
   <link rel="stylesheet" href="css/style-dashboard.css" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
@@ -11,6 +12,130 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="./js/funcoes.js"></script>
   <script type="text/javascript">
+  </script>
+</head>
+
+<body onload="obterDadosGrafico(21)">
+
+  <div id="mySidenav" class="sidenav">
+    <div class="logo">
+      <img src="img/atmonit.svg" alt="" class="logo-img">
+    </div>
+    <a href="home.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
+    <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
+    <a href="funcionarios.html" class="icon-a"><i class="fa fa-users icons"></i> Funcionários</a>
+    <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
+
+  </div>
+  <div id="main">
+
+    <div class="head">
+      <div class="col-div-6">
+        <span style="font-size:30px;cursor:pointer; color: #f1f1f1e7;" class="nav"><i
+            class="fas fa-chart-line icons"></i> Dashboard</span>
+      </div>
+
+    </div>
+
+
+    <br />
+
+    <div class="col-div-3">
+      <div class="box expand">
+        <p id="ram">40%</p> <br />
+        <span id="span_ram" class="indicator-subtitle">RAM</span>
+
+        <!-- <i class="fa fa-users box-icon"></i> -->
+      </div>
+
+
+
+      <div class="box expand">
+        <p id="cpu">50%</p><br />
+        <span class="indicator-subtitle">CPU</span>
+
+      </div>
+
+
+
+      <div class="box expand">
+        <p id="disco">35%</p><br />
+        <span id="span_disco" class="indicator-subtitle">DISCO</span>
+        <!-- <i class="fa fa-shopping-bag box-icon"></i> -->
+      </div>
+
+
+      <div class="col-div-3">
+        <div class="box expand">
+          <span class="status-title">Indices De Uso</span>
+          <div class="status-position">
+            <span class="status-info">
+              <div class="indicator normal"></div>Moderado
+            </span>
+            <span class="status-info unused">
+              <div class="indicator caution"></div> Frequente
+            </span>
+            <span class="status-info unused">
+              <div class="indicator danger"></div> Intenso
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="clearfix"></div>
+    <br /><br />
+    <div class="col-div-8">
+      <div class="box-8">
+        <div class="content-box">
+          <h2 class="card-title">Desempenho Mensal Do Caixa</h2>
+          <div id="chart_div" class="graphic"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+<script>
+  let proximaAtualizacao;
+
+  // b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+  //verificar_autenticacao();
+
+  // altere aqui como os dados serão exibidos
+  // e como são recuperados do BackEnd
+  function obterDadosGrafico(idMaquina) {
+    if (proximaAtualizacao != undefined) {
+      clearTimeout(proximaAtualizacao);
+    }
+    fetch(`/medidas/ultimas/${idMaquina}`, {
+        cache: 'no-store'
+      }).then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse()
+            plotarGrafico(resposta, idMaquina);
+          });
+        } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+
+  }
+
+  // só altere aqui se souber o que está fazendo!
+  function plotarGrafico(resposta, idMaquina) {
+    console.log('iniciando plotagem do gráfico...');
+
     google.charts.load('current', {
       packages: ['corechart', 'line']
     });
@@ -18,21 +143,15 @@
 
     function drawBasic() {
 
-      var data = new google.visualization.DataTable();
-      data.addColumn('number', 'X');
-      data.addColumn('number', 'RAM');
-      data.addColumn('number', 'CPU');
-      data.addColumn('number', 'DISCO');
-
-      data.addRows([[0,10,20,30],
-      [1,15,25,34],
-      [2,20,30,44],
-      [3,25,35,48]
-    ]);
+      var dados = new google.visualization.DataTable();
+      dados.addColumn('string', 'Hora');
+      dados.addColumn('number', 'RAM');
+      dados.addColumn('number', 'CPU');
+      dados.addColumn('number', 'DISCO');
 
       var options = {
-        legend:{
-          textStyle:{
+        legend: {
+          textStyle: {
             color: '#FFF'
           },
         },
@@ -52,6 +171,8 @@
           },
         },
         vAxis: {
+          maxValue: 100,
+          minValue: 0,
           title: 'DESEMPENHO',
           textStyle: {
             color: '#ffffff',
@@ -76,91 +197,85 @@
         backgroundColor: '#272c4a',
 
       };
+      for (i = 0; i < resposta.length; i++) {
+        var registro = resposta[i];
+        var CPU, RAM, HD1
+        if (registro.name_component == 'Processor') {
+          CPU = Math.round(registro.percentage_usage)
+        }
+        if (registro.name_component == 'Ram memory') {
+          RAM = Math.round(registro.percentage_usage * 100 / registro.ram_memory)
+        }
+        if (registro.name_component == 'Hard Disk 1') {
+          HD1 = -(Math.round(registro.percentage_usage / 100000000 * 100 / registro.terminal_storage))
+        }
+        dados.addRows([
+          [registro.momento_grafico, RAM, CPU, HD1]
+        ])
+      }
 
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-      chart.draw(data, options);
+      chart.draw(dados, options);
+      //Atualiza os dados de 2 em 2 segundos
+      proximaAtualizacao = setInterval(() => atualizarGrafico(idMaquina, dados), 5000);
     }
-  </script>
-</head>
+  }
+  // só mexer se quiser alterar o tempo de atualização
+  // ou se souber o que está fazendo!
+  function atualizarGrafico(idMaquina, dados) {
+    fetch(`/medidas/tempo-real/${idMaquina}`, {
+        cache: 'no-store'
+      }).then(function (response) {
+        if (response.ok) {
+          response.json().then(function (novoRegistro) {
 
-<body>
+            // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            // console.log(`Dados atuais do gráfico: ${dados}`);
+            novoRegistro = JSON.parse(JSON.stringify(novoRegistro[0]))
+            let CPU, RAM, HD1
+            if (novoRegistro.name_component == 'Processor') {
+              CPU = Math.round(novoRegistro.percentage_usage)
 
-  <div id="mySidenav" class="sidenav">
-    <div class="logo">
-      <img src="img/atmonit.svg" alt="" class="logo-img">
-    </div>
-    <a href="home.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
-    <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
-    <a href="funcionarios.html" class="icon-a"><i class="fa fa-users icons"></i> Funcionários</a>
-    <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
-  </div>
-  <div id="main">
+            }
+            if (novoRegistro.name_component == 'Ram memory') {
+              RAM = Math.round(novoRegistro.percentage_usage * 100 / novoRegistro.ram_memory)
 
-    <div class="head">
-      <div class="col-div-6">
-        <span style="font-size:30px;cursor:pointer; color: #f1f1f1e7;" class="nav"><i class="fas fa-chart-line icons"></i> Dashboard</span>
-      </div>
+            }
+            if (novoRegistro.name_component == 'Hard Disk 1') {
+              HD1 = -(Math.round(novoRegistro.percentage_usage / 100000000 * 100 / novoRegistro.terminal_storage))
+            }
+            // tirando e colocando valores no gráfico
+            console.log(CPU)
+            console.log(RAM)
+            console.log(HD1)
+            if (CPU != undefined) {
+              console.log("pika")
+              cpu.innerHTML = CPU + `%`
+              // disco.innerHTML = HD1
+              // ram.innerHTML = RAM
+            }
+            if (RAM != undefined) {
+              console.log("pika2")
+              ram.innerHTML = RAM + `%`
+              // disco.innerHTML = HD1
+              // ram.innerHTML = RAM
+            }
+            if (HD1 != undefined) {
+              console.log("pika3")
+              disco.innerHTML = HD1 + `%`
+              // disco.innerHTML = HD1
+              // ram.innerHTML = RAM
+            }
 
-    </div>
+          });
+        } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+          proximaAtualizacao = setInterval(() => atualizarGrafico(idMaquina, dados), 2000);
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
 
-
-    <br />
-
-    <div class="col-div-3">
-      <div class="box expand">
-        <p>40%<br />
-          <span class="indicator-subtitle">RAM</span>
-        </p>
-        <!-- <i class="fa fa-users box-icon"></i> -->
-      </div>
-    
-
-    
-      <div class="box expand">
-        <p>50%<br />
-          <span class="indicator-subtitle">CPU</span>
-        </p>
-      </div>
-    
-
-    
-      <div class="box expand">
-        <p>35%
-          <br>
-          <span class="indicator-subtitle">DISCO</span>
-        </p>
-        <!-- <i class="fa fa-shopping-bag box-icon"></i> -->
-      </div>
-
-
-      <div class="col-div-3">
-        <div class="box expand">
-          <span class="status-title">Indices De Uso</span>
-          <div class="status-position">
-            <span class="status-info"><div class="indicator normal"></div>Moderado</span>
-            <span class="status-info unused"><div class="indicator caution"></div> Frequente</span>
-            <span class="status-info unused"><div class="indicator danger"></div> Intenso</span>
-          </div>
-        </div>
-      </div>
-  
-    </div>
-  
-    
-    <div class="clearfix"></div>
-    <br /><br />
-    <div class="col-div-8">
-      <div class="box-8">
-        <div class="content-box">
-          <h2 class="card-title">Desempenho Mensal Do Caixa</h2>
-          <div id="chart_div" class="graphic"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</body>
-
-
-</html>
+  }
+</script>
