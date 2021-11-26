@@ -19,40 +19,40 @@
   <title>Home</title>
 </head>
 
-<body>
+<body onload="loadContent()">
 
   <div id="mySidenav" class="sidenav">
     <div class="logo">
       <img src="img/atmonit.svg" alt="" class="logo-img">
     </div>
-    <a href="home.html" class="icon-a selected"><i class="fa fa-home icons"></i> Home</a>
-    <a href="Dashboard.html" class="icon-a"><i class="fas fa-chart-line icons"></i> Dashboard</a>
+    <a href="#" class="icon-a selected"><i class="fa fa-home icons"></i> Home</a>
     <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
+    <a href="funcionarios.html" class="icon-a" class="hidden"><i class="fa fa-users icons"></i> Funcionários</a>
     <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
   </div>
 
 
   <div class="main">
 
-    <div class="box-title">Supermercado Extra - Marechal Tito</div>
+    <div id="company_name" class="box-title"></div>
 
     <div class="col-div-8">
       <div class="box-8">
         <div class="content-box">
 
-          <h2 class="card-title">Caixas disponiveis</h2>
+          <h2 class="card-title">Caixas</h2>
           <div id="chart_div" class="graphic"></div>
         </div>
 
 
-        <div class="col-div-3">
-          <a href="Dashboard.html">
+        <div id="terminal_container" class="col-div-3">
+          <!-- <a href="Dashboard.html">
           <div class="box expand">
             <span class="status-info">
               <div class="indicator normal"></div>Disponivel
             </span>
             <img src="img/atm.png" class="card-atm" alt="">
-            <!-- <i class="fa fa-users box-icon"></i> -->
+            <i class="fa fa-users box-icon"></i>
           </div>
           </a>
 
@@ -63,7 +63,7 @@
                 Inoperante
               </span>
               <img src="img/atm.png" class="card-atm" alt="">
-              <!-- <i class="fa fa-users box-icon"></i> -->
+              <i class="fa fa-users box-icon"></i>
             </div>
           </a>
           
@@ -74,7 +74,7 @@
                 <div class="indicator normal"></div>Disponivel
               </span>
               <img src="img/atm.png" class="card-atm" alt="">
-              <!-- <i class="fa fa-users box-icon"></i> -->
+              <i class="fa fa-users box-icon"></i>
             </div>
 
           </a>
@@ -86,10 +86,10 @@
                 <div class="indicator caution"></div>Manutenção
               </span>
               <img src="img/atm.png" class="card-atm" alt="">
-              <!-- <i class="fa fa-users box-icon"></i> -->
+              <i class="fa fa-users box-icon"></i>
             </div>
 
-          </a>
+          </a> -->
         </div>
       </div>
 
@@ -101,3 +101,5 @@
 </body>
 
 </html>
+
+<script src="./js/home.js"></script>

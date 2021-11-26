@@ -74,15 +74,14 @@
 
 			if (response.ok) {
 				console.log(response);
-
 				response.json().then(json => {
-					console.log(json);
-					console.log(JSON.stringify(json));
 
-					sessionStorage.EMAIL_USER = json.email;
-					sessionStorage.NOME_USER = json.nome;
-					sessionStorage.ID_USER = json.id;
-
+					sessionStorage.NOME_USER = json.employee_name;
+					sessionStorage.ID_USER = json.id_employee;
+					sessionStorage.ID_COMPANY = json.fk_company;
+					sessionStorage.OFFICE = json.office;
+					sessionStorage.COMPANY_NAME = json.company_name
+					
 					setTimeout(function () {
 						window.location = "./home.html";
 					}, 1000); // apenas para exibir o loading

@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="./js/funcoes.js"></script>
   <script type="text/javascript">
     google.charts.load('current', {
       packages: ['corechart', 'line']
@@ -82,8 +83,6 @@
     }
   </script>
 </head>
-</head>
-
 
 <body>
 
@@ -91,12 +90,10 @@
     <div class="logo">
       <img src="img/atmonit.svg" alt="" class="logo-img">
     </div>
-    <a href="inicio.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
-    <a href="#" class="icon-a selected"><i class="fas fa-chart-line icons"></i> Dashboard</a>
+    <a href="home.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
     <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
-    <a href="login.html" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
-    
-
+    <a href="funcionarios.html" class="icon-a"><i class="fa fa-users icons"></i> Funcionários</a>
+    <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
   </div>
   <div id="main">
 
