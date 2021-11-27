@@ -100,9 +100,34 @@ body {
   display: flex;
 }
 
-.btn-crud{
+.container-btn{
   display: flex;
-  margin-left: 72%;
+  margin: auto;
+  height: 30px;
+  justify-content: center;
+}
+
+.btn-crud{
+  border:none;
+  border-radius: 50%;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  width: 30px;
+}
+
+.btn-crud:hover{
+  filter: brightness(80%);
+  transition: 0.5s ease-in-out;
+}
+
+.edit{
+  background-color: rgb(42, 124, 231);
+  margin-right: 5px;
+}
+
+.remove{
+  background-color: rgb(238, 74, 74);
 }
 
 .card-title {
@@ -115,17 +140,12 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  flex-wrap: wrap;
   font-size: 20px;
   font-weight: 400;
   overflow: visible;
 }
 
-/* .col-div-3{
-    
-  display: block !important;
-  flex-direction: column;
-  justify-content: space-between;
-} */
 
 .card-atm {
   width: 55%;
@@ -142,7 +162,6 @@ body {
 .indicator {
   width: 10px;
   height: 10px;
-  /* background-color: red; */
   margin-top: 4px;
   margin-right: 5px;
   border-radius: 50%;
@@ -190,6 +209,7 @@ body {
 
 .box {
   width: 115px;
+  height: 28vh;
   background-color: #2b3150;
   padding: 15px;
   cursor: pointer;
@@ -201,4 +221,104 @@ body {
 .expand:hover {
   transform: scale(1.02);
   filter: brightness(110%);
+}
+
+/* Modal */
+.bg-modal{
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.75);
+  position: fixed;
+  z-index: 2;
+  top:-100%;
+  display: block;
+  transition: 350ms;
+}
+
+.modal{
+  width: 60%;
+  height: 60%;
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  margin: 80px auto 0 30px;
+  
+}
+
+.title-form{
+  text-align: center;
+  width: auto;
+  margin-bottom: 22px;
+}
+
+.modal-nav{
+  width: 100%;
+  height: 45px;
+  background-color: #10AC84;
+}
+
+.modal span{
+  float: right;
+  font-size: 30px;
+  margin: 0px 15px;
+  cursor: pointer;
+  transition: 350ms;
+}
+
+.modal span:hover{
+  color: red;
+  transition: 350ms;
+}
+
+.form-save-employee {
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2vh 0;
+}
+
+.form-save-employee-field{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  color: #FFF;
+}
+
+.radio-modal-container{
+  border: none;
+  display: flex;
+  margin-left: 10%;
+}
+
+.radio-modal{
+  border-color: #10AC84;
+  vertical-align: middle;
+}
+
+.radio-modal:hover{
+  color: #10AC84;
+}
+
+.form-inpt{
+  width: 100%;
+border: 2px solid #10AC84;
+border-radius: 3px;
+outline: none;
+background-color: #fff;
+padding: 0.5rem 1rem;
+font-size: 1.1rem;
+margin-bottom: 22px;
+transition: .3s;
+}
+
+.form-btn{
+  background-color: #10AC84;
+  color: #fff;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  transition: .3s;
+  width: 113.5%;
+  height: 35px;
 }

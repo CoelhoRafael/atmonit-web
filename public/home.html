@@ -13,8 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-
-
+  <script src="/js/modal-home.js"></script>
   <title>Home</title>
 </head>
 
@@ -36,70 +35,139 @@
 
     <div id="company_name" class="box-title"></div>
 
+    <!-- Modal -->
+    <div class="bg-modal" id="modalHome">
+      <div class="modal">
+        <div class="modal-nav">
+          <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="form-save-employee">
+          <form id="form_atualizar_caixa">
+            <h3 class="title-form">Editar Caixa</h3>
+            <div class="form-save-employee-field">
+              <input name="nome" type="text" class="form-inpt" placeholder="Id">
+            </div>
+
+            <div class="form-save-employee-field">
+              <input name="endereco" type="text" class="form-inpt" placeholder="Endereço">
+            </div>
+
+            <div class="form-save-employee-field" style="margin-left: 8%;">
+              <select class="form-inpt">
+                <option value="">Selecione o estado</option>
+                <option value="">Disponivel</option>
+                <option value="">Inoperante</option>
+                <option value="">Em Manutenção</option>
+              </select>
+            </div>
+
+            <div class="form-save-employee-field">
+              <button type="submit" class="form-btn">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <div class="col-div-8">
       <div class="box-8">
         <div class="content-box">
           <h2 class="card-title">Caixas</h2>
-          <div class="btn-crud">
-            <button>Adicionar</button>
-            <button>Editar</button>
-          </div>
         </div>
 
 
         <div id="terminal_container" class="col-div-3">
-          <a href="Dashboard.html">
-            <div class="box expand">
-              <span class="status-info">
-                <div class="indicator normal"></div>Disponivel
-              </span>
+
+
+          <div class="box expand">
+            <span class="status-info">
+              <div class="indicator normal"></div>Disponivel
+            </span>
+            <a href="Dashboard.html">
               <img src="img/atm.png" class="card-atm" alt="">
               <!-- <i class="fa fa-users box-icon"></i> -->
-              <span class="status-info">Id: 1</span>
-              <span class="status-info">Bairro: </span>
+            </a>
+            <span class="status-info">Id: 1</span>
+            <span class="status-info">Bairro: </span>
+            <div class="container-btn">
+              <button class="btn-crud edit" onclick="openModal()">
+                <i class="fa-solid fa-pencil"></i>
+              </button>
+              <button class="btn-crud remove">
+                <i class="fa-solid fa-trash"></i>
+              </button>
             </div>
-            </a>
-  
-            <a href="#">
-              <div class="box expand">
-                <span class="status-info">
-                  <div class="indicator danger"></div>
-                  Inoperante
-                </span>
-                <img src="img/atm.png" class="card-atm" alt="">
-                <!-- <i class="fa fa-users box-icon"></i> -->
-                <span class="status-info">Id: 2</span>
-                <span class="status-info">Bairro: </span>
-              </div>
-            </a>
-            
+          </div>
+
+
+
+          <div class="box expand">
+            <span class="status-info">
+              <div class="indicator danger"></div>
+              Inoperante
+            </span>
             <a href="Dashboard.html">
-  
-              <div class="box expand">
-                <span class="status-info">
-                  <div class="indicator normal"></div>Disponivel
-                </span>
-                <img src="img/atm.png" class="card-atm" alt="">
-                <!-- <i class="fa fa-users box-icon"></i> -->
-                <span class="status-info">Id: 3</span>
-                <span class="status-info">Bairro: </span>
-              </div>
-  
+              <img src="img/atm.png" class="card-atm" alt="">
+              <!-- <i class="fa fa-users box-icon"></i> -->
             </a>
-  
-            <a href="#">
-  
-              <div class="box expand">
-                <span class="status-info">
-                  <div class="indicator caution"></div>Manutenção
-                </span>
-                <img src="img/atm.png" class="card-atm" alt="">
-                <!-- <i class="fa fa-users box-icon"></i> -->
-                <span class="status-info">Id: 4</span>
-                <span class="status-info">Bairro: </span>
-              </div>
-  
+            <span class="status-info">Id: 2</span>
+            <span class="status-info">Bairro: </span>
+            <div class="container-btn">
+              <button class="btn-crud edit" onclick="openModal()">
+                <i class="fa-solid fa-pencil"></i>
+              </button>
+              <button class="btn-crud remove">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+
+
+
+
+          <div class="box expand">
+            <span class="status-info">
+              <div class="indicator normal"></div>Disponivel
+            </span>
+            <a href="Dashboard.html">
+              <img src="img/atm.png" class="card-atm" alt="">
+              <!-- <i class="fa fa-users box-icon"></i> -->
             </a>
+            <span class="status-info">Id: 3</span>
+            <span class="status-info">Bairro: </span>
+            <div class="container-btn">
+              <button class="btn-crud edit" onclick="openModal()">
+                <i class="fa-solid fa-pencil"></i>
+              </button>
+              <button class="btn-crud remove">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+
+
+
+          <div class="box expand">
+            <span class="status-info">
+              <div class="indicator caution"></div>Manutenção
+            </span>
+            <a href="Dashboard.html">
+              <img src="img/atm.png" class="card-atm" alt="">
+              <!-- <i class="fa fa-users box-icon"></i> -->
+            </a>
+            <span class="status-info">Id: 4</span>
+            <span class="status-info">Bairro: </span>
+            <div class="container-btn">
+              <button class="btn-crud edit" onclick="openModal()">
+                <i class="fa-solid fa-pencil"></i>
+              </button>
+              <button class="btn-crud remove">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+
+
         </div>
       </div>
     </div>

@@ -19,17 +19,17 @@ function getAllTerminals(idCompany) {
                 sessionStorage.ATM_INFOS = JSON.stringify(resposta)
 
                 console.log(JSON.stringify(resposta));
-                resposta.forEach(element => {
-                    container.innerHTML += `<a id='atm-${element.id_terminal}' onclick="viewAtm(this)"">
-                    <div class="box expand">
-                    <span class="status-info">
-                        <div class="indicator normal"></div>Disponivel
-                    </span>
-                    <img src="img/atm.png" class="card-atm" alt="">
-                    <!-- <i class="fa fa-users box-icon"></i> -->
-                    </div>
-                    </a>`;
-                });
+                // resposta.forEach(element => {
+                //     container.innerHTML += `<a id='atm-${element.id_terminal}' onclick="viewAtm(this)"">
+                //     <div class="box expand">
+                //     <span class="status-info">
+                //         <div class="indicator normal"></div>Disponivel
+                //     </span>
+                //     <img src="img/atm.png" class="card-atm" alt="">
+                //     <!-- <i class="fa fa-users box-icon"></i> -->
+                //     </div>
+                //     </a>`;
+                // });
 
             });
         } else {
