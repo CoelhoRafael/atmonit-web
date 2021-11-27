@@ -10,9 +10,6 @@
     <link rel="stylesheet" href="css/style-save-employee.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-
-
-
     <link rel="stylesheet" href="css/style-dashboard.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
@@ -20,21 +17,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="./js/funcoes.js"></script>
     <script type="text/javascript"></script>
 
-    <script src="./js/funcoes.js"></script>
 </head>
 
-<body>
-
+<body onload="checkSession()">
     <div id="mySidenav" class="sidenav">
         <div class="logo">
             <img src="img/atmonit.svg" alt="" class="logo-img">
         </div>
         <a href="home.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
         <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
-        <a href="funcionarios.html" class="icon-a"><i class="fa fa-users icons"></i> Funcionários</a>
+        <a id="func_nav_option" href="funcionarios.html" class="icon-a"><i class="fa fa-users icons"></i>
+            Funcionários</a>
         <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
     </div>
     <div class="main">
@@ -77,7 +72,7 @@
                                 Nível de acesso
                                 <select class="form-save-employee-select" name="accesslevel" id="">
                                     <option value="administrador">Administrador</option>
-                                    <option value="convidado">Convidado</option>
+                                    <option value="encarregado">Encarregado</option>
                                 </select>
                             </div>
                             <div class="form-save-employee-btn">
@@ -134,7 +129,7 @@
             }, 1500);
             return false;
         }
-        else{
+        else {
             return true
         }
     }
@@ -202,3 +197,4 @@
 
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="./js/funcoes.js"></script>
