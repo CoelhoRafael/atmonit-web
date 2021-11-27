@@ -113,10 +113,8 @@ function buscarMedidasEmTempoRealDISCO(idMaquina) {
                         name_component,
                         FORMAT(date_time,'HH:mm:ss') as momento_grafico,
                         fk_terminal,
-                        ram_memory,
-                        terminal_storage
+                        percentage_usage
                         from component_registration 
-                        inner join terminal on id_terminal = fk_terminal
                         where fk_terminal = ${idMaquina}
                         and name_component = 'Hard Disk 1'
                     order by id_component_registration desc`;

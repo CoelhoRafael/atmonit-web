@@ -98,8 +98,8 @@ function atualizarGraficoDISCO(idMaquina, dados) {
                     window.grafico_linha.update();
 
 
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoDISCO(idMaquina, dados),
-                        atualizarGrafico(idMaquina, dados), 10000);
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoDISCO(idMaquina, dados), 5000
+                        );
 
                 });
             } else {
