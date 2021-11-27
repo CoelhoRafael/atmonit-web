@@ -32,7 +32,7 @@ function plotarGraficoRAM(resposta, idMaquina) {
             yAxisID: 'y-RAM',
             label: 'RAM',
             borderColor: '#fffff',
-            backgroundColor: '#ffff',
+            backgroundColor: '#bdbdbd',
             fill: false,
             data: []
         }]
@@ -64,7 +64,6 @@ function plotarGraficoRAM(resposta, idMaquina) {
                         max: 100,
                         min: 0
                     },
-
                     gridLines: {
                         drawOnChartArea: false,
                     },
@@ -86,13 +85,13 @@ function atualizarGraficoRAM(idMaquina, dados) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
-                    // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro.percentage_usage)}`);
                     // console.log(`Dados atuais do gráfico: ${dados}`);
                     // tirando e colocando valores no gráfico
-                    dados.labels.shift(); // apagar o primeiro
-                    dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+                    dados.labels.shift();
+                    dados.labels.push(novoRegistro[0].momento_grafico)
+                    dados.datasets[0].data.shift(); // incluir um novo momento
                     dados.datasets[0].data.push(novoRegistro[0].percentage_usage); // incluir uma nova medida de umidade
-
                     window.grafico_linha.update();
 
 
@@ -102,7 +101,7 @@ function atualizarGraficoRAM(idMaquina, dados) {
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
-                proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idMaquina, dados), 2000);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idMaquina, dados), 4000);
             }
         })
         .catch(function (error) {

@@ -37,8 +37,7 @@ function buscarUltimasMedidasCPU(idMaquina,limite_linhas) {
                         percentage_usage,
                         name_component,
                         FORMAT(date_time,'HH:mm:ss') as momento_grafico,
-                        ram_memory,
-                        terminal_storage
+                        ram_memory
                         from component_registration
                         inner join terminal on id_terminal = fk_terminal
                         where fk_terminal = ${idMaquina}
@@ -53,11 +52,8 @@ function buscarMedidasEmTempoRealCPU(idMaquina) {
     instrucaoSql = `select 
                         name_component,
                         FORMAT(date_time,'HH:mm:ss') as momento_grafico,
-                        fk_terminal,
-                        ram_memory,
-                        terminal_storage
+                        fk_terminal
                         from component_registration 
-                        inner join terminal on id_terminal = fk_terminal
                         where fk_terminal = ${idMaquina}
                         and name_component = 'Processor'
                     order by id_component_registration desc`;
@@ -70,11 +66,8 @@ function buscarUltimasMedidasRAM(idMaquina,limite_linhas) {
     instrucaoSql = `select top ${limite_linhas}
                         percentage_usage,
                         name_component,
-                        FORMAT(date_time,'HH:mm:ss') as momento_grafico,
-                        ram_memory,
-                        terminal_storage
+                        FORMAT(date_time,'HH:mm:ss') as momento_grafico
                         from component_registration
-                        inner join terminal on id_terminal = fk_terminal
                         where fk_terminal = ${idMaquina}
                         and name_component = 'Ram memory'
                         order by id_component_registration desc;
@@ -87,8 +80,8 @@ function buscarMedidasEmTempoRealRAM(idMaquina) {
     instrucaoSql = `select 
                         name_component,
                         FORMAT(date_time,'HH:mm:ss') as momento_grafico,
-                        fk_terminal,
-                        ram_memory
+                        percentage_usage,
+                        fk_terminal
                         from component_registration 
                         where fk_terminal = ${idMaquina}
                         and name_component = 'Ram memory'

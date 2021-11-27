@@ -206,10 +206,10 @@
           CPU = Math.trunc(registro.percentage_usage)
         }
         if (registro.name_component == 'Ram memory') {
-          RAM = Math.trunc(registro.percentage_usage)
+          RAM = registro.percentage_usage
         }
         if (registro.name_component == 'Hard Disk 1') {
-          HD1 = Math.trunc(registro.percentage_usage)
+          HD1 = registro.percentage_usage
         }
         dados.addRows([
           [registro.momento_grafico, RAM, CPU, HD1]
@@ -252,7 +252,6 @@
             console.log(CPU)
             console.log(HD1)
             if (CPU != undefined) {
-              console.log("pika")
               cpu.innerHTML = CPU + `%`
               // disco.innerHTML = HD1
               // ram.innerHTML = RAM
