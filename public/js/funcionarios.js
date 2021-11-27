@@ -18,7 +18,6 @@ function getAllEmployees(idCompany) {
                     tableBody.innerHTML +=
                         `
                     <tr>
-                        <td>${element.id_employee}</td>
                         <td>${element.employee_name}</td>
                         <td>${element.office}</td>
                         <td>${element.login}</td>

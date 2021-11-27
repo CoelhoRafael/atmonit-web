@@ -80,8 +80,9 @@ function deleteUser(context) {
         }).catch(function (resposta) {
         });
 
-        console.log("Funcionaaaaaaa");
-        getAllEmployees(sessionStorage.ID_COMPANY)
+        setTimeout(() => {
+            getAllEmployees(sessionStorage.ID_COMPANY)
+        }, 2500)
 
     }
 }
