@@ -97,6 +97,12 @@ body {
 
 .content-box {
   padding: 20px;
+  display: flex;
+}
+
+.btn-crud{
+  display: flex;
+  margin-left: 72%;
 }
 
 .card-title {
@@ -106,8 +112,9 @@ body {
 }
 
 .col-div-3 {
-  width: 25%;
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   font-size: 20px;
   font-weight: 400;
   overflow: visible;
@@ -122,7 +129,7 @@ body {
 
 .card-atm {
   width: 55%;
-  margin-left: 25%;
+  margin-left: 20%;
 }
 
 .status-info {
@@ -157,6 +164,7 @@ body {
 @media(max-width: 1100px) {
   .col-div-3 {
     flex-direction: column;
+    width: 30%;
     margin: auto;
   }
 
@@ -166,9 +174,9 @@ body {
 
   }
 
-  .box {
+  /* .box {
     margin-bottom: 10px;
-  }
+  } */
 
   .box-8{
 
@@ -181,14 +189,13 @@ body {
 }
 
 .box {
-  width: 100px;
+  width: 115px;
   background-color: #2b3150;
-  margin-left: 20px;
-  padding: 10px;
+  padding: 15px;
   cursor: pointer;
   border-top: 3px solid #10AC84;
-  margin-bottom: none;
   transition: .35s;
+  margin-bottom: 10px;
 }
 
 .expand:hover {
