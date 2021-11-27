@@ -2,7 +2,6 @@
 
 <head>
   <title>Dashboard</title>
-  <script src="./js/dashboard.js"></script>
   <link rel="stylesheet" href="css/style-dashboard.css" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
@@ -10,9 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script src="./js/funcoes.js"></script>
-  <script type="text/javascript">
-  </script>
+  <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+  <script src="js/dashboardDISCO.js"></script>
+  <script src="js/dashboardCPU.js"></script>
+  <script src="js/dashboardRAM.js"></script>
 </head>
 
 <body onload="obterDadosGrafico(21)">
@@ -22,9 +22,10 @@
       <img src="img/atmonit.svg" alt="" class="logo-img">
     </div>
     <a href="home.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
+    <a href="#" class="icon-a selected"><i class="fas fa-chart-line icons"></i> Dashboard</a>
     <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
-    <a href="funcionarios.html" class="icon-a"><i class="fa fa-users icons"></i> Funcionários</a>
-    <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
+    <a href="login.html" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
+
 
   </div>
   <div id="main">
@@ -40,17 +41,17 @@
 
     <br />
 
-    <div class="col-div-3">
-      <div class="box expand">
+    <div class="col-div-3" >
+      <div class="box expand" onclick="gerarGraficoRAM(21)">
         <p id="ram">40%</p> <br />
-        <span id="span_ram" class="indicator-subtitle">RAM</span>
+        <span  class="indicator-subtitle">RAM</span>
 
         <!-- <i class="fa fa-users box-icon"></i> -->
       </div>
 
 
 
-      <div class="box expand">
+      <div class="box expand" onclick="gerarGraficoCPU(21)">
         <p id="cpu">50%</p><br />
         <span class="indicator-subtitle">CPU</span>
 
@@ -58,9 +59,9 @@
 
 
 
-      <div class="box expand">
+      <div class="box expand" onclick="gerarGraficoDISCO(21)">
         <p id="disco">35%</p><br />
-        <span id="span_disco" class="indicator-subtitle">DISCO</span>
+        <span  class="indicator-subtitle">DISCO</span>
         <!-- <i class="fa fa-shopping-bag box-icon"></i> -->
       </div>
 
@@ -92,6 +93,7 @@
         <div class="content-box">
           <h2 class="card-title">Desempenho Mensal Do Caixa</h2>
           <div id="chart_div" class="graphic"></div>
+          <canvas id="canvas_grafico" width="200px" height="75px"></canvas>
         </div>
       </div>
     </div>
@@ -201,13 +203,13 @@
         var registro = resposta[i];
         var CPU, RAM, HD1
         if (registro.name_component == 'Processor') {
-          CPU = Math.round(registro.percentage_usage)
+          CPU = Math.trunc(registro.percentage_usage)
         }
         if (registro.name_component == 'Ram memory') {
-          RAM = Math.round(registro.percentage_usage * 100 / registro.ram_memory)
+          RAM = registro.percentage_usage
         }
         if (registro.name_component == 'Hard Disk 1') {
-          HD1 = -(Math.round(registro.percentage_usage / 100000000 * 100 / registro.terminal_storage))
+          HD1 = registro.percentage_usage
         }
         dados.addRows([
           [registro.momento_grafico, RAM, CPU, HD1]
@@ -217,7 +219,7 @@
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
       chart.draw(dados, options);
       //Atualiza os dados de 2 em 2 segundos
-      proximaAtualizacao = setInterval(() => atualizarGrafico(idMaquina, dados), 5000);
+      proximaAtualizacao = setTimeout(() => atualizarGrafico(idMaquina, dados), 5000);
     }
   }
   // só mexer se quiser alterar o tempo de atualização
@@ -232,24 +234,24 @@
             // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
             // console.log(`Dados atuais do gráfico: ${dados}`);
             novoRegistro = JSON.parse(JSON.stringify(novoRegistro[0]))
+            
             let CPU, RAM, HD1
             if (novoRegistro.name_component == 'Processor') {
-              CPU = Math.round(novoRegistro.percentage_usage)
+              CPU = novoRegistro.percentage_usage
 
             }
             if (novoRegistro.name_component == 'Ram memory') {
-              RAM = Math.round(novoRegistro.percentage_usage * 100 / novoRegistro.ram_memory)
+              RAM = novoRegistro.percentage_usage
 
             }
             if (novoRegistro.name_component == 'Hard Disk 1') {
-              HD1 = -(Math.round(novoRegistro.percentage_usage / 100000000 * 100 / novoRegistro.terminal_storage))
+              HD1 = novoRegistro.percentage_usage
             }
             // tirando e colocando valores no gráfico
-            console.log(CPU)
             console.log(RAM)
+            console.log(CPU)
             console.log(HD1)
             if (CPU != undefined) {
-              console.log("pika")
               cpu.innerHTML = CPU + `%`
               // disco.innerHTML = HD1
               // ram.innerHTML = RAM
@@ -270,7 +272,7 @@
           });
         } else {
           console.error('Nenhum dado encontrado ou erro na API');
-          proximaAtualizacao = setInterval(() => atualizarGrafico(idMaquina, dados), 2000);
+          proximaAtualizacao = setTimeout(() => atualizarGrafico(idMaquina, dados), 2000);
         }
       })
       .catch(function (error) {
