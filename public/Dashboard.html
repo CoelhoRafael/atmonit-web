@@ -52,7 +52,7 @@
 
 
       <div class="box expand" onclick="gerarGraficoCPU(21)">
-        <p id="cpu">50%</p><br />
+        <p id="cpu">10%</p><br />
         <span class="indicator-subtitle">CPU</span>
 
       </div>
@@ -230,25 +230,20 @@
       }).then(function (response) {
         if (response.ok) {
           response.json().then(function (novoRegistro) {
-
+            let CPU, RAM, HD1, HD2
             // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
             // console.log(`Dados atuais do gráfico: ${dados}`);
             novoRegistro = JSON.parse(JSON.stringify(novoRegistro[0]))
-            let CPU, RAM, HD1, HD2
             if (novoRegistro.name_component == 'Processor') {
               CPU = Math.round(novoRegistro.percentage_usage)
             }
             if (novoRegistro.name_component == 'Ram memory') {
               RAM = Math.round(novoRegistro.percentage_usage)
             }
-            if (novoRegistro.name_component == 'Hard Disk 2') {
-              HD2 = Math.round(novoRegistro.percentage_usage)
+            if (novoRegistro.name_component == 'Hard Disk 1') {
+              HD1 = Math.round(novoRegistro.percentage_usage)
             }
-            // tirando e colocando valores no gráfico
-            
-            console.log(RAM)
-            console.log(CPU)
-            console.log(HD2)
+
             if (RAM != undefined) {
               ram.innerHTML = RAM + `%`
               // disco.innerHTML = HD1
@@ -259,8 +254,8 @@
               // disco.innerHTML = HD1
               // ram.innerHTML = RAM
             }
-            if (HD2 != undefined) {
-              disco.innerHTML = HD2 + `%`
+            if (HD1 != undefined) {
+              disco.innerHTML = HD1 + `%`
               // disco.innerHTML = HD1
               // ram.innerHTML = RAM
             }
