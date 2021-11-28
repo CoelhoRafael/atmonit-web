@@ -1,7 +1,13 @@
-window.onload = dadosCards()
+window.onload = inicializarGraficoCpu()
+
+function inicializarGraficoCpu(){
+    gerarGraficoCPU()
+    dadosCards()
+}
 
 var ram_card = document.getElementById('ram_card_value')
 var cpu_card = document.getElementById('cpu_card_value')
+var disco_card = document.getElementById('disco_card_value')
 
 var status_cpu = document.getElementById('status_cpu')
 var status_ram = document.getElementById('status_ram')
@@ -88,6 +94,48 @@ function dadosCards() {
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
+
+
+    fetch(`/medidas/tempo-real/disco/${idMaquina}`, {
+        cache: 'no-store'
+    }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                // console.log(resposta[0].percentage_usage)
+
+                usoDisco = resposta[0].percentage_usage
+                if (usoDisco <= 60) {
+                    status_disco.innerHTML = `
+                        <div class="indicator normal"></div>
+                        Normal
+                      </span>
+                        `
+                }
+                else if (usoDisco <= 80) {
+                    status_disco.innerHTML = `
+                        <div class="indicator caution"></div>
+                        Atenção
+                      </span>
+                        `
+                }
+                else {
+                    status_disco.innerHTML = `
+                        <div class="indicator danger"></div>
+                        Crítico
+                      </span>
+                        `
+                }
+                disco_card.innerHTML = `${usoDisco}%`
+
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
 
 
     setTimeout(() => dadosCards(),

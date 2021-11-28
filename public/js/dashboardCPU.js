@@ -1,6 +1,12 @@
 let proximaAtualizacaoCpu;
 
+let cpu_card_info = document.getElementById('cpu_card')
+let ram_card_info = document.getElementById('ram_card')
+
 function gerarGraficoCPU() {
+    cpu_card_info.classList.add("expand-selected")
+    ram_card_info.classList.remove("expand-selected")
+
     clearTimeout(proximaAtualizacaoRam)
     let idMaquina = sessionStorage.ID_ATM
 
@@ -91,7 +97,7 @@ function atualizarGraficoCPU(idMaquina, dadosCPU) {
         if (response.ok) {
             response.json().then(function (novoRegistro) {
 
-                console.log(`DadosCPU recebidos: ${JSON.stringify(novoRegistro)}`);
+                // console.log(`DadosCPU recebidos: ${JSON.stringify(novoRegistro)}`);
                 // console.log(`DadosCPU atuais do gráfico: ${dadosCPU}`);
                 // tirando e colocando valores no gráfico
                 dadosCPU.labels.shift(); // apagar o primeiro

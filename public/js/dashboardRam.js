@@ -1,6 +1,13 @@
 let proximaAtualizacaoRam;
 
+
+cpu_card_info = document.getElementById('cpu_card')
+ram_card_info = document.getElementById('ram_card')
+
 function gerarGraficoRAM() {
+    cpu_card_info.classList.remove("expand-selected")
+    ram_card_info.classList.add("expand-selected")
+
     let idMaquina = sessionStorage.ID_ATM
 
     chart_div.style.display = 'none';
