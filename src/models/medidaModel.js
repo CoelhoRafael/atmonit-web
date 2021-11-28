@@ -52,10 +52,26 @@ function buscarMedidasEmTempoRealCPU(idMaquina) {
     instrucaoSql = `select 
                         name_component,
                         FORMAT(date_time,'HH:mm:ss') as momento_grafico,
+                        percentage_usage,
                         fk_terminal
                         from component_registration 
                         where fk_terminal = ${idMaquina}
                         and name_component = 'Processor'
+                    order by id_component_registration desc`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarMedidasEmTempoRealRAM(idMaquina) {
+    instrucaoSql = `select 
+                        name_component,
+                        FORMAT(date_time,'HH:mm:ss') as momento_grafico,
+                        percentage_usage,
+                        fk_terminal
+                        from component_registration 
+                        where fk_terminal = ${idMaquina}
+                        and name_component = 'Ram memory'
                     order by id_component_registration desc`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -72,21 +88,6 @@ function buscarUltimasMedidasRAM(idMaquina,limite_linhas) {
                         and name_component = 'Ram memory'
                         order by id_component_registration desc;
                    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-function buscarMedidasEmTempoRealRAM(idMaquina) {
-    instrucaoSql = `select 
-                        name_component,
-                        FORMAT(date_time,'HH:mm:ss') as momento_grafico,
-                        percentage_usage,
-                        fk_terminal
-                        from component_registration 
-                        where fk_terminal = ${idMaquina}
-                        and name_component = 'Ram memory'
-                    order by id_component_registration desc`;
-
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }

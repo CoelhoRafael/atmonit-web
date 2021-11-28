@@ -1,4 +1,6 @@
-function gerarGraficoDISCO(idMaquina) {
+function gerarGraficoDISCO() {
+    let idMaquina = sessionStorage.ID_ATM
+
     chart_div.style.display = 'none';
     if (proximaAtualizacao != undefined) {
         clearTimeout(proximaAtualizacao);
