@@ -12,7 +12,7 @@ function loadContent() {
 
 function getAllTerminals(idCompany) {
     let container = document.getElementById("terminal_container")
-
+    container.innerHTML = ""
     fetch(`/atms/findAllTerminals/${idCompany}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {
@@ -35,7 +35,7 @@ function getAllTerminals(idCompany) {
                             <button class="btn-crud edit" onclick="openModal()">
                                 <i class="fa-solid fa-pencil"></i>
                             </button>
-                            <button class="btn-crud remove">
+                            <button onclick='removerTerminal(${element.id_terminal})' class="btn-crud remove">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
@@ -56,4 +56,22 @@ function viewAtm(context) {
     console.log(context.id);
     sessionStorage.ID_ATM = context.id.split('-')[1]
     window.location.href = "./dashboard.html"
+}
+
+function removerTerminal(id_terminal) {
+    let confirmation = window.confirm("Deseja excluir o terminal com o id: " + id_terminal)
+
+    if (confirmation) {
+        fetch(`/atms/deletar/${id_terminal}`, {
+            method: "DELETE",
+        }).then(function (resposta) {
+
+        }).catch(function (resposta) {
+        });
+
+        setTimeout(() => {
+            getAllTerminals(sessionStorage.ID_COMPANY)
+        }, 2500)
+
+    }
 }

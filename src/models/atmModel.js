@@ -8,6 +8,16 @@ function listarAtms(idCompany) {
     return database.executar(instrucao);
 }
 
+function deletarAtm(idAtm) {
+    var instrucao = `
+    delete from component_registration where fk_terminal = ${idAtm};
+    delete from terminal where id_terminal =  ${idAtm};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listarAtms,
+    deletarAtm
 };

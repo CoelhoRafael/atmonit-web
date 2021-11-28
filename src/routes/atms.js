@@ -9,6 +9,10 @@ router.get("/findAllTerminals/:idCompany", function (req, res) {
 })
 
 
+router.delete("/deletar/:id", function (req, res) {
+    atmController.deletarAtm(req, res)
+})
+
 router.get("/getPopularTimes/", function (req, res) {
     popularTimes.rodarScriptPython(req, res)
 })
