@@ -19,12 +19,10 @@ function buscarUltimasMedidas(idMaquina,limite_linhas) {
 function buscarMedidasEmTempoReal(idMaquina) {
     instrucaoSql = `select
                         name_component,
+                        percentage_usage,
                         FORMAT(date_time,'HH:mm:ss') as momento_grafico,
-                        fk_terminal,
-                        ram_memory,
-                        terminal_storage
+                        fk_terminal
                         from component_registration 
-                        inner join terminal on id_terminal = fk_terminal
                         where fk_terminal = ${idMaquina}
                     order by id_component_registration desc`;
 

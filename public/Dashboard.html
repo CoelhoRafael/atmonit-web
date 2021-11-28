@@ -15,7 +15,7 @@
   <script src="js/dashboardRAM.js"></script>
 </head>
 
-<body onload="obterDadosGrafico(21)">
+<body>
 
   <div id="mySidenav" class="sidenav">
     <div class="logo">
@@ -104,7 +104,7 @@
 </html>
 <script>
   let proximaAtualizacao;
-
+  window.onload= obterDadosGrafico(21)
   // b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
   //verificar_autenticacao();
@@ -219,12 +219,12 @@
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
       chart.draw(dados, options);
       //Atualiza os dados de 2 em 2 segundos
-      proximaAtualizacao = setTimeout(() => atualizarGrafico(idMaquina, dados), 5000);
+      proximaAtualizacao = setInterval(() => atualizarLabel(idMaquina, dados), 5000);
     }
   }
   // só mexer se quiser alterar o tempo de atualização
   // ou se souber o que está fazendo!
-  function atualizarGrafico(idMaquina, dados) {
+  function atualizarLabel(idMaquina, dados) {
     fetch(`/medidas/tempo-real/${idMaquina}`, {
         cache: 'no-store'
       }).then(function (response) {
@@ -234,37 +234,33 @@
             // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
             // console.log(`Dados atuais do gráfico: ${dados}`);
             novoRegistro = JSON.parse(JSON.stringify(novoRegistro[0]))
-            
-            let CPU, RAM, HD1
+            let CPU, RAM, HD1, HD2
             if (novoRegistro.name_component == 'Processor') {
-              CPU = novoRegistro.percentage_usage
-
+              CPU = Math.round(novoRegistro.percentage_usage)
             }
             if (novoRegistro.name_component == 'Ram memory') {
-              RAM = novoRegistro.percentage_usage
-
+              RAM = Math.round(novoRegistro.percentage_usage)
             }
-            if (novoRegistro.name_component == 'Hard Disk 1') {
-              HD1 = novoRegistro.percentage_usage
+            if (novoRegistro.name_component == 'Hard Disk 2') {
+              HD2 = Math.round(novoRegistro.percentage_usage)
             }
             // tirando e colocando valores no gráfico
+            
             console.log(RAM)
             console.log(CPU)
-            console.log(HD1)
+            console.log(HD2)
+            if (RAM != undefined) {
+              ram.innerHTML = RAM + `%`
+              // disco.innerHTML = HD1
+              // ram.innerHTML = RAM
+            }
             if (CPU != undefined) {
               cpu.innerHTML = CPU + `%`
               // disco.innerHTML = HD1
               // ram.innerHTML = RAM
             }
-            if (RAM != undefined) {
-              console.log("pika2")
-              ram.innerHTML = RAM + `%`
-              // disco.innerHTML = HD1
-              // ram.innerHTML = RAM
-            }
-            if (HD1 != undefined) {
-              console.log("pika3")
-              disco.innerHTML = HD1 + `%`
+            if (HD2 != undefined) {
+              disco.innerHTML = HD2 + `%`
               // disco.innerHTML = HD1
               // ram.innerHTML = RAM
             }

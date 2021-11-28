@@ -9,7 +9,7 @@ function gerarGraficoDISCO(idMaquina) {
         }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
                     plotarGraficoDISCO(resposta, idMaquina);
@@ -97,9 +97,9 @@ function atualizarGraficoDISCO(idMaquina, dados) {
 
                     window.grafico_linha.update();
 
-
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoDISCO(idMaquina, dados), 5000
-                        );
+                    setTimeout(() => atualizarGraficoRAM(idMaquina, dados),
+                        5000);
+                    proximaAtualizacao = setInterval(() => atualizarLabel(idMaquina, dados), 5000);
 
                 });
             } else {

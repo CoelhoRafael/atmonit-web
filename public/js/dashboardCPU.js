@@ -9,7 +9,7 @@ function gerarGraficoCPU(idMaquina) {
         }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
                     plotarGraficoCPU(resposta, idMaquina);
@@ -98,8 +98,9 @@ async function atualizarGraficoCPU(idMaquina, dados) {
                     window.grafico_linha.update();
 
 
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idMaquina, dados),
-                        10000);
+                    setTimeout(() => atualizarGraficoRAM(idMaquina, dados),
+                        5000);
+                    proximaAtualizacao = setInterval(() => atualizarLabel(idMaquina, dados), 5000);
 
                 });
             } else {

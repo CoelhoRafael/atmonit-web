@@ -9,7 +9,7 @@ function gerarGraficoRAM(idMaquina) {
         }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
                     plotarGraficoRAM(resposta, idMaquina);
                 });
@@ -85,7 +85,7 @@ function atualizarGraficoRAM(idMaquina, dados) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro.percentage_usage)}`);
+                    // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro.percentage_usage)}`);
                     // console.log(`Dados atuais do gráfico: ${dados}`);
                     // tirando e colocando valores no gráfico
                     dados.labels.shift();
@@ -95,8 +95,9 @@ function atualizarGraficoRAM(idMaquina, dados) {
                     window.grafico_linha.update();
 
 
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idMaquina, dados),
-                        4000);
+                    setTimeout(() => atualizarGraficoRAM(idMaquina, dados),
+                        5000);
+                    proximaAtualizacao = setInterval(() => atualizarLabel(idMaquina, dados), 5000);
 
                 });
             } else {
