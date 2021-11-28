@@ -103,8 +103,9 @@ h3{
   margin-top: 20px !important;
   margin-left: 9.1%;
   background-color: #272c4a;
-  height: 500px;
   border-top: 3px solid #10AC84;
+  height: auto;
+  padding-bottom: 5%;
 }
 
 .content-box {
@@ -220,8 +221,8 @@ h3{
 }
 
 .box {
-  width: 115px;
-  height: 28vh;
+  width: 15%;
+  height: auto;
   background-color: #2b3150;
   padding: 15px;
   cursor: pointer;
