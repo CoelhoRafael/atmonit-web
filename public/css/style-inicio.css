@@ -7,6 +7,11 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+h3{
+  margin: 0;
+  padding: 0;
+}
+
 .clearfix {
   clear: both;
 }
@@ -237,7 +242,7 @@ body {
 
 .modal{
   width: 60%;
-  height: 60%;
+  height: auto;
   background-color: #fff;
   border: none;
   border-radius: 5px;
@@ -271,18 +276,23 @@ body {
 }
 
 .form-save-employee {
-  
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2vh 0;
+  width: 80%;
+  margin: auto;
 }
 
-.form-save-employee-field{
+.form-save-employee-field {
   display: flex;
   width: 100%;
-  flex-direction: column;
-  color: #FFF;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.form-save-employee-position{
+  margin: auto;
 }
 
 .radio-modal-container{
@@ -300,25 +310,37 @@ body {
   color: #10AC84;
 }
 
-.form-inpt{
-  width: 100%;
-border: 2px solid #10AC84;
-border-radius: 3px;
-outline: none;
-background-color: #fff;
-padding: 0.5rem 1rem;
-font-size: 1.1rem;
-margin-bottom: 22px;
-transition: .3s;
+.form-inpt {
+  border: 2px solid #10AC84;
+  border-radius: 3px;
+  outline: none;
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  margin: 3px;
+  font-size: 1.1rem;
+  margin-bottom: 22px;
+  transition: 0.3s;
 }
 
-.form-btn{
+.large-form{
+  width: 100%;
+}
+
+.medium-form{
+  width: 48%;
+}
+
+.small-form{
+  widows: 25%;
+}
+
+.form-btn {
   background-color: #10AC84;
   color: #fff;
   border-radius: 3px;
   border: none;
   cursor: pointer;
   transition: .3s;
-  width: 113.5%;
+  width: 99%;
   height: 35px;
 }
