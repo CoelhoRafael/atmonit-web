@@ -9,6 +9,10 @@ router.get("/findAllTerminals/:idCompany", function (req, res) {
 })
 
 
+router.put("/atualizar/:idTerminal", function (req, res) {
+    atmController.atualizarAtm(req, res);
+})
+
 router.delete("/deletar/:id", function (req, res) {
     atmController.deletarAtm(req, res)
 })

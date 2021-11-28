@@ -8,6 +8,14 @@ function listarAtms(idCompany) {
     return database.executar(instrucao);
 }
 
+function atualizarTerminal(idAtm, processador, modelo_processador, memoria_ram, armazenamento) {
+    var sql = `
+    update terminal set processor = '${processador}', ram_memory = ${memoria_ram}, terminal_storage = ${armazenamento}, cpu_model = '${modelo_processador}' where id_terminal = ${idAtm};    
+    `;
+    console.log("Executando a instrução SQL: \n" + sql);
+    return database.executar(sql);
+}
+
 function deletarAtm(idAtm) {
     var instrucao = `
     delete from component_registration where fk_terminal = ${idAtm};
@@ -19,5 +27,6 @@ function deletarAtm(idAtm) {
 
 module.exports = {
     listarAtms,
-    deletarAtm
+    deletarAtm,
+    atualizarTerminal
 };

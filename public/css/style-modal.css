@@ -1,38 +1,37 @@
-
-.bg-modal{
+.bg-modal {
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.75);
+    background-color: rgba(0, 0, 0, 0.75);
     position: fixed;
     z-index: 2;
-    top:-100%;
+    top: -100%;
     display: block;
     transition: 350ms;
 }
 
-.modal{
+.modal {
     width: 60%;
     height: 60%;
     background-color: #fff;
     border: none;
     border-radius: 5px;
     margin: 80px auto 0 30px;
-    
+
 }
 
-.title-form{
+.title-form {
     text-align: center;
     width: auto;
     margin-bottom: 22px;
 }
 
-.modal-nav{
+.modal-nav {
     width: 100%;
     height: 45px;
     background-color: #10AC84;
 }
 
-.modal span{
+.modal span {
     float: right;
     font-size: 30px;
     margin: 0px 15px;
@@ -40,54 +39,54 @@
     transition: 350ms;
 }
 
-.modal span:hover{
+.modal span:hover {
     color: red;
     transition: 350ms;
 }
 
 .form-save-employee {
-    
+
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2vh 0;
 }
 
-.form-save-employee-field{
+.form-save-employee-field {
     display: flex;
     width: 100%;
     flex-direction: column;
     color: #FFF;
 }
 
-.radio-modal-container{
+.radio-modal-container {
     border: none;
     display: flex;
     margin-left: 10%;
 }
 
-.radio-modal{
+.radio-modal {
     border-color: #10AC84;
     vertical-align: middle;
 }
 
-.radio-modal:hover{
+.radio-modal:hover {
     color: #10AC84;
 }
 
-.form-inpt{
+.form-inpt {
     width: 100%;
-	border: 2px solid #10AC84;
-	border-radius: 3px;
-	outline: none;
-	background-color: #fff;
-	padding: 0.5rem 1rem;
-	font-size: 1.1rem;
-	margin-bottom: 22px;
-	transition: .3s;
+    border: 2px solid #10AC84;
+    border-radius: 3px;
+    outline: none;
+    background-color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 22px;
+    transition: .3s;
 }
 
-.form-btn{
+.form-btn {
     background-color: #10AC84;
     color: #fff;
     border-radius: 3px;

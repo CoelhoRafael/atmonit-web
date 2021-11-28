@@ -32,7 +32,7 @@ function getAllTerminals(idCompany) {
                         <span class="status-info">Id: ${element.id_terminal}</span>
                         <span class="status-info">Bairro: ${element.district}</span>
                         <div class="container-btn">
-                            <button class="btn-crud edit" onclick="openModal()">
+                            <button class="btn-crud edit" onclick="openModal(${element.id_terminal})">
                                 <i class="fa-solid fa-pencil"></i>
                             </button>
                             <button onclick='removerTerminal(${element.id_terminal})' class="btn-crud remove">
