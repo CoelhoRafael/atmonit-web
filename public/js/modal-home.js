@@ -27,7 +27,7 @@ function validateUpdateTerminal() {
     else if (inpt_modelo_processador.value == '' || !inpt_modelo_processador || inpt_modelo_processador.value.length < 8) {
         inpt_modelo_processador.classList.toggle('wrong-input');
         inpt_modelo_processador.value = '';
-        inpt_modelo_processador.placeholder = 'Digite um processador válido';
+        inpt_modelo_processador.placeholder = 'Digite um modelo de processador válido';
         setTimeout(() => {
             inpt_modelo_processador.classList.remove('wrong-input');
         }, 1500);
@@ -36,7 +36,7 @@ function validateUpdateTerminal() {
     else if (inpt_memoria_ram.value == '' || !inpt_memoria_ram || inpt_memoria_ram.value.length < 8) {
         inpt_memoria_ram.classList.toggle('wrong-input');
         inpt_memoria_ram.value = '';
-        inpt_memoria_ram.placeholder = 'Digite um processador válido';
+        inpt_memoria_ram.placeholder = 'Digite um valor válido';
         setTimeout(() => {
             inpt_memoria_ram.classList.remove('wrong-input');
         }, 1500);
@@ -45,7 +45,7 @@ function validateUpdateTerminal() {
     else if (inpt_armazenamento.value == '' || !inpt_armazenamento || inpt_armazenamento.value.length < 8) {
         inpt_armazenamento.classList.toggle('wrong-input');
         inpt_armazenamento.value = '';
-        inpt_armazenamento.placeholder = 'Digite um processador válido';
+        inpt_armazenamento.placeholder = 'Digite um valor válido';
         setTimeout(() => {
             inpt_armazenamento.classList.remove('wrong-input');
         }, 1500);
@@ -53,7 +53,7 @@ function validateUpdateTerminal() {
     } else if (inpt_place_id.value == '' || !inpt_place_id || inpt_place_id.value.length < 8) {
         inpt_place_id.classList.toggle('wrong-input');
         inpt_place_id.value = '';
-        inpt_place_id.placeholder = 'Digite um processador válido';
+        inpt_place_id.placeholder = 'Digite uma key válida';
         setTimeout(() => {
             inpt_place_id.classList.remove('wrong-input');
         }, 1500);

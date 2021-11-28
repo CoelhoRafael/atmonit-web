@@ -55,6 +55,21 @@ function atualizar() {
                 limparFormulario()
                 getAllEmployees(sessionStorage.ID_COMPANY)
 
+                Toastify({
+                    text: "Funcionário atualizado com sucesso!",
+                    duration: 3000,
+                    destination: "",
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "#90be6d",
+                    },
+                    onClick: function () { } // Callback after click
+                }).showToast();
+
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!" + JSON.stringify(formulario.json));
             }
