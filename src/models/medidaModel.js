@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idMaquina,limite_linhas) {
+function buscarUltimasMedidas(idMaquina, limite_linhas) {
     instrucaoSql = `select top ${limite_linhas}
                         percentage_usage,
                         name_component,
@@ -32,7 +32,7 @@ function buscarMedidasEmTempoReal(idMaquina) {
     return database.executar(instrucaoSql);
 }
 
-function buscarUltimasMedidasCPU(idMaquina,limite_linhas) {
+function buscarUltimasMedidasCPU(idMaquina, limite_linhas) {
     instrucaoSql = `select top ${limite_linhas}
                         percentage_usage,
                         name_component,
@@ -48,30 +48,34 @@ function buscarUltimasMedidasCPU(idMaquina,limite_linhas) {
     return database.executar(instrucaoSql);
 }
 
+function buscarUltimasMedidasDISCO(idMaquina, limite_linhas) {
+    instrucaoSql = `select top ${limite_linhas}
+    percentage_usage,
+    name_component,
+    FORMAT(date_time,'HH:mm:ss') as momento_grafico,
+    terminal_storage
+    from component_registration
+    inner join terminal on id_terminal = fk_terminal
+    where fk_terminal = ${idMaquina}
+    and name_component = 'Hard Disk 1'
+    order by id_component_registration desc;
+                   `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 function buscarMedidasEmTempoRealCPU(idMaquina) {
     instrucaoSql = `select 
                         name_component,
                         FORMAT(date_time,'HH:mm:ss') as momento_grafico,
+                        percentage_usage,
                         fk_terminal
                         from component_registration 
                         where fk_terminal = ${idMaquina}
                         and name_component = 'Processor'
                     order by id_component_registration desc`;
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-function buscarUltimasMedidasRAM(idMaquina,limite_linhas) {
-    instrucaoSql = `select top ${limite_linhas}
-                        percentage_usage,
-                        name_component,
-                        FORMAT(date_time,'HH:mm:ss') as momento_grafico
-                        from component_registration
-                        where fk_terminal = ${idMaquina}
-                        and name_component = 'Ram memory'
-                        order by id_component_registration desc;
-                   `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
@@ -91,22 +95,21 @@ function buscarMedidasEmTempoRealRAM(idMaquina) {
     return database.executar(instrucaoSql);
 }
 
-function buscarUltimasMedidasDISCO(idMaquina,limite_linhas) {
+function buscarUltimasMedidasRAM(idMaquina, limite_linhas) {
     instrucaoSql = `select top ${limite_linhas}
                         percentage_usage,
                         name_component,
-                        FORMAT(date_time,'HH:mm:ss') as momento_grafico,
-                        ram_memory,
-                        terminal_storage
+                        FORMAT(date_time,'HH:mm:ss') as momento_grafico
                         from component_registration
-                        inner join terminal on id_terminal = fk_terminal
                         where fk_terminal = ${idMaquina}
-                        and name_component = 'Hard Disk 1'
+                        and name_component = 'Ram memory'
                         order by id_component_registration desc;
                    `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
+
 
 function buscarMedidasEmTempoRealDISCO(idMaquina) {
     instrucaoSql = `select 

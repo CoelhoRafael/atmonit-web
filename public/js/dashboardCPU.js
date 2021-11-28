@@ -1,23 +1,33 @@
-function gerarGraficoCPU(idMaquina) {
+let proximaAtualizacaoCpu;
+
+let cpu_card_info = document.getElementById('cpu_card')
+let ram_card_info = document.getElementById('ram_card')
+
+function gerarGraficoCPU() {
+    cpu_card_info.classList.add("expand-selected")
+    ram_card_info.classList.remove("expand-selected")
+
+    clearTimeout(proximaAtualizacaoRam)
+    let idMaquina = sessionStorage.ID_ATM
+
     chart_div.style.display = 'none';
-    if (proximaAtualizacao != undefined) {
-        clearTimeout(proximaAtualizacao);
+    if (proximaAtualizacaoCpu != undefined) {
+        clearTimeout(proximaAtualizacaoCpu);
     }
 
     fetch(`/medidas/ultimas/cpu/${idMaquina}`, {
-            cache: 'no-store'
-        }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
+        cache: 'no-store'
+    }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                    plotarGraficoCPU(resposta, idMaquina);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
+                plotarGraficoCPU(resposta, idMaquina);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
@@ -27,7 +37,7 @@ function gerarGraficoCPU(idMaquina) {
 // só altere aqui se souber o que está fazendo!
 function plotarGraficoCPU(resposta, idMaquina) {
     console.log('iniciando plotagem do gráfico...');
-    var dados = {
+    var dadosCPU = {
         labels: [],
         datasets: [{
             yAxisID: 'y-CPU',
@@ -41,13 +51,13 @@ function plotarGraficoCPU(resposta, idMaquina) {
 
     for (i = 0; i < resposta.length; i++) {
         var registro = resposta[i];
-        dados.labels.push(registro.momento_grafico);
-        dados.datasets[0].data.push(Math.trunc(registro.percentage_usage));
+        dadosCPU.labels.push(registro.momento_grafico);
+        dadosCPU.datasets[0].data.push(Math.trunc(registro.percentage_usage));
     }
 
     var ctx = canvas_grafico.getContext('2d');
     window.grafico_linha = Chart.Line(ctx, {
-        data: dados,
+        data: dadosCPU,
         //Configurações do gráfico
         options: {
             title: {
@@ -69,44 +79,43 @@ function plotarGraficoCPU(resposta, idMaquina) {
                     gridLines: {
                         drawOnChartArea: false,
                     },
-                }, ],
+                },],
             }
         }
     });
 
-    //Atualiza os dados de 2 em 2 segundos
-    setTimeout(() => atualizarGraficoCPU(idMaquina, dados), 5000);
+    //Atualiza os dadosCPU de 2 em 2 segundos
+    setTimeout(() => atualizarGraficoCPU(idMaquina, dadosCPU), 4000);
 }
 
 // só mexer se quiser alterar o tempo de atualização
 // ou se souber o que está fazendo!
-async function atualizarGraficoCPU(idMaquina, dados) {
-    await fetch(`/medidas/tempo-real/cpu/${idMaquina}`, {
-            cache: 'no-store'
-        }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
+function atualizarGraficoCPU(idMaquina, dadosCPU) {
+    fetch(`/medidas/tempo-real/cpu/${idMaquina}`, {
+        cache: 'no-store'
+    }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (novoRegistro) {
 
-                    // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    // console.log(`Dados atuais do gráfico: ${dados}`);
-                    // tirando e colocando valores no gráfico
-                    dados.labels.shift(); // apagar o primeiro
-                    dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-                    dados.datasets[0].data.shift(); // apagar o primeiro de umidade
-                    dados.datasets[0].data.push(novoRegistro[0].percentage_usage); // incluir uma nova medida de umidade
+                // console.log(`DadosCPU recebidos: ${JSON.stringify(novoRegistro)}`);
+                // console.log(`DadosCPU atuais do gráfico: ${dadosCPU}`);
+                // tirando e colocando valores no gráfico
+                dadosCPU.labels.shift(); // apagar o primeiro
+                dadosCPU.labels.push(novoRegistro[0].momento_grafico);
+                dadosCPU.datasets[0].data.shift();
+                dadosCPU.datasets[0].data.push(novoRegistro[0].percentage_usage);
+                window.grafico_linha.update();
 
-                    window.grafico_linha.update();
 
+                proximaAtualizacaoCpu = setTimeout(() => atualizarGraficoCPU(idMaquina, dadosCPU),
+                    4000);
 
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idMaquina, dados),
-                        10000);
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                proximaAtualizacao = setTimeout(() => atualizarGraficoCPU(idMaquina, dados), 2000);
-            }
-        })
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+            proximaAtualizacaoCpu = setTimeout(() => atualizarGraficoCPU(idMaquina, dadosCPU), 4000);
+        }
+    })
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
