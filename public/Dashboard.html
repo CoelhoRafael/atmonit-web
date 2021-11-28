@@ -11,19 +11,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
-  <script src="js/dashboardDISCO.js"></script>
-  <script src="js/dashboardCPU.js"></script>
-  <script src="js/dashboardRAM.js"></script>
+
 </head>
 
-<body onload="obterDadosGrafico(21)">
+<body>
 
   <div id="mySidenav" class="sidenav">
     <div class="logo">
       <img src="img/atmonit.svg" alt="" class="logo-img">
     </div>
     <a href="home.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
-    <a href="#" class="icon-a selected"><i class="fas fa-chart-line icons"></i> Dashboard</a>
     <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
     <a href="cadastro.html" class="icon-a"><i class="fa-solid fa-user-plus"></i> Add Funcionarios</a>
     <a href="funcionarios.html" class="icon-a"><i class="fa-solid fa-list"></i> Funcionarios</a>
@@ -44,43 +41,49 @@
 
     <br />
 
-    <div class="col-div-3" >
-      <div class="box expand" onclick="gerarGraficoRAM(21)">
-        <p id="ram">40%</p> <br />
-        <span  class="indicator-subtitle">RAM</span>
-
-        <!-- <i class="fa fa-users box-icon"></i> -->
-      </div>
+    <div class="col-div-3">
 
 
 
-      <div class="box expand" onclick="gerarGraficoCPU(21)">
-        <p id="cpu">50%</p><br />
+
+      <div id="cpu_card" class="box expand pointer" onclick="gerarGraficoCPU()">
+        <span id="status_cpu" class="status-info">
+        </span>
+        <p id="cpu_card_value">0%</p>
         <span class="indicator-subtitle">CPU</span>
 
       </div>
 
 
+      <div id="ram_card" class="box expand pointer" onclick="gerarGraficoRAM()">
+        <span id="status_ram" class="status-info">
+        </span>
+        <p id="ram_card_value">0%</p>
+        <span class="indicator-subtitle">RAM</span>
 
-      <div class="box expand" onclick="gerarGraficoDISCO(21)">
-        <p id="disco">35%</p><br />
-        <span  class="indicator-subtitle">DISCO</span>
-        <!-- <i class="fa fa-shopping-bag box-icon"></i> -->
+
+      </div>
+
+      <div class="box">
+        <span id="status_disco" class="status-info">
+        </span>
+        <p id="disco_card_value">0%</p>
+        <span class="indicator-subtitle">DISCO</span>
       </div>
 
 
       <div class="col-div-3">
-        <div class="box expand">
+        <div class="box">
           <span class="status-title">Indices De Uso</span>
           <div class="status-position">
             <span class="status-info">
-              <div class="indicator normal"></div>Moderado
+              <div class="indicator normal"></div>Normal
             </span>
             <span class="status-info unused">
-              <div class="indicator caution"></div> Frequente
+              <div class="indicator caution"></div>Atenção
             </span>
             <span class="status-info unused">
-              <div class="indicator danger"></div> Intenso
+              <div class="indicator danger"></div>Crítico
             </span>
           </div>
         </div>
@@ -94,7 +97,7 @@
     <div class="col-div-8">
       <div class="box-8">
         <div class="content-box">
-          <h2 class="card-title">Desempenho Mensal Do Caixa</h2>
+          <h2 class="card-title">Dados em  tempo real:</h2>
           <div id="chart_div" class="graphic"></div>
           <canvas id="canvas_grafico" width="200px" height="75px"></canvas>
         </div>
@@ -105,182 +108,7 @@
 </body>
 
 </html>
-<script>
-  let proximaAtualizacao;
-
-  // b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
-  //verificar_autenticacao();
-
-  // altere aqui como os dados serão exibidos
-  // e como são recuperados do BackEnd
-  function obterDadosGrafico(idMaquina) {
-    if (proximaAtualizacao != undefined) {
-      clearTimeout(proximaAtualizacao);
-    }
-    fetch(`/medidas/ultimas/${idMaquina}`, {
-        cache: 'no-store'
-      }).then(function (response) {
-        if (response.ok) {
-          response.json().then(function (resposta) {
-            // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-            resposta.reverse()
-            plotarGrafico(resposta, idMaquina);
-          });
-        } else {
-          console.error('Nenhum dado encontrado ou erro na API');
-        }
-      })
-      .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-      });
-
-  }
-
-  // só altere aqui se souber o que está fazendo!
-  function plotarGrafico(resposta, idMaquina) {
-    console.log('iniciando plotagem do gráfico...');
-
-    google.charts.load('current', {
-      packages: ['corechart', 'line']
-    });
-    google.charts.setOnLoadCallback(drawBasic);
-
-    function drawBasic() {
-
-      var dados = new google.visualization.DataTable();
-      dados.addColumn('string', 'Hora');
-      dados.addColumn('number', 'RAM');
-      dados.addColumn('number', 'CPU');
-      dados.addColumn('number', 'DISCO');
-
-      var options = {
-        legend: {
-          textStyle: {
-            color: '#FFF'
-          },
-        },
-        hAxis: {
-          title: 'TEMPO',
-          textStyle: {
-            color: '#ffffff',
-            fontSize: 18,
-            fontName: 'Arial',
-            bold: true
-            // italic: true
-          },
-          titleTextStyle: {
-            color: '#ffffff',
-            fontSize: 18,
-            bold: true
-          },
-        },
-        vAxis: {
-          maxValue: 100,
-          minValue: 0,
-          title: 'DESEMPENHO',
-          textStyle: {
-            color: '#ffffff',
-            fontSize: 18,
-            fontName: 'Arial',
-            bold: true
-            // italic: true
-          },
-          titleTextStyle: {
-            color: '#ffffff',
-            fontSize: 18,
-            bold: true
-          },
-        },
-        textStyle: {
-          color: '#ffffff',
-          fontSize: 18,
-          fontName: 'Arial',
-          bold: true
-          // italic: true
-        },
-        backgroundColor: '#272c4a',
-
-      };
-      for (i = 0; i < resposta.length; i++) {
-        var registro = resposta[i];
-        var CPU, RAM, HD1
-        if (registro.name_component == 'Processor') {
-          CPU = Math.trunc(registro.percentage_usage)
-        }
-        if (registro.name_component == 'Ram memory') {
-          RAM = registro.percentage_usage
-        }
-        if (registro.name_component == 'Hard Disk 1') {
-          HD1 = registro.percentage_usage
-        }
-        dados.addRows([
-          [registro.momento_grafico, RAM, CPU, HD1]
-        ])
-      }
-
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-      chart.draw(dados, options);
-      //Atualiza os dados de 2 em 2 segundos
-      proximaAtualizacao = setTimeout(() => atualizarGrafico(idMaquina, dados), 5000);
-    }
-  }
-  // só mexer se quiser alterar o tempo de atualização
-  // ou se souber o que está fazendo!
-  function atualizarGrafico(idMaquina, dados) {
-    fetch(`/medidas/tempo-real/${idMaquina}`, {
-        cache: 'no-store'
-      }).then(function (response) {
-        if (response.ok) {
-          response.json().then(function (novoRegistro) {
-
-            // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-            // console.log(`Dados atuais do gráfico: ${dados}`);
-            novoRegistro = JSON.parse(JSON.stringify(novoRegistro[0]))
-            
-            let CPU, RAM, HD1
-            if (novoRegistro.name_component == 'Processor') {
-              CPU = novoRegistro.percentage_usage
-
-            }
-            if (novoRegistro.name_component == 'Ram memory') {
-              RAM = novoRegistro.percentage_usage
-
-            }
-            if (novoRegistro.name_component == 'Hard Disk 1') {
-              HD1 = novoRegistro.percentage_usage
-            }
-            // tirando e colocando valores no gráfico
-            console.log(RAM)
-            console.log(CPU)
-            console.log(HD1)
-            if (CPU != undefined) {
-              cpu.innerHTML = CPU + `%`
-              // disco.innerHTML = HD1
-              // ram.innerHTML = RAM
-            }
-            if (RAM != undefined) {
-              console.log("pika2")
-              ram.innerHTML = RAM + `%`
-              // disco.innerHTML = HD1
-              // ram.innerHTML = RAM
-            }
-            if (HD1 != undefined) {
-              console.log("pika3")
-              disco.innerHTML = HD1 + `%`
-              // disco.innerHTML = HD1
-              // ram.innerHTML = RAM
-            }
-
-          });
-        } else {
-          console.error('Nenhum dado encontrado ou erro na API');
-          proximaAtualizacao = setTimeout(() => atualizarGrafico(idMaquina, dados), 2000);
-        }
-      })
-      .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-      });
-
-  }
-</script>
+<script src="js/dashboardDISCO.js"></script>
+<script src="js/dashboardCPU.js"></script>
+<script src="js/dashboardRAM.js"></script>
+<script src="js/dashboard.js"></script>

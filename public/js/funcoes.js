@@ -3,7 +3,7 @@ function checkSession() {
     let nome = sessionStorage.NOME_USER;
     let office = sessionStorage.OFFICE;
     let option_nav = document.getElementById("func_nav_option");
-    console.log(office);
+    // console.log(office);
 
     if (office != "administrador") {
         option_nav.style.display = "none"
