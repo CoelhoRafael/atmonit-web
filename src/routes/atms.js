@@ -18,7 +18,7 @@ router.delete("/deletar/:id", function (req, res) {
     atmController.deletarAtm(req, res)
 })
 
-router.get("/popularTimes/", (req, res, next) => {
+router.get("/popularTimes/:placeId", (req, res, next) => {
     var options = {
         args: ["ChIJ0RGdBvFZzpQRQeWcrwlhk8s"]
     }

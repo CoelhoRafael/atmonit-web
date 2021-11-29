@@ -2,11 +2,13 @@
 function checkSession() {
     let nome = sessionStorage.NOME_USER;
     let office = sessionStorage.OFFICE;
-    let option_nav = document.getElementById("func_nav_option");
+    let func_option_nav = document.getElementById("func_nav_option");
+    let add_func_nav = document.getElementById("add_func_nav");
     // console.log(office);
 
     if (office != "administrador") {
-        option_nav.style.display = "none"
+        func_option_nav.style.display = "none"
+        add_func_nav.style.display = "none"
     }
 
     if (!nome) {
