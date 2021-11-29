@@ -18,12 +18,12 @@ router.delete("/deletar/:id", function (req, res) {
     atmController.deletarAtm(req, res)
 })
 
-router.get("/getPopularTimes/", function (req, res) {
-    popularTimes.rodarScriptPython(req, res)
-})
-
 router.get("/popularTimes/", (req, res, next) => {
-    PythonShell.run('teste.py', null, function (err, result) {
+    var options = {
+        args: ["ChIJ0RGdBvFZzpQRQeWcrwlhk8s"]
+    }
+
+    PythonShell.run('teste.py', options, function (err, result) {
         if (err) throw err;
         res.send(result)
     });
