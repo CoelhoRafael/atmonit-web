@@ -8,10 +8,12 @@ function getPopularTimes() {
     }).then(function (response) {
         console.log(response);
         response.json().then((resposta) => {
-            let resp = JSON.stringify(resposta).replace(/"/g, '')
-            resp = eval(resp);
-            console.log(resp[0]);
-            console.log(resp[0].populartimes);
+            console.log(resposta);
+
+            // let resp = JSON.stringify(resposta).replace(/"/g, '')
+            // resp = eval(resp);
+            // console.log(resp[0]);
+            // console.log(resp[0].populartimes);
         })
     })
         .catch(function (error) {
