@@ -9,7 +9,7 @@ router.get("/", function (req, res) {
 router.get("/popularTimes/", (req, res, next) => {
 
     var options = {
-        scriptPath: "/home/site/repository",
+        scriptPath: "/home/site/repository/",
     }
 
     PythonShell.run('teste.py', options, function (err, result) {
