@@ -3,7 +3,7 @@ window.onload = getPopularTimes()
 function getPopularTimes() {
     plotarGrafico()
     console.log("Alou");
-    fetch(`/popularTimes/`, {
+    fetch(`atms/popularTimes/`, {
         cache: 'no-store'
     }).then(function (response) {
         console.log(response);
