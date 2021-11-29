@@ -1,4 +1,4 @@
-window.onload = getPopularTimes()
+// window.onload = getPopularTimes()
 
 function getPopularTimes() {
 
