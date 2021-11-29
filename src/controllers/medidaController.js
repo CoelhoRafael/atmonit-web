@@ -42,7 +42,7 @@ function buscarMedidasEmTempoReal(req, res) {
 
 function buscarUltimasMedidasCPU(req, res) {
 
-    const limite_linhas = 5;
+    const limite_linhas = 15;
     var idMaquina = req.params.idMaquina;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
@@ -62,7 +62,7 @@ function buscarUltimasMedidasCPU(req, res) {
 
 function buscarUltimasMedidasRAM(req, res) {
 
-    const limite_linhas = 5;
+    const limite_linhas = 15;
     var idMaquina = req.params.idMaquina;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
@@ -168,6 +168,6 @@ module.exports = {
     buscarUltimasMedidasDISCO,
     buscarMedidasEmTempoRealDISCO,
     buscarUltimasMedidasRAM,
-    buscarMedidasEmTempoRealRAM,
+    buscarMedidasEmTempoRealRAM
 
 }
