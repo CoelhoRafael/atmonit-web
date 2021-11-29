@@ -35,9 +35,6 @@ function getAllTerminals(idCompany) {
                             <button class="btn-crud edit" onclick="openModal(${element.id_terminal})">
                                 <i class="fas fa-info"></i>
                             </button>
-                            <button class="btn-crud edit" onclick="openModal(${element.id_terminal})">
-                                <i class="fa-solid fa-pencil"></i>
-                            </button>
                             <button onclick='removerTerminal(${element.id_terminal})' class="btn-crud remove">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
