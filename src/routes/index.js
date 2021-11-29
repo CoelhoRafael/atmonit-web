@@ -9,7 +9,7 @@ router.get("/", function (req, res) {
 router.get("/popularTimes/", (req, res, next) => {
 
     var options = {
-        scriptPath: "C:/Users/abner/Desktop/atmonit-web",
+        scriptPath: "/home/site/repository",
         args: ["ChIJ0RGdBvFZzpQRQeWcrwlhk8s"]
     }
 
