@@ -43,8 +43,8 @@ function plotarGraficoRAM(resposta, idMaquina) {
         datasets: [{
             yAxisID: 'y-RAM',
             label: 'RAM',
-            borderColor: '#fffff',
-            backgroundColor: '#bdbdbd',
+            borderColor: 'rgb(234, 122, 11)',
+            backgroundColor: 'orange',
             fill: false,
             data: []
         }]

@@ -42,8 +42,8 @@ function plotarGraficoCPU(resposta, idMaquina) {
         datasets: [{
             yAxisID: 'y-CPU',
             label: 'CPU',
-            borderColor: '#fffff',
-            backgroundColor: '#ffff',
+            borderColor: 'rgb(234, 122, 11)',
+            backgroundColor: 'orange',
             fill: false,
             data: []
         }]

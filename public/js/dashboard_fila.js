@@ -26,8 +26,8 @@ function plotarGrafico() {
         datasets: [{
             yAxisID: 'y-fila',
             label: 'Uso',
-            borderColor: '#fffff',
-            backgroundColor: '#ffff',
+            borderColor: 'rgb(234, 122, 11)',
+            backgroundColor: 'orange',
             fill: true,
             data: [0,
                 0,
