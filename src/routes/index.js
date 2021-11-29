@@ -14,7 +14,7 @@ router.get("/popularTimes/", (req, res, next) => {
 
     PythonShell.run('teste.py', options, function (err, result) {
         if (err) throw err;
-        res.send(result)
+        console.log(result);
     });
 });
 
