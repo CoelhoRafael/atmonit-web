@@ -1,9 +1,9 @@
 window.onload = getPopularTimes()
 
 function getPopularTimes() {
+    let placeId = getPlaceId()
     plotarGrafico()
-    console.log("Alou");
-    fetch(`atms/popularTimes/`, {
+    fetch(`atms/popularTimes/${placeId}`, {
         cache: 'no-store'
     }).then(function (response) {
         console.log(response);
@@ -18,6 +18,18 @@ function getPopularTimes() {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
 
+}
+
+function getPlaceId() {
+    let terminals = JSON.parse(sessionStorage.ATM_INFOS)
+    let getPlaceId
+
+    for (let index = 0; index < terminals.length; index++) {
+        if (terminals[index].id_terminal == sessionStorage.ID_ATM) {
+            getPlaceId = terminals[index].place_id
+        }
+    }
+    return getPlaceId
 }
 
 function plotarGrafico() {

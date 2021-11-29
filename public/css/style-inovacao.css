@@ -1,21 +1,23 @@
-body{
-	margin:0px;
-	padding: 0px;
-	background-color:#1b203d;
-	overflow: hidden;
-	font-family: system-ui;
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: #1b203d;
+  overflow: hidden;
+  font-family: system-ui;
   font-family: 'Poppins', sans-serif;
 }
-.clearfix{
-	clear: both;
+
+.clearfix {
+  clear: both;
 }
-.logo{
-	margin: 0px;
-	margin-left: 28px;
+
+.logo {
+  margin: 0px;
+  margin-left: 28px;
   margin-bottom: 30px;
 }
 
-.logo-img{
+.logo-img {
 
   padding: 4px 0px 5px 0px;
 
@@ -33,6 +35,7 @@ body{
   transition: 0.5s;
   padding-top: 30px;
 }
+
 .sidenav a {
   padding: 15px 8px 15px 32px;
   text-decoration: none;
@@ -41,14 +44,15 @@ body{
   display: block;
   transition: 0.3s;
 }
+
 .sidenav a:hover {
   color: #f1f1f1e7;
-  background-color:#1b203d;
+  background-color: #1b203d;
 }
 
-.selected{
+.selected {
 
-  background-color:#1b203d;  
+  background-color: #1b203d;
   color: #f1f1f1e7 !important;
 
 }
@@ -60,36 +64,49 @@ body{
   margin-right: 20px;
 }
 
-.head{
-	padding:20px;
+.head {
+  padding: 20px;
 }
 
-.col-div-8{
-	width: 103.5%;
-	float: left;
+.col-div-8 {
+  width: 103.5%;
+  float: left;
 }
 
-.box-8{
-	width: 95%;
-	background-color: #272c4a;
-	height: 500px;
-    border-top: 3px solid #10AC84;
+.box-8 {
+  width: 95%;
+  background-color: #272c4a;
+  height: 500px;
+  border-top: 3px solid #10AC84;
 }
 
 
-.content-box{
-	padding: 20px;
+.content-box {
+  padding: 20px;
 }
 
-.card-title{
-    margin: 0px;
-    font-size: 20px;
-    color: #10AC84;
-  }
+.card-title {
+  margin: 0px;
+  font-size: 20px;
+  color: #10AC84;
+}
 
-.graphic{
+.graphic {
 
-    width:95%;
-    height: 90%;
-    overflow: hidden;
+  width: 95%;
+  height: 90%;
+  overflow: hidden;
+}
+
+.inovacao-select {
+  margin-top: 1%;
+  width: 18%;
+  border: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 3px;
+  outline: none;
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  margin-bottom: 22px;
+  transition: .3s;
 }

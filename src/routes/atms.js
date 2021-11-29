@@ -20,10 +20,10 @@ router.delete("/deletar/:id", function (req, res) {
 
 router.get("/popularTimes/:placeId", (req, res, next) => {
     var options = {
-        args: ["ChIJ0RGdBvFZzpQRQeWcrwlhk8s"]
+        args: [req.params.placeId]
     }
 
-    PythonShell.run('teste.py', options, function (err, result) {
+    PythonShell.run('get-popular-times.py', options, function (err, result) {
         if (err) throw err;
         res.send(result)
     });
