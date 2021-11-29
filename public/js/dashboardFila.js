@@ -1,4 +1,24 @@
+window.onload = getPopularTimes()
 
+function getPopularTimes() {
+    plotarGrafico()
+    console.log("Alou");
+    fetch(`/popularTimes/`, {
+        cache: 'no-store'
+    }).then(function (response) {
+        console.log(response);
+        response.json().then((resposta) => {
+            let resp = JSON.stringify(resposta).replace(/"/g, '')
+            resp = eval(resp);
+            console.log(resp[0]);
+            console.log(resp[0].populartimes);
+        })
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
+}
 
 function plotarGrafico() {
     var dados = {
@@ -59,7 +79,7 @@ function plotarGrafico() {
                     gridLines: {
                         drawOnChartArea: false
                     },
-                }, ],
+                },],
             }
         }
     });
