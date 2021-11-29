@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'atmonit-web'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_26DFB18EC20944AA90B4247A113FE634 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_76B82AE35F994556B1C7ED7C3F73DC4C }}
           package: .
