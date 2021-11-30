@@ -143,6 +143,11 @@ h3{
   background-color: rgb(238, 74, 74);
 }
 
+.exclamation{
+  background-color: #8a08e8;
+  margin-left: 5px;
+}
+
 .card-title {
   margin: 0px;
   font-size: 20px;
@@ -245,6 +250,23 @@ h3{
   z-index: 2;
   top:-100%;
   display: block;
+  transition: 350ms;
+}
+
+.infoModal{
+  width: 40%;
+  height: auto;
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  margin: 10% auto 0 20%;
+}
+
+.close{
+  float: right;
+  font-size: 30px;
+  margin: 0px 15px;
+  cursor: pointer;
   transition: 350ms;
 }
 
@@ -351,4 +373,9 @@ h3{
   transition: .3s;
   width: 99%;
   height: 35px;
+}
+
+.text-info-caixa{
+  opacity: 80%;
+  text-align: center;
 }

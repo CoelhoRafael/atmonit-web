@@ -110,3 +110,13 @@ function atualizar() {
 function limparFormulario() {
     document.getElementById("form_atualizar_caixa").reset();
 }
+
+//Modal de informações do caixa
+
+function openInfoModal(){
+    document.getElementById('modalInfo').style.top = "0";
+}
+
+function closeInfoModal(){
+    document.getElementById('modalInfo').style.top = "-100%";
+}

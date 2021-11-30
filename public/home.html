@@ -77,6 +77,38 @@
       </div>
     </div>
 
+    <!-- Modal de informações -->
+    <div class="bg-modal" id="modalInfo">
+      <div class="infoModal">
+        <div class="modal-nav">
+          <span class="close" onclick="closeInfoModal()">&times;</span>
+        </div>
+        <div class="form-save-employee">
+
+          <form action="" method="" onsubmit="r" id="form_atualizar_caixa">
+            <h3 class="title-form">informações Do Caixa</h3>
+
+
+            <div class="form-save-employee-field" style="text-align: center;">
+              <span class="text-info-caixa">
+                <h3>
+                  Disco: <span></span>
+                </h3>
+                <h3>
+                  CPU: <span></span>
+                </h3>
+                <h3>
+                  RAM: <span></span>
+                </h3>
+              </span>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+
     <div class="col-div-8">
       <div class="box-8">
         <div class="content-box">
@@ -87,7 +119,7 @@
         <div id="terminal_container" class="col-div-3">
 
 
-          <!-- <div class="box expand">
+          <div class="box expand">
             <span class="status-info">
               <div class="indicator normal"></div>Disponivel
             </span>
@@ -102,6 +134,9 @@
               </button>
               <button class="btn-crud remove">
                 <i class="fa-solid fa-trash"></i>
+              </button>
+              <button class="btn-crud exclamation" onclick="openInfoModal()">
+                <i class="fa-solid fa-circle-exclamation"></i>
               </button>
             </div>
           </div>
@@ -122,6 +157,9 @@
               <button class="btn-crud remove">
                 <i class="fa-solid fa-trash"></i>
               </button>
+              <button class="btn-crud exclamation">
+                <i class="fa-solid fa-circle-exclamation"></i>
+              </button>
             </div>
           </div>
 
@@ -141,6 +179,9 @@
               </button>
               <button class="btn-crud remove">
                 <i class="fa-solid fa-trash"></i>
+              </button>
+              <button class="btn-crud exclamation">
+                <i class="fa-solid fa-circle-exclamation"></i>
               </button>
             </div>
           </div>
@@ -164,6 +205,9 @@
               <button class="btn-crud remove">
                 <i class="fa-solid fa-trash"></i>
               </button>
+              <button class="btn-crud exclamation">
+                <i class="fa-solid fa-circle-exclamation"></i>
+              </button>
             </div>
           </div>
 
@@ -186,6 +230,9 @@
               <button class="btn-crud remove">
                 <i class="fa-solid fa-trash"></i>
               </button>
+              <button class="btn-crud exclamation">
+                <i class="fa-solid fa-circle-exclamation"></i>
+              </button>
             </div>
           </div>
 
@@ -207,8 +254,11 @@
               <button class="btn-crud remove">
                 <i class="fa-solid fa-trash"></i>
               </button>
+              <button class="btn-crud exclamation">
+                <i class="fa-solid fa-circle-exclamation"></i>
+              </button>
             </div>
-          </div> -->
+          </div>
 
 
         </div>
