@@ -47,6 +47,18 @@ body{
 	/* padding: 1px 0px 50px 0px */
 }
 
+.img-loading{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 22px;
+	/* Alterar display*/
+	display: block;
+}
+
+.loading{
+	width: 10%;
+}
+
 .logo-sub{
 
 	font-weight: bolder;
