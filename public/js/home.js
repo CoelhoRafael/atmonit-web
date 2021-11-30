@@ -12,7 +12,7 @@ function loadContent() {
 
 function getAllTerminals(idCompany) {
     let container = document.getElementById("terminal_container")
-    container.innerHTML = ""
+    // container.innerHTML = ""
     fetch(`/atms/findAllTerminals/${idCompany}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {
@@ -20,26 +20,48 @@ function getAllTerminals(idCompany) {
 
                 // console.log(JSON.stringify(resposta));
                 resposta.forEach(element => {
+                    // container.innerHTML += `
+                    // <div class="box expand">
+                    //     <span class="status-info">
+                    //         <div class="indicator normal"></div>Disponivel
+                    //     </span>
+                    //     <a id='atm-${element.id_terminal}' onclick="viewAtm(this)"">
+                    //         <img src="img/atm.png" class="card-atm" alt="">
+                    //         <!-- <i class="fa fa-users box-icon"></i> -->
+                    //     </a>
+                    //     <span class="status-info">Id: ${element.id_terminal}</span>
+                    //     <span class="status-info">Bairro: ${element.district}</span>
+                    //     <div class="container-btn">
+                    //         <button class="btn-crud edit" onclick="openModal(${element.id_terminal})">
+                    //             <i class="fa-solid fa-pencil"></i>
+                    //         </button>
+                    //         <button onclick='removerTerminal(${element.id_terminal})' class="btn-crud remove">
+                    //             <i class="fa-solid fa-trash"></i>
+                    //         </button>
+                    //     </div>
+                    // </div>`
                     container.innerHTML += `
                     <div class="box expand">
                         <span class="status-info">
-                            <div class="indicator normal"></div>Disponivel
+                            <div class="indicator caution"></div>Manutenção
                         </span>
-                        <a id='atm-${element.id_terminal}' onclick="viewAtm(this)"">
+                        <a id='atm-${element.id_terminal}' onclick="viewAtm(this)">
                             <img src="img/atm.png" class="card-atm" alt="">
-                            <!-- <i class="fa fa-users box-icon"></i> -->
                         </a>
                         <span class="status-info">Id: ${element.id_terminal}</span>
                         <span class="status-info">Bairro: ${element.district}</span>
                         <div class="container-btn">
-                            <button class="btn-crud edit" onclick="openModal(${element.id_terminal})">
-                                <i class="fa-solid fa-pencil"></i>
-                            </button>
-                            <button onclick='removerTerminal(${element.id_terminal})' class="btn-crud remove">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                        <button class="btn-crud edit" onclick="openModal(${element.id_terminal})">
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
+                        <button class="btn-crud remove" onclick='removerTerminal(${element.id_terminal})'>
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                        <button class="btn-crud exclamation" onclick='openInfoModal()'>
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        </button>
                         </div>
-                    </div>`
+                  </div>`
                 });
             });
         } else {
