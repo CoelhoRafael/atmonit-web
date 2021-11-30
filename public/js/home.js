@@ -38,6 +38,9 @@ function getAllTerminals(idCompany) {
                             <button onclick='removerTerminal(${element.id_terminal})' class="btn-crud remove">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
+                            <button class="btn-crud exclamation" onclick="openInfoModal(${element.id_terminal})">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                            </button>
                         </div>
                     </div>`
                 });

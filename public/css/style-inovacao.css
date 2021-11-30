@@ -110,3 +110,7 @@ body {
   margin-bottom: 22px;
   transition: .3s;
 }
+
+.chart-gif{
+  text-align: center;
+}
