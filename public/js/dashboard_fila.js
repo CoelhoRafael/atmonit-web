@@ -59,10 +59,18 @@ function getPopularTimes(option) {
             resp = eval(resp);
             console.log(resp[0].populartimes[0].data);
             if (option) {
-                dados.datasets[0].data = resp[0].populartimes[option.value].data
+                let dadosPopularTimes = resp[0].populartimes[option.value].data
+                for (let index = 0; index < dadosPopularTimes.length; index++) {
+                    if(dadosPopularTimes[index] == 0) dadosPopularTimes[index] = 1 
+                }
+                dados.datasets[0].data = dadosPopularTimes
             }
             else {
-                dados.datasets[0].data = resp[0].populartimes[6].data
+                let dadosPopularTimes = resp[0].populartimes[6].data
+                for (let index = 0; index < dadosPopularTimes.length; index++) {
+                    if(dadosPopularTimes[index] == 0) dadosPopularTimes[index] = 1 
+                }
+                dados.datasets[0].data = dadosPopularTimes
             }
             hiddenLoad()
             window.grafico_linha.update();

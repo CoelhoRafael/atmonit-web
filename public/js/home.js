@@ -43,7 +43,7 @@ function getAllTerminals(idCompany) {
                     container.innerHTML += `
                     <div class="box expand">
                         <span class="status-info">
-                            <div class="indicator caution"></div>Manutenção
+                            <div class="indicator normal"></div>Disponível
                         </span>
                         <a id='atm-${element.id_terminal}' onclick="viewAtm(this)">
                             <img src="img/atm.png" class="card-atm" alt="">
@@ -57,7 +57,7 @@ function getAllTerminals(idCompany) {
                         <button class="btn-crud remove" onclick='removerTerminal(${element.id_terminal})'>
                             <i class="fa-solid fa-trash"></i>
                         </button>
-                        <button class="btn-crud exclamation" onclick='openInfoModal()'>
+                        <button class="btn-crud exclamation" onclick='openInfoModal(${element.id_terminal})'>
                             <i class="fa-solid fa-circle-exclamation"></i>
                         </button>
                         </div>

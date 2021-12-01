@@ -113,8 +113,9 @@ function limparFormulario() {
 
 //Modal de informações do caixa
 
-function openInfoModal(){
+function openInfoModal(idTerminal){
     document.getElementById('modalInfo').style.top = "0";
+
 }
 
 function closeInfoModal(){

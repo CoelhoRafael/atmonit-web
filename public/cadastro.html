@@ -155,8 +155,8 @@
                     Toastify({
                         text: "Funcionário cadastrado com sucesso!",
                         duration: 3000,
-                        destination: "https://github.com/apvarun/toastify-js",
-                        newWindow: true,
+                        destination: "",
+                        newWindow: false,
                         close: true,
                         gravity: "top", // `top` or `bottom`
                         position: "right", // `left`, `center` or `right`
@@ -170,7 +170,7 @@
 
                     setTimeout(() => {
                         window.location.replace('funcionarios.html');
-                    }, 4000)
+                    }, 1000)
                 } else {
                     throw ("Houve um erro ao tentar realizar o cadastro!" + JSON.stringify(formulario.json));
                 }
