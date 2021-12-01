@@ -114,7 +114,18 @@ function limparFormulario() {
 //Modal de informações do caixa
 
 function openInfoModal(idTerminal){
+    
     document.getElementById('modalInfo').style.top = "0";
+    let terminals = JSON.parse(sessionStorage.ATM_INFOS)
+    for (let index = 0; index < terminals.length; index++) {
+        if(terminals[index].id_terminal == idTerminal){
+            document.getElementById('span_cpu').innerHTML = terminals[index].processor
+            document.getElementById('span_modelo').innerHTML = terminals[index].cpu_model
+            document.getElementById('span_ram').innerHTML = terminals[index].ram_memory
+            document.getElementById('spam_armazenamento').innerHTML = terminals[index].terminal_storage
+            document.getElementById('spam_mac').innerHTML = terminals[index].mac_address
+        }        
+    }
 
 }
 

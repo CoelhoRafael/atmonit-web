@@ -319,7 +319,7 @@ h3{
 .form-save-employee {
   display: flex;
   justify-content: center;
-  padding: 2vh 0;
+  padding: 2.3vh 0;
   width: 80%;
   margin: auto;
 }
@@ -339,8 +339,8 @@ h3{
   display: flex;
   width: 100%;
   flex-flow: row wrap;
-  text-align: start;
-
+  text-align: center;
+  justify-content: center;
 }
 
 
@@ -396,5 +396,14 @@ h3{
 
 .text-info-caixa{
   opacity: 80%;
-  text-align: center;
+}
+.text-info-caixa h3 span{
+  color: #10AC84;
+}
+
+.form-terminal-info {
+  justify-content: center;
+  padding: 2.3vh 0;
+  width: 80%;
+  margin: auto;
 }
