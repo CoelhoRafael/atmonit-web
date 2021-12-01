@@ -1,5 +1,42 @@
-window.onload = getPopularTimes()
+window.onload = plotarGrafico()
 var dados
+
+function getPopularTimes(option) {
+    showLoad()
+    let placeId = getPlaceId()
+    fetch(`atms/popularTimes/${placeId}`, {
+        cache: 'no-store'
+    }).then(function (response) {
+        // console.log(response);
+        response.json().then((resposta) => {
+
+            // console.log(resposta);
+            resp = JSON.stringify(resposta).replace(/"/g, '')
+            resp = eval(resp);
+            console.log(resp[0].populartimes[0].data);
+            if (option) {
+                let dadosPopularTimes = resp[0].populartimes[option.value].data
+                for (let index = 0; index < dadosPopularTimes.length; index++) {
+                    if (dadosPopularTimes[index] == 0) dadosPopularTimes[index] = 1
+                }
+                dados.datasets[0].data = dadosPopularTimes
+            }
+            else {
+                let dadosPopularTimes = resp[0].populartimes[6].data
+                for (let index = 0; index < dadosPopularTimes.length; index++) {
+                    if (dadosPopularTimes[index] == 0) dadosPopularTimes[index] = 1
+                }
+                dados.datasets[0].data = dadosPopularTimes
+            }
+            hiddenLoad()
+            window.grafico_linha.update();
+        })
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
+}
 
 function plotarGrafico() {
     dados = {
@@ -40,47 +77,11 @@ function plotarGrafico() {
             }
         }
     });
-
+    getPopularTimes()
 }
 
 
-function getPopularTimes(option) {
-    showLoad()
-    plotarGrafico()
-    let placeId = getPlaceId()
-    fetch(`atms/popularTimes/${placeId}`, {
-        cache: 'no-store'
-    }).then(function (response) {
-        console.log(response);
-        response.json().then((resposta) => {
 
-            // console.log(resposta);
-            resp = JSON.stringify(resposta).replace(/"/g, '')
-            resp = eval(resp);
-            console.log(resp[0].populartimes[0].data);
-            if (option) {
-                let dadosPopularTimes = resp[0].populartimes[option.value].data
-                for (let index = 0; index < dadosPopularTimes.length; index++) {
-                    if(dadosPopularTimes[index] == 0) dadosPopularTimes[index] = 1 
-                }
-                dados.datasets[0].data = dadosPopularTimes
-            }
-            else {
-                let dadosPopularTimes = resp[0].populartimes[6].data
-                for (let index = 0; index < dadosPopularTimes.length; index++) {
-                    if(dadosPopularTimes[index] == 0) dadosPopularTimes[index] = 1 
-                }
-                dados.datasets[0].data = dadosPopularTimes
-            }
-            hiddenLoad()
-            window.grafico_linha.update();
-        })
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-
-}
 
 function getPlaceId() {
     let terminals = JSON.parse(sessionStorage.ATM_INFOS)
