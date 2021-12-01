@@ -1,6 +1,7 @@
 window.onload = inicializarGraficoCpu()
 
 function inicializarGraficoCpu(){
+    checkSession()
     gerarGraficoCPU()
     dadosCards()
 }

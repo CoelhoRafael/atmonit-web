@@ -12,7 +12,7 @@ function loadContent() {
 
 function getAllTerminals(idCompany) {
     let container = document.getElementById("terminal_container")
-    // container.innerHTML = ""
+    container.innerHTML = ""
     fetch(`/atms/findAllTerminals/${idCompany}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {

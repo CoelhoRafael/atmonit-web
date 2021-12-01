@@ -8,9 +8,9 @@ function listarAtms(idCompany) {
     return database.executar(instrucao);
 }
 
-function atualizarTerminal(idAtm, processador, modelo_processador, memoria_ram, armazenamento) {
+function atualizarTerminal(idAtm, processador, modelo_processador, memoria_ram, armazenamento, place_id) {
     var sql = `
-    update terminal set processor = '${processador}', ram_memory = ${memoria_ram}, terminal_storage = ${armazenamento}, cpu_model = '${modelo_processador}' where id_terminal = ${idAtm};    
+    update terminal set processor = '${processador}', ram_memory = ${memoria_ram}, terminal_storage = ${armazenamento}, cpu_model = '${modelo_processador}', place_id = '${place_id}' where id_terminal = ${idAtm};    
     `;
     console.log("Executando a instrução SQL: \n" + sql);
     return database.executar(sql);

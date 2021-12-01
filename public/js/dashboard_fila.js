@@ -2,6 +2,7 @@ window.onload = plotarGrafico()
 var dados
 
 function getPopularTimes(option) {
+    document.getElementById('terminal_inovacao').innerHTML = `Estimativa de movimento da máquina: ${sessionStorage.ID_ATM}`
     showLoad()
     let placeId = getPlaceId()
     fetch(`atms/popularTimes/${placeId}`, {
@@ -39,6 +40,7 @@ function getPopularTimes(option) {
 }
 
 function plotarGrafico() {
+    checkSession()
     dados = {
         labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 00],
         datasets: [{

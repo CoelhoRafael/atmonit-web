@@ -79,10 +79,6 @@ function atualizar() {
 
                 closeModal()
                 limparFormulario()
-                getAllTerminals(sessionStorage.ID_COMPANY)
-
-
-
                 Toastify({
                     text: "Terminal atualizado com sucesso!",
                     duration: 3000,
@@ -97,6 +93,11 @@ function atualizar() {
                     },
                     onClick: function () { } // Callback after click
                 }).showToast();
+
+
+                setTimeout(() => {
+                    getAllTerminals(sessionStorage.ID_COMPANY)
+                }, 2000)
 
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!" + JSON.stringify(formulario.json));
@@ -113,22 +114,22 @@ function limparFormulario() {
 
 //Modal de informações do caixa
 
-function openInfoModal(idTerminal){
-    
+function openInfoModal(idTerminal) {
+
     document.getElementById('modalInfo').style.top = "0";
     let terminals = JSON.parse(sessionStorage.ATM_INFOS)
     for (let index = 0; index < terminals.length; index++) {
-        if(terminals[index].id_terminal == idTerminal){
+        if (terminals[index].id_terminal == idTerminal) {
             document.getElementById('span_cpu').innerHTML = terminals[index].processor
             document.getElementById('span_modelo').innerHTML = terminals[index].cpu_model
             document.getElementById('span_ram').innerHTML = terminals[index].ram_memory
             document.getElementById('spam_armazenamento').innerHTML = terminals[index].terminal_storage
             document.getElementById('spam_mac').innerHTML = terminals[index].mac_address
-        }        
+        }
     }
 
 }
 
-function closeInfoModal(){
+function closeInfoModal() {
     document.getElementById('modalInfo').style.top = "-100%";
 }

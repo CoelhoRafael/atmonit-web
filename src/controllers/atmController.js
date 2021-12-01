@@ -25,7 +25,7 @@ function atualizarAtm(req, res) {
         res.status(400).send("Seu id_user está undefined!");
     }
     else {
-        atmModel.atualizarTerminal(idAtm, processador, modelo_processador, memoria_ram, armazenamento)
+        atmModel.atualizarTerminal(idAtm, processador, modelo_processador, memoria_ram, armazenamento, place_id)
             .then(
                 function (resultado) {
                     res.json(resultado);
