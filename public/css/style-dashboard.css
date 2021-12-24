@@ -6,9 +6,18 @@ body{
 	font-family: system-ui;
   font-family: 'Poppins', sans-serif;
 }
+
+.hidden{
+  display: none;
+}
+.pointer:hover{
+  cursor: pointer;
+}
+
 .clearfix{
 	clear: both;
 }
+
 .logo{
 	margin: 0px;
 	margin-left: 28px;
@@ -184,10 +193,11 @@ body{
 }
 
 .expand:hover{
+  background-color: #141930;
+}
 
-  transform: scale(1.02);
-  filter: brightness(110%);
-
+.expand-selected{
+  background-color: #141930;
 }
 
 .col-div-8{

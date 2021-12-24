@@ -1,0 +1,113 @@
+<html lang="pt-br">
+
+<head>
+  <title>Dashboard</title>
+  <link rel="sortcut icon" href="img/icon.png" type="image/png" />
+  <link rel="stylesheet" href="css/style-dashboard.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+
+</head>
+
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <div class="logo">
+      <img src="img/atmonit.svg" alt="" class="logo-img">
+    </div>
+    <a href="./home.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
+    <a href="./inovacao.html" class="icon-a"><i class="fa-solid fa-list"></i> Estimativa de uso</a>
+    <a id="func_nav_option" href="./funcionarios.html" class="icon-a"><i class="fa fa-users icons"></i>
+      Funcionários</a>
+    <a id="add_func_nav" href="./cadastro.html" class="icon-a"><i class="fa-solid fa-user-plus"></i> Add
+      Funcionários</a>
+    <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
+
+
+  </div>
+  <div id="main">
+
+    <div class="head">
+      <div class="col-div-6">
+        <span style="font-size:30px;cursor:pointer; color: #f1f1f1e7;" class="nav"><i
+            class="fas fa-chart-line icons"></i> Dashboard</span>
+      </div>
+
+    </div>
+
+
+    <br />
+
+    <div class="col-div-3">
+
+      <div id="cpu_card" class="box expand pointer" onclick="gerarGraficoCPU()">
+        <span id="status_cpu" class="status-info">
+        </span>
+        <p id="cpu_card_value">0%</p>
+        <span class="indicator-subtitle">CPU</span>
+
+      </div>
+
+      <div id="ram_card" class="box expand pointer" onclick="gerarGraficoRAM()">
+        <span id="status_ram" class="status-info">
+        </span>
+        <p id="ram_card_value">0%</p>
+        <span class="indicator-subtitle">RAM</span>
+
+
+      </div>
+
+      <div class="box">
+        <span id="status_disco" class="status-info">
+        </span>
+        <p id="disco_card_value">0%</p>
+        <span class="indicator-subtitle">DISCO</span>
+      </div>
+
+
+      <div class="col-div-3">
+        <div class="box">
+          <span class="status-title">Indices De Uso</span>
+          <div class="status-position">
+            <span class="status-info">
+              <div class="indicator normal"></div>Normal
+            </span>
+            <span class="status-info unused">
+              <div class="indicator caution"></div>Atenção
+            </span>
+            <span class="status-info unused">
+              <div class="indicator danger"></div>Crítico
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="clearfix"></div>
+    <br /><br />
+    <div class="col-div-8">
+      <div class="box-8">
+        <div class="content-box">
+          <h2 class="card-title">Dados em tempo real:</h2>
+          <div id="chart_div" class="graphic"></div>
+          <canvas id="canvas_grafico" width="200px" height="70px"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+<script src="./js/funcoes.js"></script>
+<script src="./js/dashboard_disco.js"></script>
+<script src="./js/dashboard_cpu.js"></script>
+<script src="./js/dashboard_ram.js"></script>
+<script src="./js/dashboard.js"></script>

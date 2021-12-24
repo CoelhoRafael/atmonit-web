@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastre sua equipe</title>
+    <link rel="stylesheet" href="css/style-inovacao.css">
+    <link rel="stylesheet" href="css/style-save-employee.css">
+
+    <link rel="sortcut icon" href="img/icon.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="css/style-dashboard.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript"></script>
+
+</head>
+
+<body onload="checkSession()">
+    <div id="mySidenav" class="sidenav">
+        <div class="logo">
+            <img src="img/atmonit.svg" alt="" class="logo-img">
+        </div>
+        <a href="home.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
+        <a id="func_nav_option" href="funcionarios.html" class="icon-a"><i class="fa fa-users icons"></i>
+            Funcionários</a>
+        <a id="add_func_nav" href="cadastro.html" class="icon-a selected"><i class="fa-solid fa-user-plus"></i> Add
+            Funcionários</a>
+        <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
+    </div>
+    <div class="main">
+
+        <div class="head">
+            <div class="col-div-6">
+                <span style="font-size:30px;cursor:pointer; color: #f1f1f1e7;" class="nav"><i
+                        class="fa fa-users icons"></i> Cadastre a sua equipe</span>
+            </div>
+
+            <br>
+
+
+            <div class="col-div-8">
+                <div class="box-8">
+                    <form action="javascript:void(0)" class="form-save-employee" id="form_cadastro" method="post"
+                        onsubmit="return cadastrar()">
+                        <div class="form-container">
+                            <div class="form-save-employee-field">
+                                Nome
+                                <input id="inpt_nome" class="inpt" type="text" name="nome">
+                            </div>
+
+                            <div class="form-save-employee-field">
+                                E-mail:
+                                <input id="inpt_email" class="inpt" name="email" type="text">
+                            </div>
+
+                            <div class="form-save-employee-field">
+                                Senha
+                                <input id="inpt_senha" class="inpt" name="senha" type="password">
+                            </div>
+
+                            <div class="form-save-employee-field">
+                                Confirmação de senha
+                                <input id="inpt_confirmacao_senha" class="inpt" name="confirmacao-senha"
+                                    type="password">
+                            </div>
+                            <div class="form-save-employee-field">
+                                Nível de acesso
+                                <select class="form-save-employee-select" name="accesslevel" id="">
+                                    <option value="administrador">Administrador</option>
+                                    <option value="encarregado">Encarregado</option>
+                                </select>
+                            </div>
+                            <div class="form-save-employee-btn">
+                                <input type="submit" class="btn" value="Cadastrar">
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- <div id="div_aguardar" class="loading-div">
+                        <img src="./assets/circle-loading.gif" id="loading-gif">
+                    </div> -->
+
+                    <!-- <div id="div_erros_login"></div> -->
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+<script>
+    function limparFormulario() {
+        document.getElementById("form_cadastro").reset();
+    }
+
+    function validateSaveEmployee() {
+        let nome = document.getElementById('inpt_nome');
+        let email = document.getElementById('inpt_email');
+        let senha = document.getElementById('inpt_senha');
+        let confirmacao_senha = document.getElementById('inpt_confirmacao_senha');
+
+
+        if (nome.value == '' || nome.value.match(/[0-9]/)) {
+            nome.classList.toggle('wrong-input');
+            nome.value = '';
+            nome.placeholder = 'Digite um nome válido';
+            setTimeout(() => {
+                nome.classList.remove('wrong-input');
+            }, 1500);
+            return false;
+        }
+        else if (email.value == '' || !email.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+            email.classList.toggle('wrong-input');
+            email.value = '';
+            email.placeholder = 'Digite um email válido';
+
+            setTimeout(() => {
+                email.classList.remove('wrong-input');
+            }, 1500);
+            return false;
+        }
+        else {
+            return true
+        }
+    }
+
+    function cadastrar() {
+        if (validateSaveEmployee()) {
+
+
+            var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+            formulario.set("fkCompany", sessionStorage.ID_COMPANY)
+
+
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                body: formulario
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    Toastify({
+                        text: "Funcionário cadastrado com sucesso!",
+                        duration: 3000,
+                        destination: "",
+                        newWindow: false,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "#90be6d",
+                        },
+                        onClick: function () { } // Callback after click
+                    }).showToast();
+
+
+                    setTimeout(() => {
+                        window.location.replace('funcionarios.html');
+                    }, 1000)
+                } else {
+                    throw ("Houve um erro ao tentar realizar o cadastro!" + JSON.stringify(formulario.json));
+                }
+            }).catch(function (resposta) {
+                Toastify({
+                    text: "Erro ao cadastrar funcionário!",
+                    duration: 3000,
+                    destination: "",
+                    newWindow: false,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "#f94144",
+                    },
+                    onClick: function () { } // Callback after click
+                }).showToast();
+            });
+        }
+    }
+
+
+
+</script>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="./js/funcoes.js"></script>

@@ -4,9 +4,12 @@
 <head>
 	<title>AtMonit - Login</title>
 	<link rel="stylesheet" type="text/css" href="css/style-login.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+
 	<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-	<!-- Substituir a imagem do sortcut icon para uma versão em png -->
-	<link rel="sortcut icon" href="img/authentication.svg" type="image/svg" />
+	<link rel="sortcut icon" href="img/icon.png" type="image/png" />
+
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
 
 	<script src="./js/funcoes.js"></script>
@@ -22,11 +25,14 @@
 				<p class="logo-sub">© Developed by Monilog </p>
 			</div>
 			<div class="right">
-				<h2>Faça Login</h2>
+				<h2>Faça seu Login</h2>
 				<form id="form_login" method="post" onsubmit="return login()">
-					<input name="email" type="text" class="inpt" placeholder="Email">
-					<input name="password" type="password" class="inpt" placeholder="Insira sua senha">
+					<input id="inpt_email" name="email" type="text" class="inpt" placeholder="Email">
+					<input id="inpt_senha" name="password" type="password" class="inpt" placeholder="Insira sua senha">
 					<button type="submit" class="btn">Entrar</button>
+					<div id="login_gif" class="img-loading hidden">
+						<img src="img/loading.gif" class="loading" alt="">
+					</div>
 					<a class="link" href="#">Não Consegue Acessar?</a>
 				</form>
 			</div>
@@ -39,20 +45,15 @@
 
 <script>
 
-	function limparFormulario() {
-		document.getElementById("form_login").reset();
-	}
 
 	function login() {
-		// aguardar();
-
 		var form = new URLSearchParams(new FormData(document.getElementById("form_login")));
 
 		var email = form.get("email");
 		var password = form.get("password");
 
-		console.log("FORM LOGIN: ", email);
-		console.log("FORM SENHA: ", password);
+		// console.log("FORM LOGIN: ", email);
+		// console.log("FORM SENHA: ", password);
 
 		// TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
 		if (email == "" || password == "") {
@@ -66,7 +67,7 @@
 		// 	// finalizarAguardar();
 		// 	return false;
 		// }
-
+		showLoad()
 		fetch("/usuarios/autenticar", {
 			method: "POST",
 			body: form
@@ -74,36 +75,72 @@
 
 			if (response.ok) {
 				console.log(response);
-
 				response.json().then(json => {
-					console.log(json);
-					console.log(JSON.stringify(json));
 
-					sessionStorage.EMAIL_USER = json.email;
-					sessionStorage.NOME_USER = json.nome;
-					sessionStorage.ID_USER = json.id;
+					sessionStorage.NOME_USER = json.employee_name;
+					sessionStorage.ID_USER = json.id_employee;
+					sessionStorage.ID_COMPANY = json.fk_company;
+					sessionStorage.OFFICE = json.office;
+					sessionStorage.COMPANY_NAME = json.company_name
 
 					setTimeout(function () {
+						hiddenLoad()
 						window.location = "./home.html";
 					}, 1000); // apenas para exibir o loading
 
 				});
 
 			} else {
+				hiddenLoad()
 
-				console.log("Houve um erro ao tentar realizar o login!");
+				inpt_email.classList.toggle('wrong-input');
+				inpt_email.value = '';
 
-				response.text().then(texto => {
-					console.error(texto);
-					// finalizarAguardar(texto);
-				});
+				inpt_senha.classList.toggle('wrong-input');
+				inpt_senha.value = '';
+
+				Toastify({
+					text: "Login e/ou senha inválidos!",
+					duration: 3000,
+					destination: "",
+					newWindow: false,
+					close: true,
+					gravity: "top", // `top` or `bottom`
+					position: "right", // `left`, `center` or `right`
+					stopOnFocus: true, // Prevents dismissing of toast on hover
+					style: {
+						background: "#f94144",
+					},
+					onClick: function () { } // Callback after click
+				}).showToast();
+
+
+				setTimeout(() => {
+					inpt_email.classList.remove('wrong-input');
+					inpt_senha.classList.remove('wrong-input');
+				}, 1500);
+
 			}
 
 		}).catch(function (erro) {
-			console.log(erro);
+			// console.log(erro);
 		})
 
 		return false;
 	}
 
+
+	function showLoad() {
+		login_gif.classList.remove('hidden')
+	}
+
+	function hiddenLoad() {
+		login_gif.classList.add('hidden')
+	}
+
+	function limparFormulario() {
+		form_login.reset();
+	}
 </script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

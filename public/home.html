@@ -7,93 +7,127 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
   <link rel="stylesheet" href="css/style-inicio.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-
-	<script src="./js/funcoes.js"></script>
-
+  <link rel="sortcut icon" href="img/icon.png" type="image/png" />
+  <script src="./js/modal_home.js"></script>
   <title>Home</title>
 </head>
 
-<body>
+<body onload="checkSession()">
 
   <div id="mySidenav" class="sidenav">
     <div class="logo">
       <img src="img/atmonit.svg" alt="" class="logo-img">
     </div>
-    <a href="home.html" class="icon-a selected"><i class="fa fa-home icons"></i> Home</a>
-    <a href="Dashboard.html" class="icon-a"><i class="fas fa-chart-line icons"></i> Dashboard</a>
-    <a href="inovacao.html" class="icon-a"><i class="fa fa-users icons"></i> Filas</a>
-    <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
+    <a href="#" class="icon-a selected"><i class="fa fa-home icons"></i> Home</a>
+    <a id="func_nav_option" href="funcionarios.html" class="icon-a"><i class="fa fa-users icons"></i>
+      Funcionários</a>
+    <a id="add_func_nav" href="cadastro.html" class="icon-a"><i class="fa-solid fa-user-plus"></i> Add
+      Funcionários</a>
+    <a onclick="limparSessao()" class="icon-a logout"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
   </div>
 
 
   <div class="main">
 
-    <div class="box-title">Supermercado Extra - Marechal Tito</div>
+    <div id="company_name" class="box-title"></div>
+
+    <!-- Modal -->
+    <div class="bg-modal" id="modalHome">
+      <div class="modal">
+        <div class="modal-nav">
+          <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="form-save-employee">
+
+          <form action="javascript:void(0)" method="post" onsubmit="return atualizar()" id="form_atualizar_caixa">
+            <h3 class="title-form">Editar Caixa</h3>
+
+            <div class="form-save-employee-field">
+              <input id="inpt_processador" name="processador" type="text" class="form-inpt" placeholder="Processador">
+              <input id="inpt_modelo_processador" name="modelo_processador" type="text" class="form-inpt"
+                placeholder="Arquitetura">
+            </div>
+
+            <div class="form-save-employee-field">
+              <input id="inpt_memoria_ram" name="memoria_ram" type="Number" class="form-inpt"
+                placeholder="Memória Ram(GB)">
+              <input id="inpt_armazenamento" name="armazenamento" type="number" class="form-inpt"
+                placeholder="Armazenamento(GB)">
+            </div>
+
+            <div class="form-save-employee-field">
+              <input id="inpt_place_id" name="place_id" type="text" class="form-inpt" placeholder="Place Id">
+            </div>
+
+            <div class="form-save-employee-position">
+              <button type="submit" class="form-btn">Salvar</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de informações -->
+    <div class="bg-modal" id="modalInfo">
+      <div class="infoModal">
+        <div class="modal-nav">
+          <span class="close" onclick="closeInfoModal()">&times;</span>
+        </div>
+        <div class="form-terminal-info">
+          <div class="container-info-caixa" style="text-align: center;">
+            <h3 class="title-modal-info">informações Do Caixa</h3>
+            <br>
+            <br>
+
+            <span class="text-info-caixa">
+              <h3>
+                <strong>CPU:</strong> &nbsp;<span id="span_cpu"></span>
+              </h3>
+              <h3>
+                <strong>MODELO CPU:</strong> &nbsp;<span id="span_modelo"></span>
+              </h3>
+              <h3>
+                <strong>MEMÓRIA RAM:</strong> &nbsp;<span id="span_ram"></span>
+              </h3>
+              <h3>
+                <strong>ARMAZENAMENTO:</strong> &nbsp;<span id="spam_armazenamento"></span>
+              </h3>
+              <h3>
+                <strong>MAC:</strong> &nbsp;<span id="spam_mac"></span>
+              </h3>
+            </span>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
 
     <div class="col-div-8">
       <div class="box-8">
         <div class="content-box">
-
-          <h2 class="card-title">Caixas disponiveis</h2>
-          <div id="chart_div" class="graphic"></div>
+          <h2 class="card-title">Caixas</h2>
         </div>
 
 
-        <div class="col-div-3">
-          <a href="Dashboard.html">
-          <div class="box expand">
-            <span class="status-info">
-              <div class="indicator normal"></div>Disponivel
-            </span>
-            <img src="img/atm.png" class="card-atm" alt="">
-            <!-- <i class="fa fa-users box-icon"></i> -->
-          </div>
-          </a>
+        <div id="terminal_container" class="col-div-3">
 
-          <a href="#">
-            <div class="box expand">
-              <span class="status-info">
-                <div class="indicator danger"></div>
-                Inoperante
-              </span>
-              <img src="img/atm.png" class="card-atm" alt="">
-              <!-- <i class="fa fa-users box-icon"></i> -->
-            </div>
-          </a>
-          
-          <a href="Dashboard.html">
 
-            <div class="box expand">
-              <span class="status-info">
-                <div class="indicator normal"></div>Disponivel
-              </span>
-              <img src="img/atm.png" class="card-atm" alt="">
-              <!-- <i class="fa fa-users box-icon"></i> -->
-            </div>
 
-          </a>
 
-          <a href="#">
 
-            <div class="box expand">
-              <span class="status-info">
-                <div class="indicator caution"></div>Manutenção
-              </span>
-              <img src="img/atm.png" class="card-atm" alt="">
-              <!-- <i class="fa fa-users box-icon"></i> -->
-            </div>
-
-          </a>
         </div>
       </div>
-
-
     </div>
 
   </div>
@@ -101,3 +135,7 @@
 </body>
 
 </html>
+<script src="./js/funcoes.js"></script>
+<script src="./js/home.js"></script>
+<script src="./js/modal_home.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

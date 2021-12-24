@@ -42,7 +42,7 @@ function buscarMedidasEmTempoReal(req, res) {
 
 function buscarUltimasMedidasCPU(req, res) {
 
-    const limite_linhas = 5;
+    const limite_linhas = 15;
     var idMaquina = req.params.idMaquina;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
@@ -60,14 +60,14 @@ function buscarUltimasMedidasCPU(req, res) {
     });
 }
 
+function buscarUltimasMedidasRAM(req, res) {
 
-function buscarMedidasEmTempoRealCPU(req, res) {
-
+    const limite_linhas = 15;
     var idMaquina = req.params.idMaquina;
 
-    console.log(`Recuperando medidas em tempo real`);
+    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    medidaModel.buscarMedidasEmTempoRealCPU(idMaquina).then(function (resultado) {
+    medidaModel.buscarUltimasMedidasRAM(idMaquina, limite_linhas).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -80,14 +80,13 @@ function buscarMedidasEmTempoRealCPU(req, res) {
     });
 }
 
-function buscarUltimasMedidasRAM(req, res) {
+function buscarMedidasEmTempoRealCPU(req, res) {
 
-    const limite_linhas = 5;
     var idMaquina = req.params.idMaquina;
 
-    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
+    console.log(`Recuperando medidas em tempo real`);
 
-    medidaModel.buscarUltimasMedidasRAM(idMaquina, limite_linhas).then(function (resultado) {
+    medidaModel.buscarMedidasEmTempoRealCPU(idMaquina).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -122,7 +121,7 @@ function buscarMedidasEmTempoRealRAM(req, res) {
 
 function buscarUltimasMedidasDISCO(req, res) {
 
-    const limite_linhas = 5;
+    const limite_linhas = 1;
     var idMaquina = req.params.idMaquina;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
@@ -169,6 +168,6 @@ module.exports = {
     buscarUltimasMedidasDISCO,
     buscarMedidasEmTempoRealDISCO,
     buscarUltimasMedidasRAM,
-    buscarMedidasEmTempoRealRAM,
-    
+    buscarMedidasEmTempoRealRAM
+
 }

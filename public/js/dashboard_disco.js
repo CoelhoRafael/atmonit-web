@@ -1,10 +1,12 @@
-function gerarGraficoCPU(idMaquina) {
+function gerarGraficoDISCO() {
+    let idMaquina = sessionStorage.ID_ATM
+
     chart_div.style.display = 'none';
     if (proximaAtualizacao != undefined) {
         clearTimeout(proximaAtualizacao);
     }
 
-    fetch(`/medidas/ultimas/cpu/${idMaquina}`, {
+    fetch(`/medidas/ultimas/disco/${idMaquina}`, {
             cache: 'no-store'
         }).then(function (response) {
             if (response.ok) {
@@ -12,7 +14,7 @@ function gerarGraficoCPU(idMaquina) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    plotarGraficoCPU(resposta, idMaquina);
+                    plotarGraficoDISCO(resposta, idMaquina);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -25,13 +27,13 @@ function gerarGraficoCPU(idMaquina) {
 }
 
 // só altere aqui se souber o que está fazendo!
-function plotarGraficoCPU(resposta, idMaquina) {
+function plotarGraficoDISCO(resposta, idMaquina) {
     console.log('iniciando plotagem do gráfico...');
     var dados = {
         labels: [],
         datasets: [{
-            yAxisID: 'y-CPU',
-            label: 'CPU',
+            yAxisID: 'y-DISCO',
+            label: 'DISCO',
             borderColor: '#fffff',
             backgroundColor: '#ffff',
             fill: false,
@@ -42,7 +44,7 @@ function plotarGraficoCPU(resposta, idMaquina) {
     for (i = 0; i < resposta.length; i++) {
         var registro = resposta[i];
         dados.labels.push(registro.momento_grafico);
-        dados.datasets[0].data.push(Math.trunc(registro.percentage_usage));
+        dados.datasets[0].data.push(Math.round(registro.percentage_usage));
     }
 
     var ctx = canvas_grafico.getContext('2d');
@@ -52,14 +54,14 @@ function plotarGraficoCPU(resposta, idMaquina) {
         options: {
             title: {
                 display: true,
-                text: 'Histórico recente de uso da CPU'
+                text: 'Histórico recente de uso do DISCO'
             },
             scales: {
                 yAxes: [{
                     type: 'linear',
                     display: true,
                     position: 'left',
-                    id: 'y-CPU',
+                    id: 'y-DISCO',
                     ticks: {
                         beginAtZero: true,
                         max: 100,
@@ -75,13 +77,13 @@ function plotarGraficoCPU(resposta, idMaquina) {
     });
 
     //Atualiza os dados de 2 em 2 segundos
-    setTimeout(() => atualizarGraficoCPU(idMaquina, dados), 5000);
+    setTimeout(() => atualizarGraficoDISCO(idMaquina, dados), 5000);
 }
 
 // só mexer se quiser alterar o tempo de atualização
 // ou se souber o que está fazendo!
-async function atualizarGraficoCPU(idMaquina, dados) {
-    await fetch(`/medidas/tempo-real/cpu/${idMaquina}`, {
+function atualizarGraficoDISCO(idMaquina, dados) {
+    fetch(`/medidas/tempo-real/disco/${idMaquina}`, {
             cache: 'no-store'
         }).then(function (response) {
             if (response.ok) {
@@ -98,13 +100,13 @@ async function atualizarGraficoCPU(idMaquina, dados) {
                     window.grafico_linha.update();
 
 
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idMaquina, dados),
-                        10000);
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoDISCO(idMaquina, dados), 5000
+                        );
 
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
-                proximaAtualizacao = setTimeout(() => atualizarGraficoCPU(idMaquina, dados), 2000);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoDISCO(idMaquina, dados), 2000);
             }
         })
         .catch(function (error) {

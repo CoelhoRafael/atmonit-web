@@ -11,104 +11,58 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-
-
+    <link rel="sortcut icon" href="img/icon.png" type="image/png" />
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load("current", { packages: ['corechart'] });
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ["Element", "Uso diario", { role: "style" }],
-                ["Dom", 13.94, "#10AC84"],
-                ["Seg", 3.94, "#10AC84"],
-                ["Ter", 8.94, "#10AC84"],
-                ["Qua", 10.49, "#10AC84"],
-                ["Qui", 19.30, "#10AC84"],
-                ["Sex", 21.45, " #10AC84"],
-                ["Sab", 25.10, "#10AC84"]
-            ]);
-
-            var view = new google.visualization.DataView(data);
-            view.setColumns([0, 1,
-                {
-                    calc: "stringify",
-                    sourceColumn: 1,
-                    type: "string",
-                    role: "annotation",
-                    
-                },
-                2]);
-
-            var options = {
-                title: "Gráfico semanal",
-                titleTextStyle:{
-                    color: '#FFF'
-                },
-                width: 950,
-                height: 400,
-                backgroundColor: 'transparent',
-                bar: { groupWidth: "95%" },
-                color: '#ffff',
-                legend: { position: "none" },
-                hAxis: {
-                    textStyle: { color: '#FFF' },
-                },
-                vAxis: {
-                    textStyle: { color: '#FFF' },
-                }
-            };
-            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-            chart.draw(view, options,);
-        }
-    </script>
-
-
-
-    <title>Estimativa De Filas</title>
+    <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+    <title>Estimativa De Uso</title>
 </head>
 
 <body>
 
     <div id="mySidenav" class="sidenav">
         <div class="logo">
-            <img src="img/atmonit.svg" alt="" class="logo-img">
+            <img src="./img/atmonit.svg" alt="" class="logo-img">
         </div>
-        <a href="inicio.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
-        <a href="Dashboard.html" class="icon-a"><i class="fas fa-chart-line icons"></i> Dashboard</a>
-        <a href="#" class="icon-a selected"><i class="fa fa-users icons"></i> Filas</a>
-        <a href="login.html" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
-
-
+        <a href="./home.html" class="icon-a"><i class="fa fa-home icons"></i> Home</a>
+        <a href="#" class="icon-a selected"><i class="fa-solid fa-list selected"></i> Estimativa de uso</a>
+        <a id="func_nav_option" href="./funcionarios.html" class="icon-a"><i class="fa fa-users icons"></i>
+            Funcionários</a>
+        <a id="add_func_nav" href="./cadastro.html" class="icon-a"><i class="fa-solid fa-user-plus"></i> Add
+            Funcionários</a>
+        <a onclick="limparSessao()" class="icon-a"><i class="fa fa-sign-out-alt icons"></i> Logout</a>
     </div>
     <div class="main">
 
         <div class="head">
             <div class="col-div-6">
                 <span style="font-size:30px;cursor:pointer; color: #f1f1f1e7;" class="nav"><i
-                        class="fa fa-users icons"></i> Estimativa De Filas</span>
+                        class="fa fa-users icons"></i> Estimativa De Uso</span>
             </div>
-
             <br>
-
-
             <div class="col-div-8">
                 <div class="box-8">
                     <div class="content-box">
-                        <h2 class="card-title">Desempenho Semanal Do Caixa</h2>
+                        <h2 class="card-title" id="terminal_inovacao"></h2>
+                        <select onchange="getPopularTimes(this)" class="inovacao-select">
+                            <option value="6">Domingo</option>
+                            <option value="0">Segunda-Feira</option>
+                            <option value="1">Terça-Feira</option>
+                            <option value="2">Quarta-Feira</option>
+                            <option value="3">Quinta-Feira</option>
+                            <option value="4">Sexta-Feira</option>
+                            <option value="5">Sábado</option>
+                        </select>
                     </div>
-
-                    <div id="columnchart_values" class="graphic"></div>
-                    <div id="chart_div" class="graphic"></div>
-
+                    <canvas id="canvas_grafico" width="200px" height="75px"></canvas>
+                    <div id="chart_gif" class="chart-gif">
+                        <img width="40px" height="40px" src="./img/loading.gif" alt="">
+                    </div>
                 </div>
             </div>
-
-
         </div>
-
     </div>
 </body>
 
 </html>
-
+<script src="./js/funcoes.js"></script>
+<script src="./js/dashboard_fila.js"></script>
